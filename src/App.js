@@ -12,7 +12,8 @@ class App extends React.Component {
   state = {
     sideDrawerOpen: false,
     store: STORE,
-    selectedTemplate: STORE.template[0].id
+    selectedTemplate: STORE.template[0].id,
+    selectedProfile : STORE.stamps[0].load_out_id
   }
 
   drawerToggleClickHandler = () => {
@@ -20,7 +21,7 @@ class App extends React.Component {
       return { sideDrawerOpen: !prevState.sideDrawerOpen }
     })
   }
-
+// this darkens the screen behind modals or popout menus
   backdropClickHandler = () => {
     this.setState({
       sideDrawerOpen: false
@@ -92,11 +93,14 @@ class App extends React.Component {
         <div >
          {backdrop}
         </div>
+
+
         <main style={{ marginTop: '64px' }}>
-          <div >{templateRow} </div>
-          <hr />
+          <div className="template">{templateRow} </div>
+          <hr className="hr" />
           <div onDrop={e=>(console.log(e))} >{profileRow}</div>
-          <hr />
+          <hr className="hr" />
+
           {/*<Category />
         <StampPad />
         <Footer /> */}
