@@ -32,8 +32,8 @@ export const Button = ({
       className={`btn ${checkButtonStyle} ${checkButtonSize}`}
       onClick={onClick}
       type={type}
-      draggable="true"
-      onDragStart={e=>(console.log(e))}
+
+      // onDragStart={e=>(console.log(e))}
     >
       {children}
     </button>
