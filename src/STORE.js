@@ -1,4 +1,4 @@
-const dummyData = {
+export default {
   "template": [
     {
       "id": "1",
@@ -71,19 +71,19 @@ const dummyData = {
         "id" :"3",
         "title":"SELLER",
         "load_out_id":"1",
-        "content" : "'CONVERSATION WITH THE SELLER(s)\n-TT: \n-Phone: \n-Discussed transfer option: Yes / No\n-The customer(s) intention is to: \n-Confirmed where they are in the purchase process: \n-IS H/O making solar a contingency of the home sale: N/A / Yes / No\n-Received permission to share information: Yes/ No\n-Requested forwarding address: Yes/ No (if no did seller refuse )\n-Listing Agents contact information:\n-Discussed disconnecting SG Modem and leaving it on a counter for buyers: Yes / No\n-Pre PTO- Informed the customer that PTO has been paused : N/A / Yes / No\n-For Oregon Only - Discussed RETC and remaining balance: N/A / Yes / No\n-Informed the customer of their delinquent balance: N/A / Yes / No\n-If delinquent, informed that if not paid, it will be invoiced through escrow:  N/A / Yes/ No\n\nSummary of Call: '"
+        "content" : "CONVERSATION WITH THE SELLER(s)\n-TT: \n-Phone: \n-Discussed transfer option: Yes / No\n-The customer(s) intention is to: \n-Confirmed where they are in the purchase process: \n-IS H/O making solar a contingency of the home sale: N/A / Yes / No\n-Received permission to share information: Yes/ No\n-Requested forwarding address: Yes/ No (if no did seller refuse )\n-Listing Agents contact information:\n-Discussed disconnecting SG Modem and leaving it on a counter for buyers: Yes / No\n-Pre PTO- Informed the customer that PTO has been paused : N/A / Yes / No\n-For Oregon Only - Discussed RETC and remaining balance: N/A / Yes / No\n-Informed the customer of their delinquent balance: N/A / Yes / No\n-If delinquent, informed that if not paid, it will be invoiced through escrow:  N/A / Yes/ No\n\nSummary of Call: "
       },
       {
         "id" :"4",
         "title":"INTRO VM",
         "load_out_id":"1",
-        "content" : "'Contact Type: Outbound Call\nContact with Seller / Buyer: \nPhone: \nLVM: For Seller/Buyer to follow up regarding the sale/purchase of the property and go over transfer Process. Left my phone number for a call back.\n \nNext Steps to Advance Case:'"
+        "content" : "Contact Type: Outbound Call\nContact with Seller / Buyer: \nPhone: \nLVM: For Seller/Buyer to follow up regarding the sale/purchase of the property and go over transfer Process. Left my phone number for a call back.\n \nNext Steps to Advance Case:"
       },
       {
         "id" :"5",
         "title":"LISTING AGENT",
         "load_out_id":"1",
-        "content" : "'CONVERSATION WITH THE LISTING AGENT\n \n-TT (name/number): \n-Discussed Sellers intentions: yes / no\n-Discussed contingency on the home sale: yes / no\n-Discussed the Reassignment Agents\' role in the transfer of the solar agreement: yes / no\n-Expected COE Date:  \n-Requested the Buyer\'s Agent contact information: \n\n-Summary of Call:'"
+        "content" : "CONVERSATION WITH THE LISTING AGENT\n \n-TT (name/number): \n-Discussed Sellers intentions: yes / no\n-Discussed contingency on the home sale: yes / no\n-Discussed the Reassignment Agents' role in the transfer of the solar agreement: yes / no\n-Expected COE Date:  \n-Requested the Buyer's Agent contact information: \n\n-Summary of Call:"
       },
       {
         "id" :"6",
@@ -95,7 +95,7 @@ const dummyData = {
         "id" :"7",
         "title":"BUYER",
         "load_out_id":"1",
-        "content" : "'CONVERSATION WITH THE BUYER(s)\n-TT:\n-Phone: \n-Email: \n-Confirmed where they are in the purchase process: \n-Expressed the Seller\'s intention: \n-Expected COE Date: \n-Verified they have a copy of the contract: \n-Discussed the customer\'s obligations: (Monthly payments, escalator, ACH and internet): \n-Discussed our obligations to the customer: (Warranty, insurance, repair promise, PeGu, etc.): \n-Discussed estimated production: \n-Discussed the transfer process: \n-Discussed the credit policy: \n-How is the title of home going to be held:  name/ trust/ LLC\n-Exact Name on title: \n-Are you on a special program with the local utility ( ex: Care/ Medical baseline etc. ): yes / no\n-If utility is MP2- advised to enroll within MP2 for NEM for a 1:1 credit: n/a / yes / no\n-Discussed that the Billing Portal is currently unavailable and ACH will need to be set up through CC: yes / no \n\n-Summary of Call:'"
+        "content" : "CONVERSATION WITH THE BUYER(s)\n-TT:\n-Phone: \n-Email: \n-Confirmed where they are in the purchase process: \n-Expressed the Seller's intention: \n-Expected COE Date: \n-Verified they have a copy of the contract: \n-Discussed the customer's obligations: (Monthly payments, escalator, ACH and internet): \n-Discussed our obligations to the customer: (Warranty, insurance, repair promise, PeGu, etc.): \n-Discussed estimated production: \n-Discussed the transfer process: \n-Discussed the credit policy: \n-How is the title of home going to be held:  name/ trust/ LLC\n-Exact Name on title: \n-Are you on a special program with the local utility ( ex: Care/ Medical baseline etc. ): yes / no\n-If utility is MP2- advised to enroll within MP2 for NEM for a 1:1 credit: n/a / yes / no\n-Discussed that the Billing Portal is currently unavailable and ACH will need to be set up through CC: yes / no \n\n-Summary of Call:"
       },
       {
         "id" :"8",
@@ -131,7 +131,7 @@ const dummyData = {
         "id" :"13",
         "title":"RELOCATION",
         "load_out_id":"2",
-        "content" : "'Subject Line->  Contract Reassignment - [INQUIRY] [STANDARD] Relocation \n\n 'Case Queues:\nOwner: TBA Asset Control\nSource: Internal\nQueue: System Relocation -PV\nSub Queue: 1. Project Inquiry\nStatus: Open\nFlow Status: 1a. No Work Done\nNote: Any pertinent information.\nSpecifically state in your note that this is an inquiry.\n \nCustomer\'s Information: \n    Name(s) of customer(s) \n    Name of Primary contact: \n    Preferred phone number: \n    Preferred email address: \nListing Agent\'s Information: \n    Name of primary contact: \n    Preferred phone number: \n    Preferred email address: \nNew Home Buyer\'s Information: \n    Name of primary contact: \n    Phone number: \n    Email address: \nBuyer\'s Agent Information: \n    Name: \n    Phone number: \n    Email address: \nEscrow Information : \n    Name: \n    Phone number: \n    Email address: \nDate of Close of Escrow for current home: \nDate of Close of Escrow for new home: \nAddress of new home: \nUtility District of new home: \nIs there an aerial view available? \nAre there any escalations we should know about? \nReason why new buyer did not assume the contract: \nIf new house is still under construction, did you request the blue prints? \n Explained the relocation process & associated fees to customer? \nIf system is being moved to a friend/relative\'s house: \n    Name of primary contact: \n        Phone number: \n        Email address: \n    Did you run credit for this person? \n    If applicant passed credit, did you add him/her to the contract? \nIs system deactivated? \nWhen was it deactivated? \nName of person currently residing in the home:'"
+        "content" : "Subject Line->  Contract Reassignment - [INQUIRY] [STANDARD] Relocation \n\n Case Queues:\nOwner: TBA Asset Control\nSource: Internal\nQueue: System Relocation -PV\nSub Queue: 1. Project Inquiry\nStatus: Open\nFlow Status: 1a. No Work Done\nNote: Any pertinent information.\nSpecifically state in your note that this is an inquiry.\n \nCustomer's Information: \n    Name(s) of customer(s) \n    Name of Primary contact: \n    Preferred phone number: \n    Preferred email address: \nListing Agent's Information: \n    Name of primary contact: \n    Preferred phone number: \n    Preferred email address: \nNew Home Buyer's Information: \n    Name of primary contact: \n    Phone number: \n    Email address: \nBuyer's Agent Information: \n    Name: \n    Phone number: \n    Email address: \nEscrow Information : \n    Name: \n    Phone number: \n    Email address: \nDate of Close of Escrow for current home: \nDate of Close of Escrow for new home: \nAddress of new home: \nUtility District of new home: \nIs there an aerial view available? \nAre there any escalations we should know about? \nReason why new buyer did not assume the contract: \nIf new house is still under construction, did you request the blue prints? \n Explained the relocation process & associated fees to customer? \nIf system is being moved to a friend/relative's house: \n    Name of primary contact: \n        Phone number: \n        Email address: \n    Did you run credit for this person? \n    If applicant passed credit, did you add him/her to the contract? \nIs system deactivated? \nWhen was it deactivated? \nName of person currently residing in the home:"
       },
       {
         "id" :"14",
@@ -143,13 +143,13 @@ const dummyData = {
         "id" :"15",
         "title":"RELEASE UCC",
         "load_out_id":"2",
-        "content" : "'Subject Line -> Reassignment - Release UCC-1\n\n'Transfer Agreement received. Please send UCC release to: \n\nName: \nPhone: \nEmail: \n\nNormal Turnaround Time: 2-3 business days \nUrgent Turnaround Time: 2 hours (if submitted prior to 4pm)\n\nReason for Urgency: \n\n(Agent to Delete what doesn\'t apply from the above)'"
+        "content" : "Subject Line -> Reassignment - Release UCC-1\n\nTransfer Agreement received. Please send UCC release to: \n\nName: \nPhone: \nEmail: \n\nNormal Turnaround Time: 2-3 business days \nUrgent Turnaround Time: 2 hours (if submitted prior to 4pm)\n\nReason for Urgency: \n\n(Agent to Delete what doesn't apply from the above)"
       },
       {
         "id" :"16",
         "title":"RELEASE PUC",
         "load_out_id":"2",
-        "content" : "'Subject Line -> Reassignment - Release PUC\n\n'Transfer Agreement received. Please send PUC release to: \n  \nName: \nPhone: \nEmail:  \nMailing Address: \n\nNormal Turnaround Time: 2-3 business days \nUrgent Turnaround Time: 2 hours (if submitted prior to 4pm)\n\nReason for Urgency: \n\n(Agent to Delete what doesn\'t apply from the above)'"
+        "content" : "Subject Line -> Reassignment - Release PUC\n\n'Transfer Agreement received. Please send PUC release to: \n  \nName: \nPhone: \nEmail:  \nMailing Address: \n\nNormal Turnaround Time: 2-3 business days \nUrgent Turnaround Time: 2 hours (if submitted prior to 4pm)\n\nReason for Urgency: \n\n(Agent to Delete what doesn't apply from the above)"
       },
       {
         "id" :"17",
@@ -185,7 +185,7 @@ const dummyData = {
         "id" :"22",
         "title":"REDEPLOYMENT CASE",
         "load_out_id":"3",
-        "content" : "'Subject Line -> System Redeployment\n\nOwner: Supervisor\nQueue: Redeploy System\nSubQueue: Not Ready\nFlow: Pending Resolution \n \nDo not remove system until Settlement Agreement is signed. \n \nWho is requesting system Removal: Contract Reassignments/ BRT\n\nWho to contact to schedule removal: \no Name of primary contact: \no Relationship (i.e. Executor) \no Preferred phone number: \no Preferred email address: \n\nCustomer\'s Information: \no Name of primary contact: \no Preferred phone number: \no Preferred email address: \n\nNew Home Buyer\'s Information: \no Name of primary contact: \no Phone number: \no Email address: \n\nListing Agent\'s Information: (if applicable) \no Name: N/A \no Phone number: \no Email address: \n\nEscrow/Title Information: (if applicable) \no Name: N/A \no Phone number: \no Email address: \n\nDate of Close of Escrow: \nReason why new buyer did not assume the contract: \nDid the customer attempt a Relocation?\n\u2022\tIf yes what was the reason why customer did not relocate the system to his/her new residence? \nIs the customer going into willing default? \n\u2022\tIf no what type of agreement is needed (Settlement/Removal)? \nIs a New Owners Access Authorization Agreement form signed? \nIs the current homeowner planning on demolishing the home? \nIs the current homeowner planning on completing the roof repairs themselves? \nHave you gone over the removal and roof repair timelines with the current owner?\n\u2022\tRemoval timeline: 2-3 weeks (Add on an additional 30 days if a demo permit is required - East Coast)\n\u2022\tRoof repair timelines: Upon removal (Roof will be patched and sealed by the removal crew) \nName of person currently residing at the property: '"
+        "content" : "Subject Line -> System Redeployment\n\nOwner: Supervisor\nQueue: Redeploy System\nSubQueue: Not Ready\nFlow: Pending Resolution \n \nDo not remove system until Settlement Agreement is signed. \n \nWho is requesting system Removal: Contract Reassignments/ BRT\n\nWho to contact to schedule removal: \no Name of primary contact: \no Relationship (i.e. Executor) \no Preferred phone number: \no Preferred email address: \n\nCustomer's Information: \no Name of primary contact: \no Preferred phone number: \no Preferred email address: \n\nNew Home Buyer's Information: \no Name of primary contact: \no Phone number: \no Email address: \n\nListing Agent's Information: (if applicable) \no Name: N/A \no Phone number: \no Email address: \n\nEscrow/Title Information: (if applicable) \no Name: N/A \no Phone number: \no Email address: \n\nDate of Close of Escrow: \nReason why new buyer did not assume the contract: \nDid the customer attempt a Relocation?\nIf yes what was the reason why customer did not relocate the system to his/her new residence? \nIs the customer going into willing default? \nIf no what type of agreement is needed (Settlement/Removal)? \nIs a New Owners Access Authorization Agreement form signed? \nIs the current homeowner planning on demolishing the home? \nIs the current homeowner planning on completing the roof repairs themselves? \nHave you gone over the removal and roof repair timelines with the current owner?\nRemoval timeline: 2-3 weeks (Add on an additional 30 days if a demo permit is required - East Coast)\nRoof repair timelines: Upon removal (Roof will be patched and sealed by the removal crew) \nName of person currently residing at the property: "
       },
       {
         "id" :"23",
@@ -240,4 +240,3 @@ const dummyData = {
   ]
 }
 
-export default dummyData
