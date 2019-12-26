@@ -107,7 +107,7 @@ export default {
         "id" :"9",
         "title":"INTRO NOTE",
         "load_out_id":"2",
-        "content" : " 'Seller Name: \n  Phone: \n  Email: \n\nSeller Forwarding Address: \n\nListing Agent: N/A\n  Phone: \n  Email: \n\nSelling or Buyer Agent: N/A\n  Phone: \n  Email: \n\nBuyer Name: \n  Phone: \n  Email: \n\nEscrow Company: \n  Phone: \n  Email: \n\nEstimated Closing of Escrow Date:  '"
+        "content" : "Seller Name: \n  Phone: \n  Email: \n\nSeller Forwarding Address: \n\nListing Agent: N/A\n  Phone: \n  Email: \n\nSelling or Buyer Agent: N/A\n  Phone: \n  Email: \n\nBuyer Name: \n  Phone: \n  Email: \n\nEscrow Company: \n  Phone: \n  Email: \n\nEstimated Closing of Escrow Date:  "
       },
       {
         "id" :"10",
