@@ -11,11 +11,12 @@ const SideDrawer = props => {
 
     
     <ul>
-      <li><a href="/">Edit</a></li>
-      <li><a href="/">Sign In</a></li>
-      <li><a href="/">Create Account</a></li>
-      <li><a href="/">Sign Out</a></li>
+    <li><a href="/">Create Account</a></li>
+      
+      
+    
       <li><a href="/">Configure</a></li>
+      <li><a href="/">Sign In/Out</a></li>
     </ul>
   </nav>
     )
