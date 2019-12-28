@@ -3,22 +3,17 @@ import Toolbar from './components/Navbar/Navbar'
 import SideDrawer from './components/SideDrawer/SideDrawer'
 import BackDrop from './components/Backdrop/Backdrop'
 import LandingPage from './components/LandingPage/LandingPage'
-import { BrowserRouter as Router,Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import StampPad from './components/StampPad/StampPad.js'
 import ConfigurePage from './components/ConfigurePage/ConfigurePage'
 
-
-
 import { Button } from './components/Button/Button'
-
 
 class App extends React.Component {
   state = {
     sideDrawerOpen: false,
-    isLoggedIn : false,
-       onPage: 'stamps'
-
-    
+    isLoggedIn: false,
+    onPage: 'landingPage'
   }
 
   drawerToggleClickHandler = () => {
@@ -35,29 +30,42 @@ class App extends React.Component {
 
 
 
+  handleDataCallback=(page)=> {
+    console.log('in data callback')
+    console.log(this)
+    // this.setState({
+    //   onPage: page
+    // })
+    console.log(page)
+  }
+
   render() {
-    
     let backdrop
     if (this.state.sideDrawerOpen) {
       backdrop = <BackDrop click={this.backdropClickHandler} />
     }
 
     return (
-      
       <div style={{ height: '100%' }}>
-        <Toolbar drawerClickHandler={this.drawerToggleClickHandler} onpage={this.state.onPage}/>
+        <Toolbar
+          drawerClickHandler={this.drawerToggleClickHandler}
+          onpage={this.state.onPage}
+        />
         <SideDrawer show={this.state.sideDrawerOpen} />
         <div>{backdrop}</div>
         <Router>
-        <main style={{ marginTop: '64px' }}>
-          <Route path="/stamps" component={StampPad} />
-          <Route path="/configure" component={ConfigurePage} />
-          <Route path="/" exact component={LandingPage} />
-         
-        </main>
+          <main style={{ marginTop: '64px' }}>
+            <Route
+              path="/stamps"
+              render={(props) => (
+                <StampPad {...props} changepage={this.handleDataCallback} />
+              )}
+            />
+            <Route path="/configure" component={ConfigurePage} />
+            <Route path="/" exact component={LandingPage} />
+          </main>
         </Router>
       </div>
-      
     )
   }
 }

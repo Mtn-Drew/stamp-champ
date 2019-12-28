@@ -33,21 +33,17 @@ class StampPad extends React.Component {
     })
   }
 
+ 
   
-
   render() {
-    const navItems = (
-      <>
-    <li>
-    <a href="/configure">Configure</a>
-  </li>
-  <li>
-  <a href="/">Sign Out</a>
-</li>
-</>
-  )
+    {this.props.changepage('stamps')}
+
+    
+      
+
     const templateRow = this.state.store.template.map((templ, i) => {
       return (
+        
         <Button
           key={templ.id}
           onClick={() => this.templateSelect(this.state.store.template[i].id)}
@@ -90,6 +86,8 @@ class StampPad extends React.Component {
       })
 
     return (
+     
+
       <div style={{ height: '100%' }}>
         <main style={{ marginTop: '64px' }}>
           <div className="template">{templateRow} </div>
