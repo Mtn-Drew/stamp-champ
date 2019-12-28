@@ -16,18 +16,16 @@ const navbar = (props) => (
 
       <div className="navbar_navigation_items">
         <ul>
-     
-         
           <li>
             <a href="/stamps">Create Account</a>
           </li>
-          
+
           <li>
             <a href="/configure">Configure</a>
           </li>
 
           <li>
-            <a href="/">Sign In/Out</a>
+            <a href="/">Sign Out</a>
           </li>
         </ul>
       </div>

@@ -33,7 +33,19 @@ class StampPad extends React.Component {
     })
   }
 
+  
+
   render() {
+    const navItems = (
+      <>
+    <li>
+    <a href="/configure">Configure</a>
+  </li>
+  <li>
+  <a href="/">Sign Out</a>
+</li>
+</>
+  )
     const templateRow = this.state.store.template.map((templ, i) => {
       return (
         <Button
