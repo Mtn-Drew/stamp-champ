@@ -36,7 +36,7 @@ class StampPad extends React.Component {
  
   
   render() {
-    {this.props.changepage('stamps')}
+    // {this.props.changepage('stamps')}
 
     
       
@@ -65,6 +65,7 @@ class StampPad extends React.Component {
             key={prof.id}
             onClick={() => this.profileSelect(prof.id)}
             onMouseEnter={() => console.log('mouse')}
+            draggable
           >
             {prof.title}
           </Button>
@@ -79,6 +80,9 @@ class StampPad extends React.Component {
           <Button
             key={stamp.id}
             onClick={() => this.copyToClipboard(stamp.content)}
+            title={this.state.store.stamps[i].title}
+            text={this.state.store.stamps[i].content}
+            draggable
           >
             {stamp.title}
           </Button>
@@ -95,6 +99,7 @@ class StampPad extends React.Component {
           <div>{profileRow}</div>
           <hr className="hr" />
           <div>{stampRow}</div>
+          <hr className="hr" />
         </main>
       </div>
     )

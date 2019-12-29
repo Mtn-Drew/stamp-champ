@@ -7,13 +7,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import StampPad from './components/StampPad/StampPad.js'
 import ConfigurePage from './components/ConfigurePage/ConfigurePage'
 
+import Configure2 from './components/Configure2/Configure2'
+
 import { Button } from './components/Button/Button'
 
 class App extends React.Component {
   state = {
     sideDrawerOpen: false,
     isLoggedIn: false,
-    onPage: 'landingPage'
+    onPage: 'landingPage',
+
   }
 
   drawerToggleClickHandler = () => {
@@ -61,8 +64,9 @@ class App extends React.Component {
                 <StampPad {...props} changepage={this.handleDataCallback} />
               )}
             />
-            <Route path="/configure" component={ConfigurePage} />
+            <Route path="/configure" component={Configure2} />
             <Route path="/" exact component={LandingPage} />
+
           </main>
         </Router>
       </div>

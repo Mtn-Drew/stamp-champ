@@ -2,11 +2,13 @@ export default {
   "template": [
     {
       "id": "1",
-      "title": "WORK"
+      "title": "WORK",
+      "order" : 1
     },
     {
       "id" : "2",
-      "title" : "PERSONAL"
+      "title" : "PERSONAL",
+      "order" : 2
     }
 
   ],
@@ -15,42 +17,50 @@ export default {
     {
       "id" :"1",
       "title":"CONV",
-      "template_id":"1"
+      "template_id":"1",
+      "order" : 1,
     },
     {
       "id" :"2",
       "title":"CASE NOTES",
-      "template_id":"1"
+      "template_id":"1",
+      "order" : 2
     },
     {
       "id" :"3",
       "title":"MISC",
-      "template_id":"1"
+      "template_id":"1",
+      "order" : 3
     },
     {
       "id" :"4",
       "title":"CUSTOM",
-      "template_id":"1"
+      "template_id":"1",
+      "order" : 4
     },
     {
       "id" :"5",
       "title":"CUSTOM1",
-      "template_id":"2"
+      "template_id":"2",
+      "order" : 1
     },
     {
       "id" :"6",
       "title":"CUSTOM2",
-      "template_id":"2"
+      "template_id":"2",
+      "order" : 2
     },
     {
       "id" :"7",
       "title":"CUSTOM3",
-      "template_id":"2"
+      "template_id":"2",
+      "order" : 3
     },
     {
       "id" :"8",
       "title":"CUSTOM4",
-      "template_id":"2"
+      "template_id":"2",
+      "order" : 4
     }
   ],
   "stamps" : [

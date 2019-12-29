@@ -1,0 +1,18 @@
+.configure_button {
+  cursor:move;
+}
+
+.buttonRow {
+  display:flex
+}
+
+.trash_box, .edit_box {
+  
+  min-width:100px;
+  min-height: 100px;
+  border: 1px solid black;
+}
+
+.boxes {
+  display: flex;
+}

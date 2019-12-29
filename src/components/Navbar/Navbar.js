@@ -65,24 +65,22 @@ const navbar = (props) => (
 
       <div className="navbar_navigation_items">
         <ul>
-          {props.onpage === 'stamps' ? <li><a href="/configure">Configure</a></li> : null }
+          {/* {props.onpage === 'stamps' ? <li><a href="/configure">Configure</a></li> : null }
           {props.onpage === 'stamps' ? <li><a href="/sign_out">Sign Out</a></li> : null }
           {props.onpage === 'landingPage' ? <li><a href="/#create_account">Create Account</a></li> : null }
           {props.onpage === 'landingPage' ? <li><a href="/sign_in">Sign In</a></li> : null }
           {props.onpage === 'configure' ? <li><a href="/save">Save</a></li> : null }
           {props.onpage === 'configure' ? <li><a href="/cancel">Cancel</a></li> : null }
-          {props.onpage === 'configure' ? <li><a href="/sign_out">Sign Out</a></li> : null }
-          {/* <li>
-            <a href="/stamps">Create Account</a>
-          </li>
+          {props.onpage === 'configure' ? <li><a href="/sign_out">Sign Out</a></li> : null } */}
+         
+         <li><a href="/configure">Configure</a></li>
+         <li><a href="/">Sign Out</a></li>
+         <li><a href="/#create_account">Create Account</a></li>
+         <li><a href="/stamps">Sign In</a></li> 
+         <li><a href="/stamps">Save</a></li>
+         <li><a href="/stamps">Cancel</a></li>
+         <li><a href="/">Sign Out</a></li>
 
-          <li>
-            <a href="/configure">Configure</a>
-          </li>
-
-          <li>
-            <a href="/">Sign Out</a>
-          </li> */}
         </ul>
       </div>
     </nav>
