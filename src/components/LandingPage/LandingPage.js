@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Toolbar from '../Navbar/Navbar'
+// import Toolbar from '../Navbar/Navbar'
 
  class LandingPage extends Component {
   render() {
@@ -86,7 +86,7 @@ import Toolbar from '../Navbar/Navbar'
         </form>
       </section>
     </main>
-    <footer role="content-info">Footer</footer>
+    <footer >Footer</footer>
   </div>
     )
   }

@@ -36,13 +36,13 @@ handleEditText = () => {
       
     }
     
-    const styleEditTitle = {
+    // const styleEditTitle = {
       
-    }
+    // }
 
-    const styleDefault = {
+    // const styleDefault = {
 
-    }
+    // }
     
 
     return (

@@ -3,19 +3,19 @@ import Toolbar from './components/Navbar/Navbar'
 import SideDrawer from './components/SideDrawer/SideDrawer'
 import BackDrop from './components/Backdrop/Backdrop'
 import LandingPage from './components/LandingPage/LandingPage'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import StampPad from './components/StampPad/StampPad.js'
-import ConfigurePage from './components/ConfigurePage/ConfigurePage'
+// import ConfigurePage from './components/ConfigurePage/ConfigurePage'
 
 import Configure2 from './components/Configure2/Configure2'
 
-import { Button } from './components/Button/Button'
+// import { Button } from './components/Button/Button'
 
 class App extends React.Component {
   state = {
     sideDrawerOpen: false,
     isLoggedIn: false,
-    onPage: 'landingPage',
+    onPage: 'configure',
 
   }
 
@@ -50,13 +50,14 @@ class App extends React.Component {
 
     return (
       <div style={{ height: '100%' }}>
+      <Router>
         <Toolbar
           drawerClickHandler={this.drawerToggleClickHandler}
           onpage={this.state.onPage}
         />
         <SideDrawer show={this.state.sideDrawerOpen} />
         <div>{backdrop}</div>
-        <Router>
+        
           <main style={{ marginTop: '64px' }}>
             <Route
               path="/stamps"
@@ -66,6 +67,7 @@ class App extends React.Component {
             />
             <Route path="/configure" component={Configure2} />
             <Route path="/" exact component={LandingPage} />
+            <Route path="/home" component={LandingPage} />
 
           </main>
         </Router>

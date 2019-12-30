@@ -1,17 +1,19 @@
 import React from 'react'
-import { Button } from '../Button/Button'
+// import { Button } from '../Button/Button'
 import STORE from '../../STORE'
 import './Configure2.css'
 import AddButtonProfile from '../AddButton/AddButtonProfile'
+import AddButtonTemplate from '../AddButton/AddButtonTemplate'
+import AddButtonStamp from '../AddButton/AddButtonStamp'
 
 class StampPad extends React.Component {
   state = {
     store: STORE,
     selectedTemplate: STORE.template[0].id,
     selectedProfile: STORE.stamps[0].load_out_id,
-    showAddProfileModal : false,
-    showAddTemplateModal : false,
-    showAddStampModal: false
+    showAddProfileForm: false,
+    showAddTemplateForm: false,
+    showAddStampForm: false
   }
 
   copyToClipboard = (str) => {
@@ -26,15 +28,15 @@ class StampPad extends React.Component {
     document.body.removeChild(el)
   }
 
-  profileSelect = (profileId) => {
-    this.setState({
-      selectedProfile: profileId
-    })
-  }
-
   templateSelect = (templateId) => {
     this.setState({
       selectedTemplate: templateId
+    })
+  }
+
+  profileSelect = (profileId) => {
+    this.setState({
+      selectedProfile: profileId
     })
   }
 
@@ -48,8 +50,6 @@ class StampPad extends React.Component {
     e.target.className += ' hold'
     let etarget = e.target
     setTimeout(() => (etarget.className = 'invisible'), 0)
-
-    // e.dataTransfer.effectAllowed = 'move'
   }
 
   onDragEnter = (e) => {
@@ -76,7 +76,6 @@ class StampPad extends React.Component {
     const draggedOverItem = this.state.store.load_out[index]
     console.log('draggedOverItem is ->')
     console.log(draggedOverItem)
-
     // if the item is dragged over itself, ignore
     if (this.draggedItem === draggedOverItem) {
       return
@@ -93,13 +92,13 @@ class StampPad extends React.Component {
     // add the dragged item after the dragged over item
     items.splice(index, 0, this.draggedItem)
 
-    // this.setState({
-    //   store : {
-    //     template : this.state.store.template,
-    //     loud_out: items,
-    //     stamps : this.state.store.stamps
-    //   }
-    // })
+    this.setState({
+      store : {
+        template : this.state.store.template,
+        load_out: items,
+        stamps : this.state.store.stamps
+      }
+    })
 
     console.log('items-')
     console.log(items)
@@ -115,15 +114,58 @@ class StampPad extends React.Component {
     e.target.className = '"configure_button"'
   }
 
-
-
-  fnShowAddProfileModal = () =>{
-    console.log('fnShowAddProfileModal');
-    this.setState({showAddProfileModal : true})
+  fnShowAddTemplateForm = () => {
+    console.log('inShowAddTemplateForm')
+    this.setState({
+      showAddTemplateForm: true
+    })
   }
-  fnHideAddProfileModal = () => {
-    console.log('fnShowHideProfileModal');
-    this.setState({showAddProfileModal:false})
+
+  fnShowAddProfileForm = () => {
+    console.log('in fnShowAddProfileForm')
+    this.setState({ showAddProfileForm: true })
+  }
+
+  fnShowAddStampForm = () => {
+    console.log('in fnShowAddStampForm')
+    this.setState({
+      showAddStampForm: true
+    })
+  }
+
+  fnHideAddTemplateForm = () => {
+    console.log('in fnHideAddTemplateForm')
+    this.setState({ showAddTemplateForm: false })
+  }
+
+  fnHideAddProfileForm = () => {
+    console.log('fnShowHideProfileForm')
+    this.setState({ showAddProfileForm: false })
+  }
+
+  fnHideAddStampForm = () => {
+    console.log('in fnHideAddStampForm')
+    this.setState({
+      showAddStampForm: false
+    })
+  }
+
+  fnAddTemplateButton = (newObject) => {
+    // called when clicked on 'save'
+    // update state and post to db
+    console.log('in fnAddTemplateButton')
+  }
+
+  fnAddProfileButton = (newObject) => {
+    // called when clicked on "save" in AddButtonProfile
+    // update state and post to db
+    console.log('in fnAddProfileButton')
+  }
+
+  fnAddStampButton = (newObject) => {
+    // called when clicked on save
+    // update state and post to db
+    console.log('in fnAddStampButton')
   }
 
   render() {
@@ -137,6 +179,11 @@ class StampPad extends React.Component {
           template={this.state.selectedTemplate}
           draggable
           className="configure_button"
+          onDragStart={(e) => this.onDragStart(e, i)}
+            onDragEnd={(e) => this.onDragEnd(e)}
+            onDragOver={(e) => this.onDragOver(e, i)}
+            onDragEnter={(e) => this.onDragEnter(e)}
+            onDragLeave={(e) => this.onDragLeave(e)}
         >
           {this.state.store.template[i].title}
         </button>
@@ -182,8 +229,10 @@ class StampPad extends React.Component {
             draggable
             className="configure_button"
             onDragStart={(e) => this.onDragStart(e, i)}
-            onDragEnd={this.onDragEnd}
-            className="fill"
+            onDragEnd={(e) => this.onDragEnd(e)}
+            onDragOver={(e) => this.onDragOver(e, i)}
+            onDragEnter={(e) => this.onDragEnter(e)}
+            onDragLeave={(e) => this.onDragLeave(e)}
           >
             {stamp.title}
           </button>
@@ -197,18 +246,20 @@ class StampPad extends React.Component {
           <h1>Configure Page2!!</h1>
 
           <div className="buttonRow">
-          <div className="spacer" />
+            <div className="spacer" />
             {templateRow}
             <div className="spacer" />
-            <div className="plus" onClick={this.addTemplateButton}>
-              ➕
-            </div>
+            <button className="plus" onClick={this.fnShowAddTemplateForm}>
+              <span role="img" aria-label="plus">
+                ➕
+              </span>
+            </button>
           </div>
 
           <hr className="hr" />
 
           <div className="buttonRow">
-          <div className="spacer" />
+            <div className="spacer" />
             <div className="dragBox" onDragEnter={(e) => this.onDragEnter(e)}>
               ◀
             </div>
@@ -221,20 +272,24 @@ class StampPad extends React.Component {
               ▶
             </div>
             <div className="spacer" />
-            <div className="plus" onClick={this.fnShowAddProfileModal}>
-              ➕
-            </div>
+            <button className="plus" onClick={this.fnShowAddProfileForm}>
+              <span role="img" aria-label="plus">
+                ➕
+              </span>
+            </button>
           </div>
 
           <hr className="hr" />
 
           <div className="buttonRow">
-          <div className="spacer" />
+            <div className="spacer" />
             {stampRow}
             <div className="spacer" />
-            <div className="plus" onClick={this.addStampButton}>
-              ➕
-            </div>
+            <button className="plus" onClick={this.fnShowAddStampForm}>
+              <span role="img" aria-label="plus">
+                ➕
+              </span>
+            </button>
           </div>
 
           <hr className="hr" />
@@ -256,7 +311,39 @@ class StampPad extends React.Component {
               <div>trash can</div>
             </div>
           </div>
-          <AddButtonProfile show={this.state.showAddProfileModal} handleClose={this.fnHideAddProfileModal} />
+
+          {this.state.showAddTemplateForm ? (
+            <AddButtonTemplate
+              handleClose={this.fnHideAddTemplateForm}
+              save={this.fnAddTemplateButton}
+              length={this.state.store.template.length}
+            />
+          ) : (
+            <div></div>
+          )}
+
+          {this.state.showAddProfileForm ? (
+            <AddButtonProfile
+              handleClose={this.fnHideAddProfileForm}
+              save={this.fnAddProfileButton}
+              selectedTemplate={this.state.selectedTemplate}
+              length={this.state.store.load_out.length}
+            />
+          ) : (
+            <div></div>
+          )}
+
+          {this.state.showAddStampForm ? (
+            <AddButtonStamp
+              handleClose={this.fnHideAddStampForm}
+              save={this.fnAddStampButton}
+              selectedTemplate={this.state.selectedTemplate}
+              selectedProfile={this.state.selectedProfile}
+              length={this.state.store.stamps.length}
+            />
+          ) : (
+            <div></div>
+          )}
         </main>
       </div>
     )

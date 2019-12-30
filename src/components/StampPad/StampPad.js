@@ -36,7 +36,7 @@ class StampPad extends React.Component {
  
   
   render() {
-    // {this.props.changepage('stamps')}
+    
 
     
       
@@ -90,11 +90,15 @@ class StampPad extends React.Component {
       })
 
     return (
-     
-
-      <div style={{ height: '100%' }}>
+     //what's a better way to call changepage?>
+      
+      <div style={{ height: '100%' }} className="stampButtons" onMouseOver={this.props.changepage('stamps')}>
         <main style={{ marginTop: '64px' }}>
+          <div>
+        <div className="spacer" />
           <div className="template">{templateRow} </div>
+          <div className="spacer" />
+          </div>
           <hr className="hr" />
           <div>{profileRow}</div>
           <hr className="hr" />
