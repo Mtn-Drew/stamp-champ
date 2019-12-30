@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '../Button/Button'
 import STORE from '../../STORE'
+import './StampPad.css'
 
 class StampPad extends React.Component {
   state = {
@@ -33,17 +34,9 @@ class StampPad extends React.Component {
     })
   }
 
- 
-  
   render() {
-    
-
-    
-      
-
     const templateRow = this.state.store.template.map((templ, i) => {
       return (
-        
         <Button
           key={templ.id}
           onClick={() => this.templateSelect(this.state.store.template[i].id)}
@@ -90,21 +83,35 @@ class StampPad extends React.Component {
       })
 
     return (
-     //what's a better way to call changepage?>
       
-      <div style={{ height: '100%' }} className="stampButtons" onMouseOver={this.props.changepage('stamps')}>
-        <main style={{ marginTop: '64px' }}>
-          <div>
-        <div className="spacer" />
-          <div className="template">{templateRow} </div>
-          <div className="spacer" />
-          </div>
-          <hr className="hr" />
-          <div>{profileRow}</div>
-          <hr className="hr" />
-          <div>{stampRow}</div>
-          <hr className="hr" />
-        </main>
+      <div className="main-wrapper">
+        <div style={{ height: '100%' }} className="stampButtons">
+          <main style={{ marginTop: '64px' }}>
+
+            <div className="template-row">
+              <div className="spacer" />
+              <div className="template">{templateRow} </div>
+              <div className="spacer" />
+            </div>
+
+            <hr className="hr" />
+
+            <div className="profile-row">
+              <div className="spacer" />
+              <div>{profileRow}</div>
+              <div className="spacer" />
+            </div>
+
+            <hr className="hr" />
+
+            <div className="stamps-row">
+            <div>{stampRow}</div>
+
+            <hr className="hr" />
+
+            </div>
+          </main>
+        </div>
       </div>
     )
   }

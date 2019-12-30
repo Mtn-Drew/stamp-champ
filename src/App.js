@@ -15,7 +15,7 @@ class App extends React.Component {
   state = {
     sideDrawerOpen: false,
     isLoggedIn: false,
-    onPage: 'configure',
+    
 
   }
 

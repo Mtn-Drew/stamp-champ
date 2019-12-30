@@ -1,8 +1,7 @@
 import React from 'react'
 import './Navbar.css'
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-
+import { Route } from 'react-router-dom'
 
 const navbar = (props) => (
   <header className="navbar">
@@ -11,13 +10,14 @@ const navbar = (props) => (
         <DrawerToggleButton click={props.drawerClickHandler} />
       </div>
 
-
-<Route path="/" render={(props) => (
-      <div className="navbar__logo">
-        <a href="/home">The Logo</a>
-      </div>
-       )}
-       ></Route>
+      <Route
+        path="/"
+        render={(props) => (
+          <div className="navbar__logo">
+            <a href="/home">The Logo</a>
+          </div>
+        )}
+      ></Route>
 
       <div className="spacer" />
 
@@ -72,7 +72,7 @@ const navbar = (props) => (
             path="/configure"
             render={(props) => (
               <li>
-                <a href="/cancel">Cancel</a>
+                <a href="/stamps">Cancel</a>
               </li>
             )}
           ></Route>

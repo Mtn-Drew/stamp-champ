@@ -76,12 +76,15 @@
 
 /* Button sized */
 .btn--medium {
-  padding: 10px 30px;
-  font-size: 12px;
-  
+  /* padding: 8px 20px; */
+  font-size: 11px;
+  width: 100px;
+  height: 40px;
+  box-shadow: 2px 3px 9px 0px black;
+  margin: 2px;
 }
 
 .btn--large {
-  padding: 15px 30px;
-  font-size: 14px;
+  /* padding: 8px 20px; */
+  /* font-size: 12px; */
 }
