@@ -105,7 +105,7 @@ class StampPad extends React.Component {
             <hr className="hr" />
 
             <div className="stamps-row">
-            <div>{stampRow}</div>
+            <div className="">{stampRow}</div>
 
             <hr className="hr" />
 
