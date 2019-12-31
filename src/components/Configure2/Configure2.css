@@ -38,7 +38,7 @@
 
 .dragBox {
   border: blue solid 1px;
-  min-width:20px;
+  min-width:50px;
   background-color: cadetblue;
 }
 

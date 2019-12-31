@@ -6,6 +6,8 @@ import AddButtonProfile from '../AddButton/AddButtonProfile'
 import AddButtonTemplate from '../AddButton/AddButtonTemplate'
 import AddButtonStamp from '../AddButton/AddButtonStamp'
 
+const placeholder = document.createElement('li')
+placeholder.className = 'placeholder'
 class StampPad extends React.Component {
   state = {
     store: STORE,
@@ -40,43 +42,48 @@ class StampPad extends React.Component {
     })
   }
 
+
+
   onDragStart = (e, i) => {
-    this.draggedItem = this.state.store.load_out[i]
-
-
-    console.log(this)
-    console.log('in onDragStart')
+    
+    // this.draggedItem = this.state.store.load_out[i]
+    e.dataTransfer.setData("text",e.target.className)
+    let buttonType = e.dataTransfer.getData('text')
+   
+    if (buttonType === 'template_button') {
+      this.draggedItem = this.state.store.template[i]
+    } else {
+      if (buttonType === 'profile_button') {
+        this.draggedItem = this.state.store.load_out[i]
+      } else {
+        if (buttonType === 'stamps_button') {
+          this.draggedItem = this.state.store.stamps[i]
+        }
+      }
+    }
+    console.log(e.dataTransfer.getData('text'))
+    // console.log(this)
+    // console.log('in onDragStart')
     console.log('draggedItem is ->')
     console.log(this.draggedItem)
-    console.log(e.dataTransfer.items)
-
-
-
-
-    e.target.className += ' hold'
+    // console.log(e.dataTransfer.items)
+    e.target.classList.add('hold')
     let etarget = e.target
     setTimeout(() => (etarget.className = 'invisible'), 0)
   }
 
   onDragEnter = (e) => {
-    e.target.className += ' hovered'
+
+
+
+     e.target.classList.add('hovered')
   }
 
   onDragLeave = (e) => {
-    e.target.className = 'configure_button'
+    e.target.classList.remove('hovered')
   }
 
-  onDragBoxLeave = (e) => {
-    e.target.className = 'dragBox'
-  }
-
-  onDragContainerLeave = (e) => {
-    e.target.className = 'edit_box'
-  }
-  onDragContainerEnter = (e) => {
-    e.target.className += ' box_hovered'
-  }
-
+  
   onDragOver = (e, index) => {
     // console.log('in onDragOver')
     const draggedOverItem = this.state.store.load_out[index]
@@ -91,12 +98,15 @@ class StampPad extends React.Component {
     let items = this.state.store.load_out.filter(
       (item) => item !== this.draggedItem
     )
-    // console.log('items before splice ->')
-    // console.log(items)
+    console.log('items before splice ->')
+    console.log(items)
     // console.log('index')
     // console.log(index)
     // add the dragged item after the dragged over item
     items.splice(index, 0, this.draggedItem)
+
+    console.log('items after splice');
+    console.log(items);
 
     this.setState({
       store : {
@@ -105,7 +115,6 @@ class StampPad extends React.Component {
         stamps : this.state.store.stamps
       }
     })
-
     // console.log('items-')
     // console.log(items)
   }
@@ -184,7 +193,7 @@ class StampPad extends React.Component {
           onClick={() => this.templateSelect(this.state.store.template[i].id)}
           template={this.state.selectedTemplate}
           draggable
-          className="configure_button"
+          className="template_button"
           onDragStart={(e) => this.onDragStart(e, i)}
             onDragEnd={(e) => this.onDragEnd(e)}
             onDragOver={(e) => this.onDragOver(e, i)}
@@ -209,7 +218,7 @@ class StampPad extends React.Component {
             onClick={() => this.profileSelect(prof.id)}
             // onMouseEnter={() => console.log('mouse')}
             draggable
-            className="configure_button"
+            className="profile_button"
             onDragStart={(e) => this.onDragStart(e, i)}
             onDragEnd={(e) => this.onDragEnd(e)}
             onDragOver={(e) => this.onDragOver(e, i)}
@@ -233,7 +242,7 @@ class StampPad extends React.Component {
             title={this.state.store.stamps[i].title}
             text={this.state.store.stamps[i].content}
             draggable
-            className="configure_button"
+            className="stamps_button"
             onDragStart={(e) => this.onDragStart(e, i)}
             onDragEnd={(e) => this.onDragEnd(e)}
             onDragOver={(e) => this.onDragOver(e, i)}
@@ -303,16 +312,16 @@ class StampPad extends React.Component {
           <div className="boxes">
             <div
               className="edit_box"
-              onDragEnter={(e) => this.onDragContainerEnter(e)}
-              onDragLeave={(e) => this.onDragContainerLeave(e)}
+              onDragEnter={(e) => this.onDragEnter(e)}
+              onDragLeave={(e) => this.onDragLeave(e)}
             >
               <div> edit box</div>
             </div>
             <div className="spacer" />
             <div
               className="trash_box"
-              onDragEnter={(e) => this.onDragContainerEnter(e)}
-              onDragLeave={(e) => this.onDragContainerLeave(e)}
+              onDragEnter={(e) => this.onDragEnter(e)}
+              onDragLeave={(e) => this.onDragLeave(e)}
             >
               <div>trash can</div>
             </div>
