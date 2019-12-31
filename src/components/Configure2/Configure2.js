@@ -43,10 +43,16 @@ class StampPad extends React.Component {
   onDragStart = (e, i) => {
     this.draggedItem = this.state.store.load_out[i]
 
+
     console.log(this)
     console.log('in onDragStart')
     console.log('draggedItem is ->')
     console.log(this.draggedItem)
+    console.log(e.dataTransfer.items)
+
+
+
+
     e.target.className += ' hold'
     let etarget = e.target
     setTimeout(() => (etarget.className = 'invisible'), 0)
@@ -72,23 +78,23 @@ class StampPad extends React.Component {
   }
 
   onDragOver = (e, index) => {
-    console.log('in onDragOver')
+    // console.log('in onDragOver')
     const draggedOverItem = this.state.store.load_out[index]
-    console.log('draggedOverItem is ->')
-    console.log(draggedOverItem)
+    // console.log('draggedOverItem is ->')
+    // console.log(draggedOverItem)
     // if the item is dragged over itself, ignore
     if (this.draggedItem === draggedOverItem) {
       return
     }
-    console.log('still here onDragOver')
+    // console.log('still here onDragOver')
     // filter out the currently dragged item
     let items = this.state.store.load_out.filter(
       (item) => item !== this.draggedItem
     )
-    console.log('items before splice ->')
-    console.log(items)
-    console.log('index')
-    console.log(index)
+    // console.log('items before splice ->')
+    // console.log(items)
+    // console.log('index')
+    // console.log(index)
     // add the dragged item after the dragged over item
     items.splice(index, 0, this.draggedItem)
 
@@ -100,17 +106,17 @@ class StampPad extends React.Component {
       }
     })
 
-    console.log('items-')
-    console.log(items)
+    // console.log('items-')
+    // console.log(items)
   }
 
   onDragEnd = (e) => {
-    console.log('inDragEND')
-    console.log('draggedIdx->')
-    console.log(this.draggedIdx)
+    // console.log('inDragEND')
+    // console.log('draggedIdx->')
+    // console.log(this.draggedIdx)
     this.draggedIdx = null
-    console.log('state ->')
-    console.log(this.state)
+    // console.log('state ->')
+    // console.log(this.state)
     e.target.className = '"configure_button"'
   }
 
