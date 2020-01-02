@@ -6,8 +6,15 @@ import LandingPage from './components/LandingPage/LandingPage'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import StampPad from './components/StampPad/StampPad.js'
 // import ConfigurePage from './components/ConfigurePage/ConfigurePage'
+import CreateAccount from './components/CreateAccount/CreateAccount'
 
-import Configure2 from './components/Configure2/Configure2'
+
+// import Configure2 from './components/Configure2/Configure2'
+import Config3 from './components/Configure2/Config3'
+
+import SignIn from './components/SignIn/SignIn'
+
+import AddButton from './components/AddButton/AddButton'
 
 // import { Button } from './components/Button/Button'
 
@@ -49,7 +56,7 @@ class App extends React.Component {
     }
 
     return (
-      <div style={{ height: '100%' }}>
+      <div style={{ height: '100%' }} >
       <Router>
         <Toolbar
           drawerClickHandler={this.drawerToggleClickHandler}
@@ -59,15 +66,20 @@ class App extends React.Component {
         <div>{backdrop}</div>
         
           <main style={{ marginTop: '64px' }}>
-            <Route
+            {/* <Route
               path="/stamps"
               render={(props) => (
                 <StampPad {...props} changepage={this.handleDataCallback} />
               )}
-            />
-            <Route path="/configure" component={Configure2} />
+            /> */}
+            <Route path="/stamps" component={StampPad} />
+            {/* <Route path="/configure" component={Configure2} /> */}
+            <Route path="/configure" component={Config3} />
             <Route path="/" exact component={LandingPage} />
-            <Route path="/home" component={LandingPage} />
+            <Route path="/create_account" component={CreateAccount} />
+            <Route path="/sign_in" component={SignIn} />
+            <Route path="/add_button" component={AddButton} />
+            {/* <Route path="/home" component={LandingPage} /> */}
 
           </main>
         </Router>

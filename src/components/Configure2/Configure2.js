@@ -6,6 +6,8 @@ import AddButtonProfile from '../AddButton/AddButtonProfile'
 import AddButtonTemplate from '../AddButton/AddButtonTemplate'
 import AddButtonStamp from '../AddButton/AddButtonStamp'
 
+// import AddButton from '../AddButton/AddButton'
+
 const placeholder = document.createElement('li')
 placeholder.className = 'placeholder'
 class StampPad extends React.Component {
@@ -15,7 +17,8 @@ class StampPad extends React.Component {
     selectedProfile: STORE.stamps[0].load_out_id,
     showAddProfileForm: false,
     showAddTemplateForm: false,
-    showAddStampForm: false
+    showAddStampForm: false,
+    draggedButtonType: null
   }
 
   copyToClipboard = (str) => {
@@ -42,14 +45,16 @@ class StampPad extends React.Component {
     })
   }
 
-
-
   onDragStart = (e, i) => {
-    
-    // this.draggedItem = this.state.store.load_out[i]
-    e.dataTransfer.setData("text",e.target.className)
+
+    e.dataTransfer.setData('text', e.target.className)
     let buttonType = e.dataTransfer.getData('text')
-   
+    this.setState({
+      draggedButtonType: buttonType
+    })
+    console.log('buttonType ->')
+    console.log(buttonType)
+
     if (buttonType === 'template_button') {
       this.draggedItem = this.state.store.template[i]
     } else {
@@ -62,72 +67,81 @@ class StampPad extends React.Component {
       }
     }
     console.log(e.dataTransfer.getData('text'))
-    // console.log(this)
-    // console.log('in onDragStart')
+   
     console.log('draggedItem is ->')
     console.log(this.draggedItem)
-    // console.log(e.dataTransfer.items)
+  
     e.target.classList.add('hold')
-    let etarget = e.target
-    setTimeout(() => (etarget.className = 'invisible'), 0)
+  //   let etarget = e.target
+  //   setTimeout(() => (etarget.className = 'invisible'), 0)
   }
 
   onDragEnter = (e) => {
-
-
-
-     e.target.classList.add('hovered')
+    e.target.classList.add('hovered')
   }
 
   onDragLeave = (e) => {
     e.target.classList.remove('hovered')
   }
 
-  
   onDragOver = (e, index) => {
-    // console.log('in onDragOver')
-    const draggedOverItem = this.state.store.load_out[index]
-    // console.log('draggedOverItem is ->')
-    // console.log(draggedOverItem)
-    // if the item is dragged over itself, ignore
-    if (this.draggedItem === draggedOverItem) {
-      return
-    }
+    // console.log('onDragOver - dragged target is ->');
+    // console.log(e.target)
+    e.dataTransfer.setData('text', e.target.className)
+
+    // let items
+    // if (this.draggedButtonType==='template') {
+    //   items= this.state.store.template.filter((item)=> item !== this.draggedItem)
+    // } else {
+    //   if (this.draggedButtonType==='profile') {
+    //     items = this.state.store.load_out.filter((item) => item !== this.draggedItem)
+    //   }
+    // } 
+    // if(this.draggedButtonType==='stamps') {
+    //   items = this.state.store.stamps.filter((item) => item !== this.draggedItem)
+    // }
+    //const draggedOverItem = this.state.store.load_out[index]
+   
+    // if (this.draggedItem === draggedOverItem) {
+    //   return
+    // }
+
     // console.log('still here onDragOver')
     // filter out the currently dragged item
-    let items = this.state.store.load_out.filter(
-      (item) => item !== this.draggedItem
-    )
-    console.log('items before splice ->')
-    console.log(items)
-    // console.log('index')
-    // console.log(index)
-    // add the dragged item after the dragged over item
-    items.splice(index, 0, this.draggedItem)
+    // let items = this.state.store.load_out.filter(
+    //   (item) => item !== this.draggedItem
+    // )
+    // console.log('items before splice ->')
+    // console.log(items)
+    // // console.log('index')
+    // // console.log(index)
+    // // add the dragged item after the dragged over item
+    // items.splice(index, 0, this.draggedItem)
 
-    console.log('items after splice');
-    console.log(items);
+    // console.log('items after splice')
+    // console.log(items)
 
-    this.setState({
-      store : {
-        template : this.state.store.template,
-        load_out: items,
-        stamps : this.state.store.stamps
-      }
-    })
+    // this.setState({
+    //   store: {
+    //     template: this.state.store.template,
+    //     load_out: items,
+    //     stamps: this.state.store.stamps
+    //   }
+    // })
     // console.log('items-')
     // console.log(items)
   }
 
-  onDragEnd = (e) => {
-    // console.log('inDragEND')
-    // console.log('draggedIdx->')
-    // console.log(this.draggedIdx)
-    this.draggedIdx = null
-    // console.log('state ->')
-    // console.log(this.state)
-    e.target.className = '"configure_button"'
+  onDrop = (e) => {
+    console.log('inDROP');
   }
+
+  onDragEnd = (e) => {
+  e.target.classList.remove('invisible')
+  this.setState({
+    draggedButtonType: null
+  })
+}
 
   fnShowAddTemplateForm = () => {
     console.log('inShowAddTemplateForm')
@@ -195,10 +209,11 @@ class StampPad extends React.Component {
           draggable
           className="template_button"
           onDragStart={(e) => this.onDragStart(e, i)}
-            onDragEnd={(e) => this.onDragEnd(e)}
-            onDragOver={(e) => this.onDragOver(e, i)}
-            onDragEnter={(e) => this.onDragEnter(e)}
-            onDragLeave={(e) => this.onDragLeave(e)}
+          onDragEnd={(e) => this.onDragEnd(e)}
+          onDragOver={(e) => this.onDragOver(e, i)}
+          onDragEnter={(e) => this.onDragEnter(e)}
+          onDragLeave={(e) => this.onDragLeave(e)}
+          onDrop={(e)=>{this.onDrop(e)}}
         >
           {this.state.store.template[i].title}
         </button>
@@ -282,7 +297,7 @@ class StampPad extends React.Component {
             <div
               className="dragBox"
               onDragEnter={(e) => this.onDragEnter(e)}
-              onDragLeave={(e) => this.onDragBoxLeave(e)}
+              onDragLeave={(e) => this.onDragLeave(e)}
             >
               ▶
             </div>

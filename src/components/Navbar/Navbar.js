@@ -14,7 +14,7 @@ const navbar = (props) => (
         path="/"
         render={(props) => (
           <div className="navbar__logo">
-            <a href="/home">The Logo</a>
+            <a href="/">The Logo</a>
           </div>
         )}
       ></Route>
@@ -42,19 +42,21 @@ const navbar = (props) => (
           ></Route>
 
           <Route
-            path="/home"
+            path="/"
+            exact
             render={(props) => (
               <li>
-                <a href="/#create_account">Create Account</a>
+                <a href="/create_account">Create Account</a>
               </li>
             )}
           ></Route>
 
           <Route
-            path="/home"
+            path="/"
+            exact
             render={(props) => (
               <li>
-                <a href="/stamps">Sign In</a>
+                <a href="/sign_in">Sign In</a>
               </li>
             )}
           ></Route>
@@ -82,6 +84,32 @@ const navbar = (props) => (
             render={(props) => (
               <li>
                 <a href="/">Sign Out</a>
+              </li>
+            )}
+          ></Route>
+
+          <Route
+            path="/create_account"
+            render={(props) => (
+              <li>
+                <a href="/">Cancel</a>
+              </li>
+            )}
+          ></Route>
+
+          <Route
+            path="/sign_in"
+            render={(props) => (
+              <li>
+                <a href="/">Cancel</a>
+              </li>
+            )}
+          ></Route>
+          <Route
+            path="/add_button"
+            render={(props) => (
+              <li>
+                <a href="/configure">Cancel</a>
               </li>
             )}
           ></Route>
