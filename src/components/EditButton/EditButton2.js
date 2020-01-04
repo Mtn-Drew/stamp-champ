@@ -1,7 +1,7 @@
 import React from 'react'
-import STORE from '../../STORE'
-import './Configure2.css'
 import { Button } from '../Button/Button'
+import STORE from '../../STORE'
+import './EditButton2.css'
 
 // import AddButton from '../AddButton/AddButton'
 
@@ -15,7 +15,7 @@ class StampPad extends React.Component {
     showAddProfileForm: false,
     showAddTemplateForm: false,
     showAddStampForm: false,
-   
+    draggedButtonType: null
   }
 
   copyToClipboard = (str) => {
@@ -100,22 +100,24 @@ class StampPad extends React.Component {
     return (
       <div style={{ height: '100%' }} className="mainPage">
         <main style={{ marginTop: '64px' }}>
-          <h1>Configure Page3!!</h1>
+          <h1>Edit Buttons!!</h1>
 
           <div className="buttonRow">
             <div className="spacer" />
             {templateRow}
             <div className="spacer" />
+            
           </div>
 
           <hr className="hr" />
 
           <div className="buttonRow">
             <div className="spacer" />
-
+            
             {profileRow}
-
+            
             <div className="spacer" />
+            
           </div>
 
           <hr className="hr" />
@@ -124,34 +126,14 @@ class StampPad extends React.Component {
             <div className="spacer" />
             {stampRow}
             <div className="spacer" />
+            
           </div>
 
           <hr className="hr" />
 
-          <div className="boxes">
-            <div className="trash_box">
-              <div>
-                <a href="/add_button">
-                  <h1>Add Button</h1>
-                </a>
-              </div>
-            </div>
-            <div className="edit_box">
-              <div>
-                <a href="/edit_button">
-                  <h1>Edit Button</h1>
-                </a>
-              </div>
-            </div>
-            <div className="spacer" />
-            <div className="trash_box">
-              <div>
-                <a href="delete_button">
-                  <h1>Delete Button</h1>
-                </a>
-              </div>
-            </div>
-          </div>
+          
+            
+          
         </main>
       </div>
     )

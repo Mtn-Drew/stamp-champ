@@ -15,6 +15,7 @@ import Config3 from './components/Configure2/Config3'
 import SignIn from './components/SignIn/SignIn'
 
 import AddButton from './components/AddButton/AddButton'
+import EditButton2 from './components/EditButton/EditButton2'
 
 // import { Button } from './components/Button/Button'
 
@@ -79,7 +80,7 @@ class App extends React.Component {
             <Route path="/create_account" component={CreateAccount} />
             <Route path="/sign_in" component={SignIn} />
             <Route path="/add_button" component={AddButton} />
-            {/* <Route path="/home" component={LandingPage} /> */}
+            <Route path="/edit_button" component={EditButton2} />
 
           </main>
         </Router>

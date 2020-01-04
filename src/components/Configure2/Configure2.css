@@ -26,41 +26,20 @@
   display: flex;
 }
 
-.plus {
-  cursor:pointer;
-}
-
-.hold {
-  border: solid 4px red;
-  /* height: 50px; */
-
-}
-
-.dragBox {
-  border: blue solid 1px;
-  min-width:50px;
-  background-color: cadetblue;
-}
-
-.hovered {
-  background: silver;
-  border-style: solid;
-  border-color: green;
-  /* margin-left:15px;
-  margin-right:15px; */
-  
-}
-
-.box_hovered {
-  background: silver;
-  border-style: solid;
-  border-color: green;
- 
-  
-}
 
 .invisible {
   display:none;
 }
 
+.btn--medium {
+  box-shadow: none;
+}
+
+.btn--primary--solid {
+  background-color: rgba(71, 4, 4, 0.7);
+}
+
+.btn--primary--solid:hover {
+  background-color: rgba(50,50,50,1);
+}
 

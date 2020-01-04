@@ -109,10 +109,38 @@ const navbar = (props) => (
             path="/add_button"
             render={(props) => (
               <li>
-                <a href="/configure">Cancel</a>
+                <a href="/save">Save</a>
               </li>
             )}
           ></Route>
+          <Route
+            path="/add_button"
+            render={(props) => (
+              <li>
+                <a href="/configure">Done</a>
+              </li>
+            )}
+          ></Route>
+
+          <Route
+            path="/edit_button"
+            render={(props) => (
+              <li>
+                <a href="/save">Save</a>
+              </li>
+            )}
+          ></Route>
+
+          <Route
+            path="/edit_button"
+            render={(props) => (
+              <li>
+                <a href="/configure">Done</a>
+              </li>
+            )}
+          ></Route>
+
+          
         </ul>
       </div>
     </nav>
