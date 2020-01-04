@@ -5,12 +5,12 @@ import STORE from '../../STORE'
 class AddButton extends React.Component {
   state = {
     store: STORE,
-    storeTemplate : STORE.template,
+    storeTemplate: STORE.template,
     storeProfile: STORE.load_out,
     storeStamps: STORE.stamps,
-    newTemplateName: '',
-    newProfileName: '',
-    selectTemplate: '',
+    // newTemplateName: '',
+    // newProfileName: '',
+    // selectTemplate: '',
     newStampName: '',
     selectProfile: '',
     newStampContent: '',
@@ -21,7 +21,7 @@ class AddButton extends React.Component {
     //trigger re-render
     this.setState({ requirementKey: Math.random() })
     this.setState({
-      trigger:false
+      trigger: false
     })
   }
 
@@ -37,11 +37,10 @@ class AddButton extends React.Component {
     if (selection === 'stamps') {
       this.createStamp()
     }
-    // 
-    if (this.state.trigger){
+    //
+    if (this.state.trigger) {
       this.resetState()
     }
-    
   }
 
   createTemplate = (e) => {
@@ -83,13 +82,13 @@ class AddButton extends React.Component {
     this.setState({
       whatToAdd: 'stamp'
     })
-    
+
     console.log('in createStamp')
     document.getElementById('template_text_box').classList.add('invisible')
     document.getElementById('template-select-form').classList.add('invisible')
     document.getElementById('profile-select-form').classList.remove('invisible')
     const profile_selection = document.getElementById('profile-select')
-    const arr = this.state.store.load_out.map((prof) => prof.title)
+    const arr = this.state.storeProfile.map((prof) => prof.title)
     for (let i = 0; i < arr.length; i++) {
       let option = document.createElement('OPTION')
       let txt = document.createTextNode(arr[i])
@@ -99,16 +98,14 @@ class AddButton extends React.Component {
     }
   }
 
-  find_template_id = (obj) =>{
-    console.log('in find_template_id');
-    console.log(obj);
-    console.log('selectTemplate');
-    console.log(this.state.selectTemplate);
-    console.log('this.state');
-    console.log(this.state);
+  find_template_id = (obj) => {
+    console.log('in find_template_id')
+    console.log(obj)
+    console.log('selectTemplate')
+    console.log(this.state.selectTemplate)
+    console.log('this.state')
+    console.log(this.state)
     return obj.id === this.state.selectedTemplate
-    
-    
   }
 
   handleSubmit = (e) => {
@@ -116,53 +113,61 @@ class AddButton extends React.Component {
     console.log('in handleSubmit')
 
     if (this.state.whatToAdd === 'template') {
-      
       // this.templateSubmit()
       const text = document.getElementById('template_text_box').value
-      this.setState({
-        newTemplateName: text
-      })
+      // this.setState({
+      //   newTemplateName: text
+      // })
       console.log(text)
       //post to database
-      const newTemplate = { id:"3", title: text, order: this.state.storeTemplate.length+1}
+      const newTemplate = {
+        id: '3',
+        title: text,
+        order: this.state.storeTemplate.length + 1
+      }
       const tempArray = this.state.storeTemplate.concat(newTemplate)
       this.setState({
-        storeTemplate : tempArray
+        storeTemplate: tempArray
       })
       console.log('template added')
     }
 
     if (this.state.whatToAdd === 'profile') {
-      
       const text = document.getElementById('profile_text_box').value
       const selected = document.getElementById('template-select').value
-      this.setState({
-        newProfileName: text,
-        selectTemplate: selected
-      })
+      // this.setState({
+      //   newProfileName: text,
+      //   selectTemplate: selected
+      // })
       console.log(text)
-      console.log(selected);
-      console.log(this.state);
+      console.log(selected)
+      console.log(this.state)
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
       // const temp_id = this.state.storeTemplate.filter(this.find_template_id())
-      const temp_id = this.state.storeTemplate.filter(obj => {
-        console.log('in filter');
-        console.log(obj);
-        console.log(obj.id);
-        console.log('selected');
-        console.log(selected);
-        return obj.title===selected})
-      console.log('temp_id');
-      console.log(temp_id);
-      console.log(temp_id[0].id);
-      const newProfile = { id:"9", title: text, template_id: temp_id[0].id, order : this.state.storeProfile.length +1 }
+      const temp_id = this.state.storeTemplate.filter((obj) => {
+        console.log('in filter')
+        console.log(obj)
+        console.log(obj.id)
+        console.log('selected')
+        console.log(selected)
+        return obj.title === selected
+      })
+      console.log('temp_id')
+      console.log(temp_id)
+      console.log(temp_id[0].id)
+      const newProfile = {
+        id: '9',
+        title: text,
+        template_id: temp_id[0].id,
+        order: this.state.storeProfile.length + 1
+      }
       const tempArray = this.state.storeProfile.concat(newProfile)
       this.setState({
         storeProfile: tempArray
       })
       //post to database
       console.log('profile added')
-      console.log(this.state.storeProfile);
+      console.log(this.state.storeProfile)
     }
 
     if (this.state.whatToAdd === 'stamp') {
@@ -170,17 +175,48 @@ class AddButton extends React.Component {
       const text = document.getElementById('stamp_text_box').value
       const selected = document.getElementById('profile-select').value
       const content = document.getElementById('stamp_content_box').value
-      this.setState({
-        newStampName: text,
-        selectedProfile: selected,
-        newStampContent: content
+      // this.setState({
+      //   newStampName: text,
+      //   selectedProfile: selected,
+      //   newStampContent: content
+      // })
+
+
+
+      console.log(text)
+      console.log(selected)
+      console.log(content);
+      console.log(this.state)
+      // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
+      // const temp_id = this.state.storeTemplate.filter(this.find_template_id())
+      const temp_id = this.state.storeProfile.filter((obj) => {
+        console.log('in filter')
+        console.log(obj)
+        console.log(obj.id)
+        console.log('selected')
+        console.log(selected)
+        return obj.title === selected
       })
+      console.log('temp_id')
+      console.log(temp_id)
+      console.log(temp_id[0].id)
+      const newStamp = {
+        id: '9hgsfd',
+        title: text,
+        load_out_id: temp_id[0].id,
+        content: content,
+        order: this.state.storeStamps.length + 1
+      }
+      const tempArray = this.state.storeStamps.concat(newStamp)
+      this.setState({
+        storeStamps: tempArray
+      })
+
+
+
     }
     this.resetState()
   }
-
-  
-
 
   createProfileTemplateSelect = (e) => {
     console.log('in createProfileTemplateSelect')
@@ -188,7 +224,7 @@ class AddButton extends React.Component {
     document.getElementById('profile_text_box').classList.remove('invisible')
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
-      trigger:true
+      trigger: true
     })
   }
 
@@ -199,7 +235,7 @@ class AddButton extends React.Component {
     document.getElementById('stamp_content_box').classList.remove('invisible')
     //set flag to trigger re-render if not submitted
     this.setState({
-      trigger:true
+      trigger: true
     })
   }
 
@@ -216,7 +252,9 @@ class AddButton extends React.Component {
             onChange={this.handleTypeSelect}
             className="dropdown"
           >
-            <option className="dropdown-content" value="selection">Select Button Type</option>
+            <option className="dropdown-content" value="selection">
+              Select Button Type
+            </option>
             <option value="template">Template Button</option>
             <option value="profile">Profile Button</option>
             <option value="stamps">Stamp Button</option>
@@ -273,13 +311,12 @@ class AddButton extends React.Component {
             id="stamp_text_box"
           />
           <textarea
-            
             className="stamp-content invisible"
             placeholder="New Stamp Content"
             id="stamp_content_box"
           ></textarea>
         </form>
-     {console.log(this.state)}
+        {console.log(this.state)}
       </main>
     )
   }
