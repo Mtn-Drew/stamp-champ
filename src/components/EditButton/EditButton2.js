@@ -69,14 +69,35 @@ class StampPad extends React.Component {
     console.log('selected template id->');
     console.log(this.state.selectedTemplate);
     // set state to template id
+    this.setState({
+      selectedTemplate : id
+    })
+    console.log(id);
+    document.getElementById('templateTitle').value = id.title
+    document.getElementById('profileTitle').value = "N/A"
+    document.getElementById('stampTitle').value = "N/A"
+    document.getElementById('contentTitle').value = "N/A"
   }
 
   profileSelectEdit = (id) => {
     console.log('in profileSelectEdit');
+    this.setState({
+      selectedProfile : id
+    })
+    console.log(id);
+    document.getElementById('templateTitle').value = id.template_id
+    document.getElementById('profileTitle').value = id.title
+    document.getElementById('stampTitle').value = "N/A"
+    document.getElementById('contentTitle').value = "N/A"
   }
 
   stampSelectEdit = (id) => {
     console.log('in stampSelectEdit');
+    this.setState({selectedStamp : id})
+    document.getElementById('templateTitle').value = "N/A"
+    document.getElementById('profileTitle').value = id.load_out_id
+    document.getElementById('stampTitle').value = id.title
+    document.getElementById('contentTitle').value = id.content
   }
 
   render() {
@@ -141,7 +162,7 @@ class StampPad extends React.Component {
         <button
           key={templ.id}
           // onClick={() => this.templateSelect(this.state.store.template[i].id)}
-          onClick={() => this.templateSelectEdit(templ.id)} //change to storeTemplate?? *******************
+          onClick={() => this.templateSelectEdit(templ)} //change to storeTemplate?? *******************
           template={this.state.selectedTemplate}
           className="template_button edit-select"
         >
@@ -160,7 +181,7 @@ class StampPad extends React.Component {
         return (
           <button
             key={prof.id}
-            onClick={() => this.profileSelectEdit(prof.id)} //change to storeTemplate?? *******************
+            onClick={() => this.profileSelectEdit(prof)} //change to storeTemplate?? *******************
             // onMouseEnter={() => console.log('mouse')}
 
             className="profile_button edit-select"
@@ -179,7 +200,7 @@ class StampPad extends React.Component {
           <button
             key={stamp.id}
             // onClick={() => this.copyToClipboard(stamp.content)}  //change to storeTemplate?? *******************
-            onClick={() => this.stampSelectEdit(stamp.id)}
+            onClick={() => this.stampSelectEdit(stamp)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
             className="stamps_button edit-select"
@@ -231,13 +252,13 @@ class StampPad extends React.Component {
 
           <form className="toggleEditForm invisible" id="edit-form">
             Template: <br/>
-            <input type="text" name="template" /><br/>
+            <input type="text" name="template" id="templateTitle"/><br/>
             Profile: <br/>
-            <input type="text" name="profile"/><br/>
+            <input type="text" name="profile" id="profileTitle"/><br/>
             Stamp: <br/>
-            <input type="text" name="stamp"/><br/>
+            <input type="text" name="stamp" id="stampTitle"/><br/>
             Content: <br/>
-            <input type="text" name="content"/>
+            <textarea type="text" name="content" id="contentTitle"/>
           </form>
 
           <hr className="hr" />
