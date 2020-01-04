@@ -145,10 +145,17 @@ class AddButton extends React.Component {
       console.log(this.state);
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
       // const temp_id = this.state.storeTemplate.filter(this.find_template_id())
-      const temp_id = this.state.storeTemplate.filter(obj =>obj.id===selected)
+      const temp_id = this.state.storeTemplate.filter(obj => {
+        console.log('in filter');
+        console.log(obj);
+        console.log(obj.id);
+        console.log('selected');
+        console.log(selected);
+        return obj.title===selected})
       console.log('temp_id');
       console.log(temp_id);
-      const newProfile = { id:"9", title: text, template_id: temp_id, order : this.state.storeProfile.length +1 }
+      console.log(temp_id[0].id);
+      const newProfile = { id:"9", title: text, template_id: temp_id[0].id, order : this.state.storeProfile.length +1 }
       const tempArray = this.state.storeProfile.concat(newProfile)
       this.setState({
         storeProfile: tempArray
