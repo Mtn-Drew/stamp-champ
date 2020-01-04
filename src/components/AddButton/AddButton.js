@@ -119,7 +119,7 @@ class AddButton extends React.Component {
       //   newTemplateName: text
       // })
       console.log(text)
-      //post to database
+
       const newTemplate = {
         id: '3',
         title: text,
@@ -129,6 +129,7 @@ class AddButton extends React.Component {
       this.setState({
         storeTemplate: tempArray
       })
+      //post to database and callback to configure to update state? ****************
       console.log('template added')
     }
 
@@ -165,13 +166,12 @@ class AddButton extends React.Component {
       this.setState({
         storeProfile: tempArray
       })
-      //post to database
+      //post to database and callback to configure to update state? ****************
       console.log('profile added')
       console.log(this.state.storeProfile)
     }
 
     if (this.state.whatToAdd === 'stamp') {
-      console.log('stamp added')
       const text = document.getElementById('stamp_text_box').value
       const selected = document.getElementById('profile-select').value
       const content = document.getElementById('stamp_content_box').value
@@ -181,11 +181,9 @@ class AddButton extends React.Component {
       //   newStampContent: content
       // })
 
-
-
       console.log(text)
       console.log(selected)
-      console.log(content);
+      console.log(content)
       console.log(this.state)
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
       // const temp_id = this.state.storeTemplate.filter(this.find_template_id())
@@ -211,9 +209,8 @@ class AddButton extends React.Component {
       this.setState({
         storeStamps: tempArray
       })
-
-
-
+      //post to database and callback to configure to update state? ****************
+      console.log('stamp added')
     }
     this.resetState()
   }
