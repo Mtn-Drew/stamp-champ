@@ -129,6 +129,7 @@ class AddButton extends React.Component {
       this.setState({
         storeTemplate: tempArray
       })
+      this.props.onAddButton(this.state.whatToAdd,tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('template added')
     }
@@ -166,6 +167,7 @@ class AddButton extends React.Component {
       this.setState({
         storeProfile: tempArray
       })
+      this.props.onAddButton(this.state.whatToAdd,tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('profile added')
       console.log(this.state.storeProfile)
@@ -209,6 +211,7 @@ class AddButton extends React.Component {
       this.setState({
         storeStamps: tempArray
       })
+      this.props.onAddButton(this.state.whatToAdd,tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('stamp added')
     }

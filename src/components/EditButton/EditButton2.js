@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '../Button/Button'
 import STORE from '../../STORE'
 import './EditButton2.css'
-
+import AddButton from '../AddButton/AddButton'
 // import AddButton from '../AddButton/AddButton'
 
 const placeholder = document.createElement('li')
@@ -88,7 +88,9 @@ class StampPad extends React.Component {
     // })
     console.log(id)
     document.getElementById('templateTitle').value = id.template_id
-    const newArray = this.state.storeTemplate.filter((template) => template.id === id.template_id)
+    const newArray = this.state.storeTemplate.filter(
+      (template) => template.id === id.template_id
+    )
     // document.getElementById('profileTitle').value = id.title
     document.getElementById('templateTitle').value = newArray[0].title
     document.getElementById('profileTitle').value = id.title
@@ -103,7 +105,9 @@ class StampPad extends React.Component {
     console.log(this.state.whatToEdit)
     // this.setState({ selectedStamp: id })
     document.getElementById('templateTitle').value = 'N/A'
-    const newArray = this.state.storeProfile.filter((profile) => profile.id === id.load_out_id)
+    const newArray = this.state.storeProfile.filter(
+      (profile) => profile.id === id.load_out_id
+    )
     document.getElementById('profileTitle').value = newArray[0].title
     document.getElementById('stampTitle').value = id.title
     document.getElementById('contentTitle').value = id.content
@@ -116,8 +120,12 @@ class StampPad extends React.Component {
 
     switch (this.state.whatToEdit) {
       case 'template':
-        const newTemplateObj = {title: document.getElementById('templateTitle').value}
-        const newTemplateArr = this.state.storeTemplate.filter((template) => template.id === this.state.target.id)
+        const newTemplateObj = {
+          title: document.getElementById('templateTitle').value
+        }
+        const newTemplateArr = this.state.storeTemplate.filter(
+          (template) => template.id === this.state.target.id
+        )
         const newTemplateObj2 = newTemplateArr[0]
         // console.log('newObj');
         // console.log(newObj);
@@ -126,57 +134,90 @@ class StampPad extends React.Component {
         // console.log('newObj2');
         // console.log(newObj2);
         const finalTemplateObj = {
-          ...newTemplateObj2, ...newTemplateObj
+          ...newTemplateObj2,
+          ...newTemplateObj
         }
         // console.log('finalObj');
         // console.log(finalObj);
         const arr2Template = [finalTemplateObj]
-        const resTemplate = this.state.storeTemplate.map(obj => arr2Template.find(o => o.id === obj.id) || obj);
+        const resTemplate = this.state.storeTemplate.map(
+          (obj) => arr2Template.find((o) => o.id === obj.id) || obj
+        )
         // console.log(res);
         this.setState({
-          storeTemplate : resTemplate
+          storeTemplate: resTemplate
         })
         // post to DB storeTemplate
-        break;
+        break
       case 'profile':
-        const newProfileObj = {title: document.getElementById('profileTitle').value, template_id : document.getElementById('templateTitle').value}
-        
-        const newProfileArr = this.state.storeProfile.filter((profile) => profile.id === this.state.target.id)
+        const newProfileObj = {
+          title: document.getElementById('profileTitle').value,
+          template_id: document.getElementById('templateTitle').value
+        }
+
+        const newProfileArr = this.state.storeProfile.filter(
+          (profile) => profile.id === this.state.target.id
+        )
         const newProfileObj2 = newProfileArr[0]
         const finalProfileObj = {
-          ...newProfileObj2, ...newProfileObj
+          ...newProfileObj2,
+          ...newProfileObj
         }
         const arr2Profile = [finalProfileObj]
-        const resProfile = this.state.storeProfile.map(obj => arr2Profile.find(o => o.id === obj.id) || obj);
-        console.log(resProfile);
-        this.setState ({
-          storeProfile : resProfile 
+        const resProfile = this.state.storeProfile.map(
+          (obj) => arr2Profile.find((o) => o.id === obj.id) || obj
+        )
+        console.log(resProfile)
+        this.setState({
+          storeProfile: resProfile
         })
         // post to DB storeTemplate
-        break;
+        break
       case 'stamp':
         const newStampObj = {
-          title: document.getElementById('stampTitle').value, 
-          load_out_id : document.getElementById('profileTitle').value,
-          content : document.getElementById('contentTitle').value
+          title: document.getElementById('stampTitle').value,
+          load_out_id: document.getElementById('profileTitle').value,
+          content: document.getElementById('contentTitle').value
         }
-        
-        const newStampArr = this.state.storeStamps.filter((stamp) => stamp.id === this.state.target.id)
+
+        const newStampArr = this.state.storeStamps.filter(
+          (stamp) => stamp.id === this.state.target.id
+        )
         const newStampObj2 = newStampArr[0]
         const finalStampObj = {
-          ...newStampObj2, ...newStampObj
+          ...newStampObj2,
+          ...newStampObj
         }
         const arr2Stamp = [finalStampObj]
-        const resStamp = this.state.storeStamps.map(obj => arr2Stamp.find(o => o.id === obj.id) || obj);
-        console.log(resStamp);
-        this.setState ({
-          storeStamps : resStamp
+        const resStamp = this.state.storeStamps.map(
+          (obj) => arr2Stamp.find((o) => o.id === obj.id) || obj
+        )
+        console.log(resStamp)
+        this.setState({
+          storeStamps: resStamp
         })
         // post to DB storeTemplate
-        break;
+        break
+    }
+  }
 
-
-
+  handleAddButton = (type, arr) => {
+    console.log('in handleAddButton')
+    console.log(type, arr)
+    if (type === 'template') {
+      this.setState({
+        storeTemplate: arr
+      })
+    }
+    if (type === 'profile') {
+      this.setState({
+        storeProfile: arr
+      })
+    }
+    if (type === 'stamp') {
+      this.setState({
+        storeStamps: arr
+      })
     }
   }
 
@@ -351,6 +392,7 @@ class StampPad extends React.Component {
           </form>
 
           <hr className="hr" />
+          <AddButton onAddButton={this.handleAddButton} />
         </main>
       </div>
     )

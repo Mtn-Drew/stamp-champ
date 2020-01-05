@@ -74,13 +74,13 @@ class App extends React.Component {
               )}
             /> */}
             <Route path="/stamps" component={StampPad} />
-            {/* <Route path="/configure" component={Configure2} /> */}
-            <Route path="/configure" component={Config3} />
+            
+            {/* <Route path="/configure" component={Config3} /> */}
             <Route path="/" exact component={LandingPage} />
             <Route path="/create_account" component={CreateAccount} />
             <Route path="/sign_in" component={SignIn} />
             <Route path="/add_button" component={AddButton} />
-            <Route path="/edit_button" component={EditButton2} />
+            <Route path="/configure" component={EditButton2} />
 
           </main>
         </Router>
