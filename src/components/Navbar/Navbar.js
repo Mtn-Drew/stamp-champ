@@ -74,7 +74,7 @@ const navbar = (props) => (
             path="/configure"
             render={(props) => (
               <li>
-                <a href="/stamps">Cancel</a>
+                <a href="/stamps">Done</a>
               </li>
             )}
           ></Route>
@@ -135,7 +135,7 @@ const navbar = (props) => (
             path="/edit_button"
             render={(props) => (
               <li>
-                <a href="/configure">Cancel</a>
+                <a href="/configure">Done</a>
               </li>
             )}
           ></Route>

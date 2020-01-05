@@ -88,6 +88,9 @@ class StampPad extends React.Component {
     // })
     console.log(id)
     document.getElementById('templateTitle').value = id.template_id
+    const newArray = this.state.storeTemplate.filter((template) => template.id === id.template_id)
+    // document.getElementById('profileTitle').value = id.title
+    document.getElementById('templateTitle').value = newArray[0].title
     document.getElementById('profileTitle').value = id.title
     document.getElementById('stampTitle').value = 'N/A'
     document.getElementById('contentTitle').value = 'N/A'
@@ -98,9 +101,10 @@ class StampPad extends React.Component {
     console.log('in stampSelectEdit')
     console.log('what to edit')
     console.log(this.state.whatToEdit)
-    this.setState({ selectedStamp: id })
+    // this.setState({ selectedStamp: id })
     document.getElementById('templateTitle').value = 'N/A'
-    document.getElementById('profileTitle').value = id.load_out_id
+    const newArray = this.state.storeProfile.filter((profile) => profile.id === id.load_out_id)
+    document.getElementById('profileTitle').value = newArray[0].title
     document.getElementById('stampTitle').value = id.title
     document.getElementById('contentTitle').value = id.content
   }
