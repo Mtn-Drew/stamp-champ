@@ -3,6 +3,7 @@ import { Button } from '../Button/Button'
 import STORE from '../../STORE'
 import './EditButton2.css'
 import AddButton from '../AddButton/AddButton'
+import DeleteButton from './DeleteButton'
 // import AddButton from '../AddButton/AddButton'
 
 const placeholder = document.createElement('li')
@@ -53,6 +54,7 @@ class StampPad extends React.Component {
     !this.state.triggerToggle
       ? document.getElementById('edit-form').classList.add('invisible')
       : document.getElementById('edit-form').classList.remove('invisible')
+   
     console.log(this.state.triggerToggle)
   }
 
@@ -201,8 +203,8 @@ class StampPad extends React.Component {
     }
   }
 
-  handleAddButton = (type, arr) => {
-    console.log('in handleAddButton')
+  handleAddDeleteButton = (type, arr) => {
+    console.log('in handleAddDeleteButton')
     console.log(type, arr)
     if (type === 'template') {
       this.setState({
@@ -331,6 +333,8 @@ class StampPad extends React.Component {
         )
       })
     // .sort((a, b) => (a.order > b.order ? -1 : 1))
+    const addButtonForm = 
+    this.state.triggerToggle ? <AddButton onAddButton={this.handleAddDeleteButton} /> : <DeleteButton onDeleteButton={this.handleAddDeleteButton} target={this.state.target.title} whatToEdit={this.state.whatToEdit}/>
 
     return (
       <div style={{ height: '100%' }} className="mainPage ">
@@ -392,7 +396,8 @@ class StampPad extends React.Component {
           </form>
 
           <hr className="hr" />
-          <AddButton onAddButton={this.handleAddButton} />
+          {addButtonForm}
+          
         </main>
       </div>
     )
