@@ -122,20 +122,20 @@ const navbar = (props) => (
             )}
           ></Route>
 
-          <Route
+          {/* <Route
             path="/edit_button"
             render={(props) => (
               <li>
                 <a href="/save">Save</a>
               </li>
             )}
-          ></Route>
+          ></Route> */}
 
           <Route
             path="/edit_button"
             render={(props) => (
               <li>
-                <a href="/configure">Done</a>
+                <a href="/configure">Cancel</a>
               </li>
             )}
           ></Route>

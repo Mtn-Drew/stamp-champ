@@ -19,20 +19,10 @@ class StampPad extends React.Component {
     showAddProfileForm: false,
     showAddTemplateForm: false,
     showAddStampForm: false,
-    triggerToggle : true
+    triggerToggle: true,
+    whatToEdit: '',
+    target: ''
   }
-
-  // copyToClipboard = (str) => {
-  //   const el = document.createElement('textarea')
-  //   el.value = str
-  //   el.setAttribute('readonly', '')
-  //   el.style.position = 'absolute'
-  //   el.style.left = '-9999px'
-  //   document.body.appendChild(el)
-  //   el.select()
-  //   document.execCommand('copy')
-  //   document.body.removeChild(el)
-  // }
 
   templateSelect = (templateId) => {
     this.setState({
@@ -58,51 +48,137 @@ class StampPad extends React.Component {
   triggerToggle = () => {
     console.log('in triggerToggle')
     this.setState({
-      triggerToggle : !this.state.triggerToggle
+      triggerToggle: !this.state.triggerToggle
     })
-    !this.state.triggerToggle ? document.getElementById('edit-form').classList.add('invisible') : document.getElementById('edit-form').classList.remove('invisible')
-    console.log(this.state.triggerToggle);
+    !this.state.triggerToggle
+      ? document.getElementById('edit-form').classList.add('invisible')
+      : document.getElementById('edit-form').classList.remove('invisible')
+    console.log(this.state.triggerToggle)
   }
 
   templateSelectEdit = (id) => {
-    console.log('in templateSelectEdit');
-    console.log('selected template id->');
-    console.log(this.state.selectedTemplate);
-    // set state to template id
     this.setState({
-      selectedTemplate : id
+      whatToEdit: 'template',
+      target: id
     })
-    console.log(id);
+    console.log('in templateSelectEdit')
+    console.log('selected template id->')
+    console.log(this.state.selectedTemplate)
+    console.log('what to edit')
+    console.log(this.state.whatToEdit)
+
+    // set state to template id
+    // this.setState({
+    //   selectedTemplate : id
+    // })
+    console.log(id)
     document.getElementById('templateTitle').value = id.title
-    document.getElementById('profileTitle').value = "N/A"
-    document.getElementById('stampTitle').value = "N/A"
-    document.getElementById('contentTitle').value = "N/A"
+    document.getElementById('profileTitle').value = 'N/A'
+    document.getElementById('stampTitle').value = 'N/A'
+    document.getElementById('contentTitle').value = 'N/A'
   }
 
   profileSelectEdit = (id) => {
-    console.log('in profileSelectEdit');
-    this.setState({
-      selectedProfile : id
-    })
-    console.log(id);
+    this.setState({ whatToEdit: 'profile', target: id })
+    console.log('in profileSelectEdit')
+    console.log('what to edit')
+    console.log(this.state.whatToEdit)
+    // this.setState({
+    //   selectedProfile : id
+    // })
+    console.log(id)
     document.getElementById('templateTitle').value = id.template_id
     document.getElementById('profileTitle').value = id.title
-    document.getElementById('stampTitle').value = "N/A"
-    document.getElementById('contentTitle').value = "N/A"
+    document.getElementById('stampTitle').value = 'N/A'
+    document.getElementById('contentTitle').value = 'N/A'
   }
 
   stampSelectEdit = (id) => {
-    console.log('in stampSelectEdit');
-    this.setState({selectedStamp : id})
-    document.getElementById('templateTitle').value = "N/A"
+    this.setState({ whatToEdit: 'stamp', target: id })
+    console.log('in stampSelectEdit')
+    console.log('what to edit')
+    console.log(this.state.whatToEdit)
+    this.setState({ selectedStamp: id })
+    document.getElementById('templateTitle').value = 'N/A'
     document.getElementById('profileTitle').value = id.load_out_id
     document.getElementById('stampTitle').value = id.title
     document.getElementById('contentTitle').value = id.content
   }
 
+  saveConfiguration = () => {
+    console.log('in saveConfiguration')
+    console.log('what to edit ->')
+    console.log(this.state.whatToEdit)
+
+    switch (this.state.whatToEdit) {
+      case 'template':
+        const newTemplateObj = {title: document.getElementById('templateTitle').value}
+        const newTemplateArr = this.state.storeTemplate.filter((template) => template.id === this.state.target.id)
+        const newTemplateObj2 = newTemplateArr[0]
+        // console.log('newObj');
+        // console.log(newObj);
+        // console.log('newArr');
+        // console.log(newArr);
+        // console.log('newObj2');
+        // console.log(newObj2);
+        const finalTemplateObj = {
+          ...newTemplateObj2, ...newTemplateObj
+        }
+        // console.log('finalObj');
+        // console.log(finalObj);
+        const arr2Template = [finalTemplateObj]
+        const resTemplate = this.state.storeTemplate.map(obj => arr2Template.find(o => o.id === obj.id) || obj);
+        // console.log(res);
+        this.setState({
+          storeTemplate : resTemplate
+        })
+        // post to DB storeTemplate
+        break;
+      case 'profile':
+        const newProfileObj = {title: document.getElementById('profileTitle').value, template_id : document.getElementById('templateTitle').value}
+        
+        const newProfileArr = this.state.storeProfile.filter((profile) => profile.id === this.state.target.id)
+        const newProfileObj2 = newProfileArr[0]
+        const finalProfileObj = {
+          ...newProfileObj2, ...newProfileObj
+        }
+        const arr2Profile = [finalProfileObj]
+        const resProfile = this.state.storeProfile.map(obj => arr2Profile.find(o => o.id === obj.id) || obj);
+        console.log(resProfile);
+        this.setState ({
+          storeProfile : resProfile 
+        })
+        // post to DB storeTemplate
+        break;
+      case 'stamp':
+        const newStampObj = {
+          title: document.getElementById('stampTitle').value, 
+          load_out_id : document.getElementById('profileTitle').value,
+          content : document.getElementById('contentTitle').value
+        }
+        
+        const newStampArr = this.state.storeStamps.filter((stamp) => stamp.id === this.state.target.id)
+        const newStampObj2 = newStampArr[0]
+        const finalStampObj = {
+          ...newStampObj2, ...newStampObj
+        }
+        const arr2Stamp = [finalStampObj]
+        const resStamp = this.state.storeStamps.map(obj => arr2Stamp.find(o => o.id === obj.id) || obj);
+        console.log(resStamp);
+        this.setState ({
+          storeStamps : resStamp
+        })
+        // post to DB storeTemplate
+        break;
+
+
+
+    }
+  }
+
   render() {
     // {this.props.changepage('stamps')}
-    
+
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
@@ -156,7 +232,7 @@ class StampPad extends React.Component {
         )
       })
     // .sort((a, b) => (a.order > b.order ? -1 : 1))
-    
+
     const templateRowEdit = this.state.storeTemplate.map((templ, i) => {
       return (
         <button
@@ -211,12 +287,11 @@ class StampPad extends React.Component {
       })
     // .sort((a, b) => (a.order > b.order ? -1 : 1))
 
-
     return (
       <div style={{ height: '100%' }} className="mainPage ">
         <main style={{ marginTop: '64px' }}>
-
           <div style={{ display: 'flex' }}>
+            <div className="spacer" />
             <h1>Edit Buttons!!</h1>
             <div className="spacer" />
             <button id="select-trigger" onClick={() => this.triggerToggle()}>
@@ -224,11 +299,18 @@ class StampPad extends React.Component {
               SELECT{' '}
             </button>
             <div className="spacer" />
+            <button
+              className="save-button"
+              onClick={() => this.saveConfiguration()}
+            >
+              SAVE
+            </button>
+            <div className="spacer" />
           </div>
 
           <div className="buttonRow" id="button-row-template">
             <div className="spacer" />
-            { this.state.triggerToggle ? templateRow : templateRowEdit}
+            {this.state.triggerToggle ? templateRow : templateRowEdit}
             <div className="spacer" />
           </div>
 
@@ -251,14 +333,17 @@ class StampPad extends React.Component {
           </div>
 
           <form className="toggleEditForm invisible" id="edit-form">
-            Template: <br/>
-            <input type="text" name="template" id="templateTitle"/><br/>
-            Profile: <br/>
-            <input type="text" name="profile" id="profileTitle"/><br/>
-            Stamp: <br/>
-            <input type="text" name="stamp" id="stampTitle"/><br/>
-            Content: <br/>
-            <textarea type="text" name="content" id="contentTitle"/>
+            Template: <br />
+            <input type="text" name="template" id="templateTitle" />
+            <br />
+            Profile: <br />
+            <input type="text" name="profile" id="profileTitle" />
+            <br />
+            Stamp: <br />
+            <input type="text" name="stamp" id="stampTitle" />
+            <br />
+            Content: <br />
+            <textarea type="text" name="content" id="contentTitle" />
           </form>
 
           <hr className="hr" />
