@@ -4,7 +4,6 @@ import STORE from '../../STORE'
 import './EditButton2.css'
 import AddButton from '../AddButton/AddButton'
 import DeleteButton from './DeleteButton'
-// import AddButton from '../AddButton/AddButton'
 
 const placeholder = document.createElement('li')
 placeholder.className = 'placeholder'
@@ -51,10 +50,16 @@ class StampPad extends React.Component {
     this.setState({
       triggerToggle: !this.state.triggerToggle
     })
-    !this.state.triggerToggle
-      ? document.getElementById('edit-form').classList.add('invisible')
-      : document.getElementById('edit-form').classList.remove('invisible')
-   
+
+    if (!this.state.triggerToggle) {
+      document.getElementById('edit-form').classList.add('invisible')
+      document.getElementById('accept').classList.add('invisible')
+      document.getElementById('cancel').classList.add('invisible')
+    } else {
+      document.getElementById('edit-form').classList.remove('invisible')
+      document.getElementById('accept').classList.remove('invisible')
+      document.getElementById('cancel').classList.remove('invisible')
+    }
     console.log(this.state.triggerToggle)
   }
 
@@ -68,12 +73,18 @@ class StampPad extends React.Component {
     console.log(this.state.selectedTemplate)
     console.log('what to edit')
     console.log(this.state.whatToEdit)
+    document
+      .getElementById('button-row-template')
+      .classList.remove('disable-button')
+    document
+      .getElementById('button-row-profile')
+      .classList.add('disable-button')
+    document.getElementById('button-row-stamps').classList.add('disable-button')
 
-    // set state to template id
-    // this.setState({
-    //   selectedTemplate : id
-    // })
     console.log(id)
+
+    document.getElementById('templateTitle').classList.remove('invisible')
+    document.getElementById('template-select2').classList.add('invisible')
     document.getElementById('templateTitle').value = id.title
     document.getElementById('profileTitle').value = 'N/A'
     document.getElementById('stampTitle').value = 'N/A'
@@ -85,15 +96,19 @@ class StampPad extends React.Component {
     console.log('in profileSelectEdit')
     console.log('what to edit')
     console.log(this.state.whatToEdit)
-    // this.setState({
-    //   selectedProfile : id
-    // })
     console.log(id)
+    document
+      .getElementById('button-row-template')
+      .classList.add('disable-button')
+    document
+      .getElementById('button-row-profile')
+      .classList.remove('disable-button')
+    document.getElementById('button-row-stamps').classList.add('disable-button')
     document.getElementById('templateTitle').value = id.template_id
     const newArray = this.state.storeTemplate.filter(
       (template) => template.id === id.template_id
     )
-    // document.getElementById('profileTitle').value = id.title
+
     document.getElementById('templateTitle').value = newArray[0].title
     document.getElementById('profileTitle').value = id.title
     document.getElementById('stampTitle').value = 'N/A'
@@ -105,6 +120,15 @@ class StampPad extends React.Component {
     console.log('in stampSelectEdit')
     console.log('what to edit')
     console.log(this.state.whatToEdit)
+    document
+      .getElementById('button-row-template')
+      .classList.add('disable-button')
+    document
+      .getElementById('button-row-profile')
+      .classList.add('disable-button')
+    document
+      .getElementById('button-row-stamps')
+      .classList.remove('disable-button')
     // this.setState({ selectedStamp: id })
     document.getElementById('templateTitle').value = 'N/A'
     const newArray = this.state.storeProfile.filter(
@@ -119,6 +143,15 @@ class StampPad extends React.Component {
     console.log('in saveConfiguration')
     console.log('what to edit ->')
     console.log(this.state.whatToEdit)
+    document
+      .getElementById('button-row-template')
+      .classList.remove('disable-button')
+    document
+      .getElementById('button-row-profile')
+      .classList.remove('disable-button')
+    document
+      .getElementById('button-row-stamps')
+      .classList.remove('disable-button')
 
     switch (this.state.whatToEdit) {
       case 'template':
@@ -129,18 +162,12 @@ class StampPad extends React.Component {
           (template) => template.id === this.state.target.id
         )
         const newTemplateObj2 = newTemplateArr[0]
-        // console.log('newObj');
-        // console.log(newObj);
-        // console.log('newArr');
-        // console.log(newArr);
-        // console.log('newObj2');
-        // console.log(newObj2);
+
         const finalTemplateObj = {
           ...newTemplateObj2,
           ...newTemplateObj
         }
-        // console.log('finalObj');
-        // console.log(finalObj);
+
         const arr2Template = [finalTemplateObj]
         const resTemplate = this.state.storeTemplate.map(
           (obj) => arr2Template.find((o) => o.id === obj.id) || obj
@@ -152,10 +179,23 @@ class StampPad extends React.Component {
         // post to DB storeTemplate
         break
       case 'profile':
+        const selTemp = this.state.storeTemplate.filter((temp) => {
+          return (
+            temp.title === document.getElementById('template-select2').value
+          )
+        })
+        console.log('selTemp')
+        console.log(selTemp)
+        
+
         const newProfileObj = {
-          title: document.getElementById('profileTitle').value,
-          template_id: document.getElementById('templateTitle').value
+          title: document.getElementById('profileTitle').value,  
+
+          template_id: selTemp[0].id
         }
+
+        console.log('profile case')
+        console.log(this.state.target)
 
         const newProfileArr = this.state.storeProfile.filter(
           (profile) => profile.id === this.state.target.id
@@ -201,6 +241,8 @@ class StampPad extends React.Component {
         // post to DB storeTemplate
         break
     }
+    this.triggerToggle()
+    this.resetState()
   }
 
   handleAddDeleteButton = (type, arr) => {
@@ -220,6 +262,50 @@ class StampPad extends React.Component {
       this.setState({
         storeStamps: arr
       })
+    }
+  }
+
+  toggleTemplateTitle = () => {
+    console.log('in toggleTemplateTitle')
+    const template_selection = document.getElementById('template-select2')
+    const arr = this.state.storeTemplate.map((tmpl) => tmpl.title)
+    for (let i = 0; i < arr.length; i++) {
+      let option = document.createElement('OPTION')
+      let txt = document.createTextNode(arr[i])
+      option.appendChild(txt)
+      option.setAttribute('value', arr[i])
+      template_selection.insertBefore(option, template_selection.lastChild)
+    }
+    if (this.state.whatToEdit === 'profile') {
+      console.log('profile profile')
+      document.getElementById('templateTitle').classList.add('invisible')
+      document.getElementById('template-select2').classList.remove('invisible')
+    }
+  }
+
+  editProfileTemplateSelect = () => {
+    console.log('in editProfileTemplateSelect')
+  }
+
+  resetState = () => {
+    //trigger re-render
+    this.setState({ requirementKey: Math.random() })
+  }
+
+  cancelConfiguration = () => {
+    console.log('in cancelConfiguration')
+    this.triggerToggle()
+    document
+      .getElementById('button-row-template')
+      .classList.remove('disable-button')
+    document
+      .getElementById('button-row-profile')
+      .classList.remove('disable-button')
+    document
+      .getElementById('button-row-stamps')
+      .classList.remove('disable-button')
+    if (!this.state.triggerToggle) {
+      this.resetState()
     }
   }
 
@@ -333,12 +419,19 @@ class StampPad extends React.Component {
         )
       })
     // .sort((a, b) => (a.order > b.order ? -1 : 1))
-    const addButtonForm = 
-    this.state.triggerToggle ? <AddButton onAddButton={this.handleAddDeleteButton} /> : <DeleteButton onDeleteButton={this.handleAddDeleteButton} target={this.state.target.title} whatToEdit={this.state.whatToEdit}/>
+    const addButtonForm = this.state.triggerToggle ? (
+      <AddButton onAddButton={this.handleAddDeleteButton} />
+    ) : (
+      <DeleteButton
+        onDeleteButton={this.handleAddDeleteButton}
+        target={this.state.target.title}
+        whatToEdit={this.state.whatToEdit}
+      />
+    )
 
     return (
       <div style={{ height: '100%' }} className="mainPage ">
-        <main style={{ marginTop: '64px' }}>
+        <main style={{ marginTop: '64px' }} key={this.state.requirementKey}>
           <div style={{ display: 'flex' }}>
             <div className="spacer" />
             <h1>Edit Buttons!!</h1>
@@ -349,10 +442,19 @@ class StampPad extends React.Component {
             </button>
             <div className="spacer" />
             <button
-              className="save-button"
+              id="accept"
+              className="save-button invisible"
               onClick={() => this.saveConfiguration()}
             >
-              SAVE
+              ACCEPT
+            </button>
+            <div className="spacer" />
+            <button
+              id="cancel"
+              className="save-button invisible"
+              onClick={() => this.cancelConfiguration()}
+            >
+              CANCEL
             </button>
             <div className="spacer" />
           </div>
@@ -383,7 +485,26 @@ class StampPad extends React.Component {
 
           <form className="toggleEditForm invisible" id="edit-form">
             Template: <br />
-            <input type="text" name="template" id="templateTitle" />
+            <input
+              type="text"
+              name="template"
+              id="templateTitle"
+              onClick={this.toggleTemplateTitle}
+            />
+            <select
+              className="invisible"
+              name="template-selection"
+              id="template-select2"
+              onChange={(e) => this.editProfileTemplateSelect(e)}
+            >
+              <option
+                value="Select Template"
+                name="default"
+                id="template_default_option"
+              >
+                Select Template
+              </option>
+            </select>
             <br />
             Profile: <br />
             <input type="text" name="profile" id="profileTitle" />
@@ -397,7 +518,6 @@ class StampPad extends React.Component {
 
           <hr className="hr" />
           {addButtonForm}
-          
         </main>
       </div>
     )

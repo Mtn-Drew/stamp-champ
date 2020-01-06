@@ -71,14 +71,24 @@
   margin: 0 3px;
 }
 
-.edit-select:hover {
+.edit-select:hover, .edit-select:focus {
   background-color: crimson;
   color: white;
   border: 3px black dashed;
 }
 
+
+
 textarea {
   display: flex;
   width: 100%;
   min-height: 200px;
+}
+
+.disable-button {
+  pointer-events: none;
+}
+
+.enable-button {
+  pointer-events: auto;
 }

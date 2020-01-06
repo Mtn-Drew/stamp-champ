@@ -240,6 +240,7 @@ class AddButton extends React.Component {
   }
 
   render() {
+
     return (
       <main style={{ marginTop: '64px' }} key={this.state.requirementKey}>
         <div>
@@ -268,6 +269,7 @@ class AddButton extends React.Component {
           placeholder="New Template Name"
           id="template_text_box"
         />
+        
         <form id="template-select-form" className="invisible">
           <select
             name="template-selection"

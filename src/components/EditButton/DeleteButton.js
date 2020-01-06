@@ -1,5 +1,6 @@
 import React from 'react'
 import STORE from '../../STORE'
+import './DeleteButton.css'
 
 class DeleteButton extends React.Component {
   state = {
@@ -65,7 +66,7 @@ class DeleteButton extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.handleDelete}>DELETE</button>
+        <button className="delete" onClick={this.handleDelete}>DELETE</button>
       </div>
     )
   }

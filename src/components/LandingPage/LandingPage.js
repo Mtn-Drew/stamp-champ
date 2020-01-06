@@ -21,7 +21,7 @@ import React, { Component } from 'react'
         </header>
         <p>[<em>placeholder for gif of click and copy</em>]</p>
         <p>
-          Copy Mate takes your most copied items and stores them in a button
+          Stamp Champ takes your most copied items and stores them in a button
           that you simply click to access. Click and paste. That's it.
         </p>
       </section>

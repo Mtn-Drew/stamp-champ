@@ -7,7 +7,10 @@ class StampPad extends React.Component {
   state = {
     store: STORE,
     selectedTemplate: STORE.template[0].id,
-    selectedProfile: STORE.stamps[0].load_out_id
+    selectedProfile: STORE.stamps[0].load_out_id,
+    storeTemplate: STORE.template,
+    storeProfile: STORE.load_out,
+    storeStamps: STORE.stamps
   }
 
   copyToClipboard = (str) => {
@@ -34,20 +37,23 @@ class StampPad extends React.Component {
     })
   }
 
+  
   render() {
-    const templateRow = this.state.store.template.map((templ, i) => {
+    
+
+    const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
           key={templ.id}
-          onClick={() => this.templateSelect(this.state.store.template[i].id)}
+          onClick={() => this.templateSelect(this.state.storeTemplate[i].id)}
           template={this.state.selectedTemplate}
         >
-          {this.state.store.template[i].title}
+          {this.state.storeTemplate[i].title}
         </Button>
       )
     })
 
-    const profileRow = this.state.store.load_out
+    const profileRow = this.state.storeProfile
       .filter(
         (selected) => selected.template_id === this.state.selectedTemplate
       )
@@ -65,7 +71,7 @@ class StampPad extends React.Component {
         )
       })
 
-    const stampRow = this.state.store.stamps
+    const stampRow = this.state.storeStamps
       .filter((stamp) => stamp.load_out_id === this.state.selectedProfile)
 
       .map((stamp, i) => {
@@ -73,8 +79,8 @@ class StampPad extends React.Component {
           <Button
             key={stamp.id}
             onClick={() => this.copyToClipboard(stamp.content)}
-            title={this.state.store.stamps[i].title}
-            text={this.state.store.stamps[i].content}
+            title={this.state.storeStamps[i].title}
+            text={this.state.storeStamps[i].content}
             draggable
           >
             {stamp.title}
