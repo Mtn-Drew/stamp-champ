@@ -83,8 +83,8 @@ class StampPad extends React.Component {
 
     console.log(id)
 
-    document.getElementById('templateTitle').classList.remove('invisible')
-    document.getElementById('template-select2').classList.add('invisible')
+     document.getElementById('templateTitle').classList.remove('invisible')
+    // document.getElementById('template-select2').classList.add('invisible')
     document.getElementById('templateTitle').value = id.title
     document.getElementById('profileTitle').value = 'N/A'
     document.getElementById('stampTitle').value = 'N/A'
@@ -184,6 +184,7 @@ class StampPad extends React.Component {
             temp.title === document.getElementById('template-select2').value
           )
         })
+        console.log(document.getElementById('template-select2').value);
         console.log('selTemp')
         console.log(selTemp)
         
@@ -267,20 +268,20 @@ class StampPad extends React.Component {
 
   toggleTemplateTitle = () => {
     console.log('in toggleTemplateTitle')
-    const template_selection = document.getElementById('template-select2')
-    const arr = this.state.storeTemplate.map((tmpl) => tmpl.title)
-    for (let i = 0; i < arr.length; i++) {
-      let option = document.createElement('OPTION')
-      let txt = document.createTextNode(arr[i])
-      option.appendChild(txt)
-      option.setAttribute('value', arr[i])
-      template_selection.insertBefore(option, template_selection.lastChild)
-    }
-    if (this.state.whatToEdit === 'profile') {
-      console.log('profile profile')
-      document.getElementById('templateTitle').classList.add('invisible')
-      document.getElementById('template-select2').classList.remove('invisible')
-    }
+    // const template_selection = document.getElementById('template-select2')
+    // const arr = this.state.storeTemplate.map((tmpl) => tmpl.title)
+    // for (let i = 0; i < arr.length; i++) {
+    //   let option = document.createElement('OPTION')
+    //   let txt = document.createTextNode(arr[i])
+    //   option.appendChild(txt)
+    //   option.setAttribute('value', arr[i])
+    //   template_selection.insertBefore(option, template_selection.lastChild)
+    // }
+    // if (this.state.whatToEdit === 'profile') {
+    //   console.log('profile profile')
+    //   document.getElementById('templateTitle').classList.add('invisible')
+    //   document.getElementById('template-select2').classList.remove('invisible')
+    // }
   }
 
   editProfileTemplateSelect = () => {
@@ -308,6 +309,21 @@ class StampPad extends React.Component {
       this.resetState()
     }
   }
+
+  renderTemplateOptions = () => {
+    return this.state.storeTemplate.map((tmpl) =>{ 
+      let select = ''
+      console.log('in renderTemplateOptions');
+      console.log(tmpl.id);
+      console.log(this.state.target.template_id);
+      if  (tmpl.id == this.state.target.template_id) {
+        select='selected'
+      }
+      return (<option value={tmpl.title} selected={select}>{tmpl.title}</option>)
+    })
+  }
+
+  
 
   render() {
     // {this.props.changepage('stamps')}
@@ -491,20 +507,38 @@ class StampPad extends React.Component {
               id="templateTitle"
               onClick={this.toggleTemplateTitle}
             />
-            <select
-              className="invisible"
+            {this.state.whatToEdit === 'profile' ? (<select
+              
               name="template-selection"
               id="template-select2"
               onChange={(e) => this.editProfileTemplateSelect(e)}
             >
               <option
+                selected={this.state.storeTemplate}
                 value="Select Template"
                 name="default"
                 id="template_default_option"
               >
                 Select Template
               </option>
-            </select>
+              {this.renderTemplateOptions()}
+            </select>): ''}
+            {/* <select
+              className="invisible"
+              name="template-selection"
+              id="template-select2"
+              onChange={(e) => this.editProfileTemplateSelect(e)}
+            >
+              <option
+                selected={this.state.storeTemplate}
+                value="Select Template"
+                name="default"
+                id="template_default_option"
+              >
+                Select Template
+              </option>
+              {this.renderTemplateOptions()}
+            </select> */}
             <br />
             Profile: <br />
             <input type="text" name="profile" id="profileTitle" />
