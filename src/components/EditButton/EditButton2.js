@@ -329,6 +329,24 @@ class StampPad extends React.Component {
     })
   }
 
+  renderProfileOptions = () => {
+    return this.state.storeProfile.map((prof) => {
+      // let select = ''
+      console.log('in renderProfileOptions')
+      console.log(prof.id)
+      console.log(this.state.target.load_out_id)
+      // if (tmpl.id === this.state.target.template_id) {
+      //   select = 'selected'
+      // }
+      return (
+        // <option key={tmpl.id} value={tmpl.title} selected={select}>
+        <option key={prof.id} value={prof.title} >
+          {prof.title}
+        </option>
+      )
+    })
+  }
+
   render() {
     // {this.props.changepage('stamps')}
 
@@ -450,6 +468,7 @@ class StampPad extends React.Component {
     )
 
     const profileDefaultValue = this.state.storeTemplate.find(t=>t.id===this.state.target.title)
+    const stampDefaultValue = this.state.storeProfile.find(p=>p.id===this.state.target.title)
 
     return (
       <div style={{ height: '100%' }} className="mainPage ">
@@ -521,7 +540,6 @@ class StampPad extends React.Component {
                 defaultValue={profileDefaultValue}
               >
                 <option
-                  // selected={this.state.storeTemplate}
                   value="Select Template"
                   name="default"
                   id="template_default_option"
@@ -552,6 +570,25 @@ class StampPad extends React.Component {
             <br />
             Profile: <br />
             <input type="text" name="profile" id="profileTitle" />
+            {this.state.whatToEdit === 'stamp' ? (
+              <select
+                name="profile-selection"
+                id="profile-select2"
+                onChange={(e) => this.editProfileTemplateSelect(e)}
+                defaultValue={stampDefaultValue}
+              >
+                <option
+                  value="Select Profile"
+                  name="default"
+                  id="profile_default_option"
+                >
+                  Select Profile
+                </option>
+                {this.renderProfileOptions()}
+              </select>
+            ) : (
+              ''
+            )}
             <br />
             Stamp: <br />
             <input type="text" name="stamp" id="stampTitle" />
