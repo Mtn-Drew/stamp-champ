@@ -10,7 +10,7 @@ import CreateAccount from './components/CreateAccount/CreateAccount'
 
 
 // import Configure2 from './components/Configure2/Configure2'
-import Config3 from './components/Configure2/Config3'
+// import Config3 from './components/Configure2/Config3'
 
 import SignIn from './components/SignIn/SignIn'
 

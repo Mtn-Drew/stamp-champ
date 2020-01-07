@@ -83,7 +83,7 @@ class StampPad extends React.Component {
 
     console.log(id)
 
-     document.getElementById('templateTitle').classList.remove('invisible')
+    document.getElementById('templateTitle').classList.remove('invisible')
     // document.getElementById('template-select2').classList.add('invisible')
     document.getElementById('templateTitle').value = id.title
     document.getElementById('profileTitle').value = 'N/A'
@@ -184,13 +184,12 @@ class StampPad extends React.Component {
             temp.title === document.getElementById('template-select2').value
           )
         })
-        console.log(document.getElementById('template-select2').value);
+        console.log(document.getElementById('template-select2').value)
         console.log('selTemp')
         console.log(selTemp)
-        
 
         const newProfileObj = {
-          title: document.getElementById('profileTitle').value,  
+          title: document.getElementById('profileTitle').value,
 
           template_id: selTemp[0].id
         }
@@ -241,6 +240,8 @@ class StampPad extends React.Component {
         })
         // post to DB storeTemplate
         break
+        default:
+          console.log('selection error eb2');
     }
     this.triggerToggle()
     this.resetState()
@@ -311,19 +312,22 @@ class StampPad extends React.Component {
   }
 
   renderTemplateOptions = () => {
-    return this.state.storeTemplate.map((tmpl) =>{ 
-      let select = ''
-      console.log('in renderTemplateOptions');
-      console.log(tmpl.id);
-      console.log(this.state.target.template_id);
-      if  (tmpl.id == this.state.target.template_id) {
-        select='selected'
-      }
-      return (<option value={tmpl.title} selected={select}>{tmpl.title}</option>)
+    return this.state.storeTemplate.map((tmpl) => {
+      // let select = ''
+      console.log('in renderTemplateOptions')
+      console.log(tmpl.id)
+      console.log(this.state.target.template_id)
+      // if (tmpl.id === this.state.target.template_id) {
+      //   select = 'selected'
+      // }
+      return (
+        // <option key={tmpl.id} value={tmpl.title} selected={select}>
+        <option key={tmpl.id} value={tmpl.title} >
+          {tmpl.title}
+        </option>
+      )
     })
   }
-
-  
 
   render() {
     // {this.props.changepage('stamps')}
@@ -445,6 +449,8 @@ class StampPad extends React.Component {
       />
     )
 
+    const profileDefaultValue = this.state.storeTemplate.find(t=>t.id===this.state.target.title)
+
     return (
       <div style={{ height: '100%' }} className="mainPage ">
         <main style={{ marginTop: '64px' }} key={this.state.requirementKey}>
@@ -507,22 +513,26 @@ class StampPad extends React.Component {
               id="templateTitle"
               onClick={this.toggleTemplateTitle}
             />
-            {this.state.whatToEdit === 'profile' ? (<select
-              
-              name="template-selection"
-              id="template-select2"
-              onChange={(e) => this.editProfileTemplateSelect(e)}
-            >
-              <option
-                selected={this.state.storeTemplate}
-                value="Select Template"
-                name="default"
-                id="template_default_option"
+            {this.state.whatToEdit === 'profile' ? (
+              <select
+                name="template-selection"
+                id="template-select2"
+                onChange={(e) => this.editProfileTemplateSelect(e)}
+                defaultValue={profileDefaultValue}
               >
-                Select Template
-              </option>
-              {this.renderTemplateOptions()}
-            </select>): ''}
+                <option
+                  // selected={this.state.storeTemplate}
+                  value="Select Template"
+                  name="default"
+                  id="template_default_option"
+                >
+                  Select Template
+                </option>
+                {this.renderTemplateOptions()}
+              </select>
+            ) : (
+              ''
+            )}
             {/* <select
               className="invisible"
               name="template-selection"
