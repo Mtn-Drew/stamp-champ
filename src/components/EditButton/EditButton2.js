@@ -181,7 +181,8 @@ class StampPad extends React.Component {
       case 'profile':
         const selTemp = this.state.storeTemplate.filter((temp) => {
           return (
-            temp.title === document.getElementById('template-select2').value
+            temp.id === this.state.target.template_id
+            
           )
         })
         console.log(document.getElementById('template-select2').value)
@@ -216,9 +217,20 @@ class StampPad extends React.Component {
         // post to DB storeTemplate
         break
       case 'stamp':
+        console.log('in STAMP');
+        console.log('target?');
+        console.log(this.state.target);
+        const selTemp2 = this.state.storeProfile.filter((temp) => {
+          return (
+            temp.id === this.state.target.id
+          )
+        })
+        console.log(document.getElementById('profile-select2').value)
+        console.log('selTemp2')
+        console.log(selTemp2)
         const newStampObj = {
           title: document.getElementById('stampTitle').value,
-          load_out_id: document.getElementById('profileTitle').value,
+          load_out_id: selTemp2[0].id,
           content: document.getElementById('contentTitle').value
         }
 
@@ -287,6 +299,7 @@ class StampPad extends React.Component {
 
   editProfileTemplateSelect = () => {
     console.log('in editProfileTemplateSelect')
+
   }
 
   resetState = () => {
