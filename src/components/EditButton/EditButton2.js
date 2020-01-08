@@ -21,7 +21,8 @@ class StampPad extends React.Component {
     showAddStampForm: false,
     triggerToggle: true,
     whatToEdit: '',
-    target: ''
+    target: '',
+    templateSelectedValue: ''
   }
 
   templateSelect = (templateId) => {
@@ -143,6 +144,8 @@ class StampPad extends React.Component {
     console.log('in saveConfiguration')
     console.log('what to edit ->')
     console.log(this.state.whatToEdit)
+
+    //render elements
     document
       .getElementById('button-row-template')
       .classList.remove('disable-button')
@@ -155,7 +158,10 @@ class StampPad extends React.Component {
 
     switch (this.state.whatToEdit) {
       case 'template':
+      //create new object with new title, then find old object, then replace old with new
+
         const newTemplateObj = {
+          //set to state in toggleTemplateTitle??
           title: document.getElementById('templateTitle').value
         }
         const newTemplateArr = this.state.storeTemplate.filter(
@@ -179,25 +185,28 @@ class StampPad extends React.Component {
         // post to DB storeTemplate
         break
       case 'profile':
+        //find the template with the title selected in the dropdown to get the template.id
         const selTemp = this.state.storeTemplate.filter((temp) => {
           return (
-            temp.id === this.state.target.template_id
-            
+            // temp.id === this.state.target.template_id
+            temp.title === this.state.templateSelectedValue
           )
         })
+        console.log('target');
+        console.log(this.state.target);
         console.log(document.getElementById('template-select2').value)
         console.log('selTemp')
         console.log(selTemp)
-
+        //assign new name and matching template id to new object
         const newProfileObj = {
           title: document.getElementById('profileTitle').value,
-
+          //need validation; will crash if match isn't found
           template_id: selTemp[0].id
         }
 
         console.log('profile case')
         console.log(this.state.target)
-
+        //filter all profile objects to get the profile we want to replace <use find instead??>
         const newProfileArr = this.state.storeProfile.filter(
           (profile) => profile.id === this.state.target.id
         )
@@ -279,8 +288,10 @@ class StampPad extends React.Component {
     }
   }
 
-  toggleTemplateTitle = () => {
+  toggleTemplateTitle = (e) => {
     console.log('in toggleTemplateTitle')
+    console.log('e.target');
+    console.log(e.target);
     // const template_selection = document.getElementById('template-select2')
     // const arr = this.state.storeTemplate.map((tmpl) => tmpl.title)
     // for (let i = 0; i < arr.length; i++) {
@@ -297,9 +308,15 @@ class StampPad extends React.Component {
     // }
   }
 
-  editProfileTemplateSelect = () => {
+  editProfileTemplateSelect = (e) => {
     console.log('in editProfileTemplateSelect')
-
+    console.log('e.target');
+    console.log(e.target);
+    console.log('e.target.value');
+    console.log(e.target.value);
+    this.setState({
+      templateSelectedValue : e.target.value
+    })
   }
 
   resetState = () => {
@@ -324,6 +341,7 @@ class StampPad extends React.Component {
     }
   }
 
+  //maps through template array to populate dropdown
   renderTemplateOptions = () => {
     return this.state.storeTemplate.map((tmpl) => {
       // let select = ''
@@ -342,6 +360,7 @@ class StampPad extends React.Component {
     })
   }
 
+  //maps through profile array to populate dropdown
   renderProfileOptions = () => {
     return this.state.storeProfile.map((prof) => {
       // let select = ''
@@ -543,7 +562,7 @@ class StampPad extends React.Component {
               type="text"
               name="template"
               id="templateTitle"
-              onClick={this.toggleTemplateTitle}
+              onClick={(e)=>this.toggleTemplateTitle(e)}
             />
             {this.state.whatToEdit === 'profile' ? (
               <select

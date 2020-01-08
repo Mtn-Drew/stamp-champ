@@ -242,7 +242,7 @@ class AddButton extends React.Component {
   render() {
 
     return (
-      <main style={{ marginTop: '64px' }} key={this.state.requirementKey}>
+      <main  key={this.state.requirementKey}>
         <div>
           <h1>Add Button></h1>
         </div>
@@ -318,7 +318,7 @@ class AddButton extends React.Component {
             id="stamp_content_box"
           ></textarea>
         </form>
-        {console.log(this.state)}
+        {/* {console.log(this.state)} */}
       </main>
     )
   }
