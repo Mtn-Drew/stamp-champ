@@ -198,8 +198,11 @@ class StampPad extends React.Component {
         console.log('selTemp')
         console.log(selTemp)
         //assign new name and matching template id to new object
+        if (document.getElementById('profileTitle').value === 'Select Template') {
+          selTemp[0].id = this.state.target.template_id
+        }
         const newProfileObj = {
-          title: document.getElementById('profileTitle').value,
+          title: document.getElementById('profileTitle').value, // need to change 
           //need validation; will crash if match isn't found
           template_id: selTemp[0].id
         }
