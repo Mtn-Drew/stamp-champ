@@ -5,8 +5,8 @@ import './EditButton2.css'
 import AddButton from '../AddButton/AddButton'
 import DeleteButton from './DeleteButton'
 
-const placeholder = document.createElement('li')
-placeholder.className = 'placeholder'
+// const placeholder = document.createElement('li')
+// placeholder.className = 'placeholder'
 class StampPad extends React.Component {
   state = {
     store: STORE,
@@ -22,7 +22,10 @@ class StampPad extends React.Component {
     triggerToggle: true,
     whatToEdit: '',
     target: '',
-    templateSelectedValue: ''
+    templateSelectedValue: '',
+    templateRowSelected: true,
+    profileRowSelected: true,
+    stampRowSelected: true
   }
 
   templateSelect = (templateId) => {
@@ -52,84 +55,104 @@ class StampPad extends React.Component {
       triggerToggle: !this.state.triggerToggle
     })
 
-    if (!this.state.triggerToggle) {
-      // document.getElementById('edit-form').classList.add('invisible')
-      document.getElementById('accept').classList.add('invisible')
-      document.getElementById('cancel').classList.add('invisible')
-    } else {
-      // document.getElementById('edit-form').classList.remove('invisible')
-      document.getElementById('accept').classList.remove('invisible')
-      document.getElementById('cancel').classList.remove('invisible')
-    }
+    // if (!this.state.triggerToggle) {
+    //    document.getElementById('edit-form').classList.add('invisible')
+    //   document.getElementById('accept').classList.add('invisible')
+    //   document.getElementById('cancel').classList.add('invisible')
+    // } else {
+    //    document.getElementById('edit-form').classList.remove('invisible')
+    //   document.getElementById('accept').classList.remove('invisible')
+    //   document.getElementById('cancel').classList.remove('invisible')
+    // }
     console.log(this.state.triggerToggle)
   }
-
+  //when template button is clicked during 'select'
   templateSelectEdit = (id) => {
-    this.setState({
-      whatToEdit: 'template',
-      target: id
-    })
+  //   this.setState({
+      
+  //   })
     console.log('in templateSelectEdit')
     console.log('selected template id->')
     console.log(this.state.selectedTemplate)
     console.log('what to edit')
     console.log(this.state.whatToEdit)
-    document
-      .getElementById('button-row-template')
-      .classList.remove('disable-button')
-    document
-      .getElementById('button-row-profile')
-      .classList.add('disable-button')
-    document.getElementById('button-row-stamps').classList.add('disable-button')
+
+    this.setState({
+      templateRowSelected: true,
+      profileRowSelected: false,
+      stampRowSelected: false,
+      whatToEdit: 'template',
+      target: id,
+      templateRowSelected: true
+    })
+
+    
+    // document.getElementById('button-row-template').classList.remove('disable-button')
+    // document.getElementById('button-row-profile').classList.add('disable-button')
+    // document.getElementById('button-row-stamps').classList.add('disable-button')
 
     console.log(id)
 
-    document.getElementById('templateTitle').classList.remove('invisible')
+    // document.getElementById('templateTitle').classList.remove('invisible')
     // document.getElementById('template-select2').classList.add('invisible')
     document.getElementById('templateTitle').value = id.title
     document.getElementById('profileTitle').value = 'N/A'
     document.getElementById('stampTitle').value = 'N/A'
     document.getElementById('contentTitle').value = 'N/A'
   }
-
+  //when profile button is clicked during 'select'
   profileSelectEdit = (id) => {
-    this.setState({ whatToEdit: 'profile', target: id })
+    this.setState({ 
+      whatToEdit: 'profile', 
+      target: id, 
+      templateRowSelected: false,
+      profileRowSelected: true,
+      stampRowSelected: false,
+      templateTitle: id.title
+      
+    })
     console.log('in profileSelectEdit')
     console.log('what to edit')
     console.log(this.state.whatToEdit)
     console.log(id)
-    document
-      .getElementById('button-row-template')
-      .classList.add('disable-button')
-    document
-      .getElementById('button-row-profile')
-      .classList.remove('disable-button')
-    document.getElementById('button-row-stamps').classList.add('disable-button')
+    // document
+    //   .getElementById('button-row-template')
+    //   .classList.add('disable-button')
+    // document
+    //   .getElementById('button-row-profile')
+    //   .classList.remove('disable-button')
+    // document.getElementById('button-row-stamps').classList.add('disable-button')
     document.getElementById('templateTitle').value = id.template_id
     const newArray = this.state.storeTemplate.filter(
       (template) => template.id === id.template_id
     )
 
-    document.getElementById('templateTitle').value = newArray[0].title
-    document.getElementById('profileTitle').value = id.title
-    document.getElementById('stampTitle').value = 'N/A'
-    document.getElementById('contentTitle').value = 'N/A'
+    // document.getElementById('templateTitle').value = newArray[0].title
+    // document.getElementById('profileTitle').value = id.title
+    // document.getElementById('stampTitle').value = 'N/A'
+    // document.getElementById('contentTitle').value = 'N/A'
   }
-
+  // when stamp button is clicked during 'select'
   stampSelectEdit = (id) => {
-    this.setState({ whatToEdit: 'stamp', target: id })
+    this.setState({ 
+      whatToEdit: 'stamp', 
+      target: id,
+      templateRowSelected: false,
+      profileRowSelected: false,
+      stampRowSelected: true 
+    })
     console.log('in stampSelectEdit')
     console.log('what to edit')
     console.log(this.state.whatToEdit)
-    document
-      .getElementById('button-row-template')
-      .classList.add('disable-button')
-    document
-      .getElementById('button-row-profile')
-      .classList.add('disable-button')
-    document
-      .getElementById('button-row-stamps')
-      .classList.remove('disable-button')
+    // document
+    //   .getElementById('button-row-template')
+    //   .classList.add('disable-button')
+    // document
+    //   .getElementById('button-row-profile')
+    //   .classList.add('disable-button')
+    // document
+    //   .getElementById('button-row-stamps')
+    //   .classList.remove('disable-button')
     // this.setState({ selectedStamp: id })
     document.getElementById('templateTitle').value = 'N/A'
     const newArray = this.state.storeProfile.filter(
@@ -140,45 +163,42 @@ class StampPad extends React.Component {
     document.getElementById('contentTitle').value = id.content
   }
 
+  // Save changes to state  
   saveConfiguration = () => {
     console.log('in saveConfiguration')
     console.log('what to edit ->')
     console.log(this.state.whatToEdit)
 
     //render elements
-    document
-      .getElementById('button-row-template')
-      .classList.remove('disable-button')
-    document
-      .getElementById('button-row-profile')
-      .classList.remove('disable-button')
-    document
-      .getElementById('button-row-stamps')
-      .classList.remove('disable-button')
+    // document.getElementById('button-row-template').classList.remove('disable-button')
+    // document.getElementById('button-row-profile').classList.remove('disable-button')
+    // document.getElementById('button-row-stamps').classList.remove('disable-button')
 
     switch (this.state.whatToEdit) {
       case 'template':
         //create new object with new title, then find old object, then replace old with new
 
         const newTemplateObj = {
-          //set to state in toggleTemplateTitle??
+          //get the value in template text box
           title: document.getElementById('templateTitle').value
         }
+        // find the template we are changing
         const newTemplateArr = this.state.storeTemplate.filter(
           (template) => template.id === this.state.target.id
         )
+        //can we just put newTemplateArr[0] in finalTemplateObj??
         const newTemplateObj2 = newTemplateArr[0]
-
+          //merge
         const finalTemplateObj = {
           ...newTemplateObj2,
           ...newTemplateObj
         }
-
+        //put new object in array, and swap with old object
         const arr2Template = [finalTemplateObj]
         const resTemplate = this.state.storeTemplate.map(
           (obj) => arr2Template.find((o) => o.id === obj.id) || obj
         )
-        // console.log(res);
+        // replace old array with new array
         this.setState({
           storeTemplate: resTemplate
         })
@@ -316,15 +336,20 @@ class StampPad extends React.Component {
   cancelConfiguration = () => {
     console.log('in cancelConfiguration')
     this.triggerToggle()
-    document
-      .getElementById('button-row-template')
-      .classList.remove('disable-button')
-    document
-      .getElementById('button-row-profile')
-      .classList.remove('disable-button')
-    document
-      .getElementById('button-row-stamps')
-      .classList.remove('disable-button')
+    this.setState({
+      templateRowSelected: true,
+    profileRowSelected: true,
+    stampRowSelected: true
+    })
+    // document
+    //   .getElementById('button-row-template')
+    //   .classList.remove('disable-button')
+    // document
+    //   .getElementById('button-row-profile')
+    //   .classList.remove('disable-button')
+    // document
+    //   .getElementById('button-row-stamps')
+    //   .classList.remove('disable-button')
     if (!this.state.triggerToggle) {
       this.resetState()
     }
@@ -370,6 +395,8 @@ class StampPad extends React.Component {
 
   render() {
     // {this.props.changepage('stamps')}
+    console.log(this.state.triggerToggle);
+
 
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
@@ -506,25 +533,32 @@ class StampPad extends React.Component {
               SELECT{' '}
             </button>
             <div className="spacer" />
+
+            {!this.state.triggerToggle ? (
+            <>
             <button
               id="accept"
-              className="save-button invisible"
+              className="save-button"
               onClick={() => this.saveConfiguration()}
             >
               ACCEPT
             </button>
+
             <div className="spacer" />
+
             <button
               id="cancel"
-              className="save-button invisible"
+              className="save-button"
               onClick={() => this.cancelConfiguration()}
             >
               CANCEL
             </button>
+
             <div className="spacer" />
+            </>) : ''}
           </div>
 
-          <div className="buttonRow" id="button-row-template">
+          <div className={this.state.templateRowSelected ? "buttonRow":"disable-button buttonRow"} id="button-row-template">
             <div className="spacer" />
             {this.state.triggerToggle ? templateRow : templateRowEdit}
             <div className="spacer" />
@@ -532,7 +566,7 @@ class StampPad extends React.Component {
 
           <hr className="hr" />
 
-          <div className="buttonRow" id="button-row-profile">
+          <div className={this.state.profileRowSelected ? "buttonRow":"disable-button buttonRow"} id="button-row-profile">
             <div className="spacer" />
 
             {this.state.triggerToggle ? profileRow : profileRowEdit}
@@ -542,20 +576,21 @@ class StampPad extends React.Component {
 
           <hr className="hr" />
 
-          <div className="buttonRow" id="button-row-stamps">
+          <div className={this.state.stampRowSelected ? "buttonRow":"disable-button buttonRow"} id="button-row-stamps">
             <div className="spacer" />
             {this.state.triggerToggle ? stampRow : stampRowEdit}
             <div className="spacer" />
           </div>
 
-          {/* {this.state.triggerToggle ? (<form className="toggleEditForm invisible" id="edit-form"> */}
-          <form className="toggleEditForm invisible" id="edit-form">
+           {!this.state.triggerToggle ? (<form className="toggleEditForm" id="edit-form"> 
+          {/* <form className="toggleEditForm invisible" id="edit-form"> */}
             Template: <br />
             <input
               type="text"
               name="template"
               id="templateTitle"
               onClick={(e) => this.toggleTemplateTitle(e)}
+              defaultValue={this.state.templateTitle}
             />
             {this.state.whatToEdit === 'profile' ? (
               <select
@@ -604,8 +639,10 @@ class StampPad extends React.Component {
             <br />
             Content: <br />
             <textarea type="text" name="content" id="contentTitle" />
-          {/* </form>) : ''} */}
-          </form>
+          </form>) : ''}
+          {/* </form> */}
+
+
           <hr className="hr" />
           {addButtonForm}
         </main>
