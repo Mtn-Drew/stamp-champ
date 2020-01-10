@@ -428,7 +428,7 @@ profileBoxChange = (e) => {
       e.target.value= this.state.formProfileTextBox
       break
       default:
-        console.log('wrong selection in templateBoxChange');
+        console.log('wrong selection in profileBoxChange');
 }
 }
 
@@ -449,7 +449,28 @@ stampBoxChange = (e) => {
       })
       break
       default:
-        console.log('wrong selection in templateBoxChange');
+        console.log('wrong selection in stampBoxChange');
+}
+}
+
+contentBoxChange = (e) => {
+  console.log('in contentBoxChange');
+  console.log(e.target);
+  switch (this.state.whatToEdit) {
+    case 'template':
+      e.target.value= this.state.formStampTextBox
+  break
+  case 'profile':
+    e.target.value= this.state.formStampTextBox
+    
+    break
+    case 'stamp':
+      this.setState({
+        formContentTextBox: e.target.value
+      })
+      break
+      default:
+        console.log('wrong selection in contentBoxChange');
 }
 }
 
@@ -735,7 +756,13 @@ stampBoxChange = (e) => {
                 />
               <br />
               Content: <br />
-              <textarea type="text" name="content" id="contentTitle" defaultValue={this.state.formContentTextBox}/>
+              <textarea 
+                type="text" 
+                name="content" 
+                id="contentTitle" 
+                value={this.state.formContentTextBox}
+                onChange={(e)=>this.contentBoxChange(e)}
+                />
             </form>
           ) : (
             ''
