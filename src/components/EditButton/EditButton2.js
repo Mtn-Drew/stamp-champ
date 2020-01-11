@@ -146,7 +146,6 @@ class StampPad extends React.Component {
         //create new object with new title, then find old object, then replace old with new
         const newTemplateObj = {
           //get the value in template text box
-          // title: document.getElementById('templateTitle').value
           title: this.state.formTemplateTextBox
         }
         // find the template we are changing
@@ -180,23 +179,30 @@ class StampPad extends React.Component {
             temp.title === this.state.templateSelectedValue
           )
         })
+
         console.log('target')
         console.log(this.state.target)
         console.log(document.getElementById('template-select2').value)
         console.log('selTemp')
         console.log(selTemp)
         //assign new name and matching template id to new object
-        if (
-          document.getElementById('profileTitle').value === 'Select Template'
-        ) {
-          selTemp.id = this.state.target.template_id
-        }
+        // if (
+        //   document.getElementById('profileTitle').value === 'Select Template'
+        // ) {
+        //   selTemp.id = this.state.target.template_id
+        // }
         
         const newProfileObj = {
-          title: document.getElementById('profileTitle').value, // need to change
+          // title: document.getElementById('profileTitle').value,
+          title: this.state.formProfileTextBox,  
           //need validation; will crash if match isn't found
-          template_id: selTemp.id
+          // template_id: this.state.target.id
         }
+
+        if (selTemp!==undefined) {
+          newProfileObj.template_id= selTemp.id // this is profile object id, not template id
+          }
+        
 
         console.log('profile case')
         console.log(this.state.target)
