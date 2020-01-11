@@ -29,7 +29,7 @@ class StampPad extends React.Component {
     formTemplateTextBox: '',
     formProfileTextBox: '',
     formStampTextBox: '',
-    formContentTextBox: '',
+    formContentTextBox: ''
   }
 
   templateSelect = (templateId) => {
@@ -63,7 +63,6 @@ class StampPad extends React.Component {
   }
   //when template button is clicked during 'select'
   templateSelectEdit = (id) => {
-
     console.log('in templateSelectEdit')
     console.log('selected template id->')
     console.log(this.state.selectedTemplate)
@@ -84,9 +83,8 @@ class StampPad extends React.Component {
       formTemplateTextBox: id.title,
       formProfileTextBox: 'N/A',
       formStampTextBox: 'N/A',
-      formContentTextBox: 'N/A',
+      formContentTextBox: 'N/A'
     })
-
   }
   //when profile button is clicked during 'select'
   profileSelectEdit = (id) => {
@@ -110,10 +108,8 @@ class StampPad extends React.Component {
       formTemplateTextBox: newArray[0].title,
       formProfileTextBox: id.title,
       formStampTextBox: 'N/A',
-      formContentTextBox: 'N/A',
+      formContentTextBox: 'N/A'
     })
-
-
   }
   // when stamp button is clicked during 'select'
   stampSelectEdit = (id) => {
@@ -135,9 +131,8 @@ class StampPad extends React.Component {
       formTemplateTextBox: 'N/A',
       formProfileTextBox: newArray[0].title,
       formStampTextBox: id.title,
-      formContentTextBox: id.content,
+      formContentTextBox: id.content
     })
- 
   }
 
   // Save changes to state
@@ -146,11 +141,9 @@ class StampPad extends React.Component {
     console.log('what to edit ->')
     console.log(this.state.whatToEdit)
 
-   
     switch (this.state.whatToEdit) {
       case 'template':
         //create new object with new title, then find old object, then replace old with new
-
         const newTemplateObj = {
           //get the value in template text box
           // title: document.getElementById('templateTitle').value
@@ -178,9 +171,10 @@ class StampPad extends React.Component {
         })
         // post to DB storeTemplate
         break
+
       case 'profile':
         //find the template with the title selected in the dropdown to get the template.id
-        const selTemp = this.state.storeTemplate.filter((temp) => {
+        const selTemp = this.state.storeTemplate.find((temp) => {
           return (
             // temp.id === this.state.target.template_id
             temp.title === this.state.templateSelectedValue
@@ -195,12 +189,13 @@ class StampPad extends React.Component {
         if (
           document.getElementById('profileTitle').value === 'Select Template'
         ) {
-          selTemp[0].id = this.state.target.template_id
+          selTemp.id = this.state.target.template_id
         }
+        
         const newProfileObj = {
           title: document.getElementById('profileTitle').value, // need to change
           //need validation; will crash if match isn't found
-          template_id: selTemp[0].id
+          template_id: selTemp.id
         }
 
         console.log('profile case')
@@ -303,14 +298,15 @@ class StampPad extends React.Component {
     console.log(e.target)
     console.log('e.target.value')
     console.log(e.target.value)
+    if (e.target.value !== 'Select Template'){
     this.setState({
       templateSelectedValue: e.target.value,
       formTemplateTextBox: e.target.value
-    })
+    })}
   }
 
-  editStampProfileSelect = (e) =>{
-    console.log('in editStampProfileSelect');
+  editStampProfileSelect = (e) => {
+    console.log('in editStampProfileSelect')
     console.log('e.target')
     console.log(e.target)
     console.log('e.target.value')
@@ -334,9 +330,9 @@ class StampPad extends React.Component {
       profileRowSelected: true,
       stampRowSelected: true,
       formTemplateTextBox: '',
-    formProfileTextBox: '',
-    formStampTextBox: '',
-    formContentTextBox: '',
+      formProfileTextBox: '',
+      formStampTextBox: '',
+      formContentTextBox: ''
     })
 
     if (!this.state.triggerToggle) {
@@ -382,9 +378,9 @@ class StampPad extends React.Component {
     })
   }
 
-  templateBoxChange = (e)=>{
-    console.log('in templateBoxChange');
-    console.log(e.target);
+  templateBoxChange = (e) => {
+    console.log('in templateBoxChange')
+    console.log(e.target)
     // to prevent change
     // e.target.value= this.state.formTemplateTextBox
 
@@ -396,83 +392,82 @@ class StampPad extends React.Component {
     switch (this.state.whatToEdit) {
       case 'template':
         this.setState({
-      formTemplateTextBox: e.target.value
-    })
-    break
-    case 'profile':
-      e.target.value= this.state.formTemplateTextBox
-      break
-      case 'stamp':
-        e.target.value= this.state.formTemplateTextBox
+          formTemplateTextBox: e.target.value
+        })
         break
-        default:
-          console.log('wrong selection in templateBoxChange');
+      case 'profile':
+        e.target.value = this.state.formTemplateTextBox
+        break
+      case 'stamp':
+        e.target.value = this.state.formTemplateTextBox
+        break
+      default:
+        console.log('wrong selection in templateBoxChange')
+    }
   }
-}
 
-profileBoxChange = (e) => {
-  console.log('in profileBoxChange');
-  console.log(e.target);
-  switch (this.state.whatToEdit) {
-    case 'template':
-      e.target.value= this.state.formProfileTextBox
-  break
-  case 'profile':
-    this.setState({
-      formProfileTextBox: e.target.value
-    })
+  profileBoxChange = (e) => {
+    console.log('in profileBoxChange')
+    console.log(e.target)
+    switch (this.state.whatToEdit) {
+      case 'template':
+        e.target.value = this.state.formProfileTextBox
+        break
+      case 'profile':
+        this.setState({
+          formProfileTextBox: e.target.value
+        })
 
-    
-    break
-    case 'stamp':
-      e.target.value= this.state.formProfileTextBox
-      break
+        break
+      case 'stamp':
+        e.target.value = this.state.formProfileTextBox
+        break
       default:
-        console.log('wrong selection in profileBoxChange');
-}
-}
+        console.log('wrong selection in profileBoxChange')
+    }
+  }
 
-stampBoxChange = (e) => {
-  console.log('in stampBoxChange');
-  console.log(e.target);
-  switch (this.state.whatToEdit) {
-    case 'template':
-      e.target.value= this.state.formStampTextBox
-  break
-  case 'profile':
-    e.target.value= this.state.formStampTextBox
-    
-    break
-    case 'stamp':
-      this.setState({
-        formStampTextBox: e.target.value
-      })
-      break
-      default:
-        console.log('wrong selection in stampBoxChange');
-}
-}
+  stampBoxChange = (e) => {
+    console.log('in stampBoxChange')
+    console.log(e.target)
+    switch (this.state.whatToEdit) {
+      case 'template':
+        e.target.value = this.state.formStampTextBox
+        break
+      case 'profile':
+        e.target.value = this.state.formStampTextBox
 
-contentBoxChange = (e) => {
-  console.log('in contentBoxChange');
-  console.log(e.target);
-  switch (this.state.whatToEdit) {
-    case 'template':
-      e.target.value= this.state.formStampTextBox
-  break
-  case 'profile':
-    e.target.value= this.state.formStampTextBox
-    
-    break
-    case 'stamp':
-      this.setState({
-        formContentTextBox: e.target.value
-      })
-      break
+        break
+      case 'stamp':
+        this.setState({
+          formStampTextBox: e.target.value
+        })
+        break
       default:
-        console.log('wrong selection in contentBoxChange');
-}
-}
+        console.log('wrong selection in stampBoxChange')
+    }
+  }
+
+  contentBoxChange = (e) => {
+    console.log('in contentBoxChange')
+    console.log(e.target)
+    switch (this.state.whatToEdit) {
+      case 'template':
+        e.target.value = this.state.formStampTextBox
+        break
+      case 'profile':
+        e.target.value = this.state.formStampTextBox
+
+        break
+      case 'stamp':
+        this.setState({
+          formContentTextBox: e.target.value
+        })
+        break
+      default:
+        console.log('wrong selection in contentBoxChange')
+    }
+  }
 
   render() {
     // {this.props.changepage('stamps')}
@@ -696,7 +691,7 @@ contentBoxChange = (e) => {
                 id="templateTitle"
                 // onClick={(e) => this.toggleTemplateTitle(e)}
                 value={this.state.formTemplateTextBox}
-                onChange={(e)=>this.templateBoxChange(e)}
+                onChange={(e) => this.templateBoxChange(e)}
               />
               {this.state.whatToEdit === 'profile' ? (
                 <select
@@ -719,13 +714,13 @@ contentBoxChange = (e) => {
               )}
               <br />
               Profile: <br />
-              <input 
-                type="text" 
-                name="profile" 
-                id="profileTitle" 
-                value={this.state.formProfileTextBox} 
-                onChange={(e)=>this.profileBoxChange(e)}
-                />
+              <input
+                type="text"
+                name="profile"
+                id="profileTitle"
+                value={this.state.formProfileTextBox}
+                onChange={(e) => this.profileBoxChange(e)}
+              />
               {this.state.whatToEdit === 'stamp' ? (
                 <select
                   name="profile-selection"
@@ -747,22 +742,22 @@ contentBoxChange = (e) => {
               )}
               <br />
               Stamp: <br />
-              <input 
-                type="text" 
-                name="stamp" 
-                id="stampTitle" 
+              <input
+                type="text"
+                name="stamp"
+                id="stampTitle"
                 value={this.state.formStampTextBox}
-                onChange={(e)=>this.stampBoxChange(e)}
-                />
+                onChange={(e) => this.stampBoxChange(e)}
+              />
               <br />
               Content: <br />
-              <textarea 
-                type="text" 
-                name="content" 
-                id="contentTitle" 
+              <textarea
+                type="text"
+                name="content"
+                id="contentTitle"
                 value={this.state.formContentTextBox}
-                onChange={(e)=>this.contentBoxChange(e)}
-                />
+                onChange={(e) => this.contentBoxChange(e)}
+              />
             </form>
           ) : (
             ''
