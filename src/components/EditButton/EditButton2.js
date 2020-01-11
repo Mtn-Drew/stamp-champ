@@ -274,7 +274,12 @@ class StampPad extends React.Component {
       templateRowSelected: true,
       profileRowSelected: true,
       stampRowSelected: true,
-      target: ''
+      target: '',
+      formTemplateTextBox: '',
+      formProfileTextBox: '',
+      formStampTextBox: '',
+      formContentTextBox: '',
+      
     })
     this.resetState()
   }
