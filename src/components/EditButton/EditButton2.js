@@ -5,8 +5,6 @@ import './EditButton2.css'
 import AddButton from '../AddButton/AddButton'
 import DeleteButton from './DeleteButton'
 
-// const placeholder = document.createElement('li')
-// placeholder.className = 'placeholder'
 class StampPad extends React.Component {
   state = {
     store: STORE,
@@ -32,6 +30,7 @@ class StampPad extends React.Component {
     formContentTextBox: ''
   }
 
+  //handle templateSelect
   templateSelect = (templateId) => {
     this.setState({
       selectedTemplate: templateId
@@ -39,6 +38,7 @@ class StampPad extends React.Component {
     console.log('in templateSelect')
   }
 
+  //handle profileSelect
   profileSelect = (profileId) => {
     this.setState({
       selectedProfile: profileId
@@ -46,6 +46,7 @@ class StampPad extends React.Component {
     console.log('in profileSelect')
   }
 
+  //handle stampSelect
   stampSelect = (stampId) => {
     this.setState({
       selectedStamp: stampId
@@ -53,6 +54,7 @@ class StampPad extends React.Component {
     console.log('in stampSelect')
   }
 
+  //toggle editable
   triggerToggle = () => {
     console.log('in triggerToggle')
     this.setState({
@@ -61,6 +63,7 @@ class StampPad extends React.Component {
 
     console.log(this.state.triggerToggle)
   }
+
   //when template button is clicked during 'select'
   templateSelectEdit = (id) => {
     console.log('in templateSelectEdit')
@@ -68,24 +71,21 @@ class StampPad extends React.Component {
     console.log(this.state.selectedTemplate)
     console.log('what to edit')
     console.log(this.state.whatToEdit)
+    console.log(id)
 
     this.setState({
       templateRowSelected: true,
       profileRowSelected: false,
       stampRowSelected: false,
       whatToEdit: 'template',
-      target: id
-    })
-
-    console.log(id)
-
-    this.setState({
+      target: id,
       formTemplateTextBox: id.title,
       formProfileTextBox: 'N/A',
       formStampTextBox: 'N/A',
       formContentTextBox: 'N/A'
     })
   }
+
   //when profile button is clicked during 'select'
   profileSelectEdit = (id) => {
     this.setState({
@@ -94,7 +94,10 @@ class StampPad extends React.Component {
       templateRowSelected: false,
       profileRowSelected: true,
       stampRowSelected: false,
-      templateTitle: id.title
+      templateTitle: id.title,
+      formProfileTextBox: id.title,
+      formStampTextBox: 'N/A',
+      formContentTextBox: 'N/A'
     })
     console.log('in profileSelectEdit')
     console.log('what to edit')
@@ -105,12 +108,10 @@ class StampPad extends React.Component {
       (template) => template.id === id.template_id
     )
     this.setState({
-      formTemplateTextBox: newArray[0].title,
-      formProfileTextBox: id.title,
-      formStampTextBox: 'N/A',
-      formContentTextBox: 'N/A'
+      formTemplateTextBox: newArray[0].title
     })
   }
+
   // when stamp button is clicked during 'select'
   stampSelectEdit = (id) => {
     this.setState({
@@ -118,7 +119,10 @@ class StampPad extends React.Component {
       target: id,
       templateRowSelected: false,
       profileRowSelected: false,
-      stampRowSelected: true
+      stampRowSelected: true,
+      formTemplateTextBox: 'N/A',
+      formStampTextBox: id.title,
+      formContentTextBox: id.content
     })
     console.log('in stampSelectEdit')
     console.log('what to edit')
@@ -128,10 +132,7 @@ class StampPad extends React.Component {
       (profile) => profile.id === id.load_out_id
     )
     this.setState({
-      formTemplateTextBox: 'N/A',
-      formProfileTextBox: newArray[0].title,
-      formStampTextBox: id.title,
-      formContentTextBox: id.content
+      formProfileTextBox: newArray[0].title
     })
   }
 
@@ -191,18 +192,17 @@ class StampPad extends React.Component {
         // ) {
         //   selTemp.id = this.state.target.template_id
         // }
-        
+
         const newProfileObj = {
           // title: document.getElementById('profileTitle').value,
-          title: this.state.formProfileTextBox,  
+          title: this.state.formProfileTextBox
           //need validation; will crash if match isn't found
           // template_id: this.state.target.id
         }
 
-        if (selTemp!==undefined) {
-          newProfileObj.template_id= selTemp.id // this is profile object id, not template id
-          }
-        
+        if (selTemp !== undefined) {
+          newProfileObj.template_id = selTemp.id
+        }
 
         console.log('profile case')
         console.log(this.state.target)
@@ -229,16 +229,22 @@ class StampPad extends React.Component {
         console.log('in STAMP')
         console.log('target?')
         console.log(this.state.target)
-        const selTemp2 = this.state.storeProfile.filter((temp) => {
-          return temp.id === this.state.target.id
+        // find the profile in store array where the title matches the formbox
+        const selStmp = this.state.storeProfile.filter((temp) => {
+          return temp.title === this.state.profileSelectedValue
         })
         console.log(document.getElementById('profile-select2').value)
-        console.log('selTemp2')
-        console.log(selTemp2)
+        console.log('selStmp')
+        console.log(selStmp)
         const newStampObj = {
-          title: document.getElementById('stampTitle').value,
-          load_out_id: selTemp2[0].id,
-          content: document.getElementById('contentTitle').value
+   
+          title: this.state.formStampTextBox,
+
+        
+          content: this.state.formContentTextBox
+        }
+        if (selStmp[0] !== undefined) {
+          newStampObj.load_out_id = selStmp[0].id
         }
 
         const newStampArr = this.state.storeStamps.filter(
@@ -267,7 +273,8 @@ class StampPad extends React.Component {
     this.setState({
       templateRowSelected: true,
       profileRowSelected: true,
-      stampRowSelected: true
+      stampRowSelected: true,
+      target: ''
     })
     this.resetState()
   }
@@ -304,11 +311,12 @@ class StampPad extends React.Component {
     console.log(e.target)
     console.log('e.target.value')
     console.log(e.target.value)
-    if (e.target.value !== 'Select Template'){
-    this.setState({
-      templateSelectedValue: e.target.value,
-      formTemplateTextBox: e.target.value
-    })}
+    if (e.target.value !== 'Select Template') {
+      this.setState({
+        templateSelectedValue: e.target.value,
+        formTemplateTextBox: e.target.value
+      })
+    }
   }
 
   editStampProfileSelect = (e) => {
@@ -317,10 +325,12 @@ class StampPad extends React.Component {
     console.log(e.target)
     console.log('e.target.value')
     console.log(e.target.value)
-    this.setState({
-      profileSelectedValue: e.target.value,
-      formProfileTextBox: e.target.value
-    })
+    if (e.target.value !== 'Select Profile') {
+      this.setState({
+        profileSelectedValue: e.target.value,
+        formProfileTextBox: e.target.value
+      })
+    }
   }
 
   resetState = () => {
@@ -338,7 +348,8 @@ class StampPad extends React.Component {
       formTemplateTextBox: '',
       formProfileTextBox: '',
       formStampTextBox: '',
-      formContentTextBox: ''
+      formContentTextBox: '',
+      target: ''
     })
 
     if (!this.state.triggerToggle) {
@@ -353,11 +364,9 @@ class StampPad extends React.Component {
       console.log('in renderTemplateOptions')
       console.log(tmpl.id)
       console.log(this.state.target.template_id)
-      // if (tmpl.id === this.state.target.template_id) {
-      //   select = 'selected'
-      // }
+   
       return (
-        // <option key={tmpl.id} value={tmpl.title} selected={select}>
+      
         <option key={tmpl.id} value={tmpl.title}>
           {tmpl.title}
         </option>
@@ -372,11 +381,9 @@ class StampPad extends React.Component {
       console.log('in renderProfileOptions')
       console.log(prof.id)
       console.log(this.state.target.load_out_id)
-      // if (tmpl.id === this.state.target.template_id) {
-      //   select = 'selected'
-      // }
+ 
       return (
-        // <option key={tmpl.id} value={tmpl.title} selected={select}>
+  
         <option key={prof.id} value={prof.title}>
           {prof.title}
         </option>
@@ -387,13 +394,7 @@ class StampPad extends React.Component {
   templateBoxChange = (e) => {
     console.log('in templateBoxChange')
     console.log(e.target)
-    // to prevent change
-    // e.target.value= this.state.formTemplateTextBox
 
-    //to change
-    // this.setState({
-    //   formTemplateTextBox: e.target.value
-    // })
 
     switch (this.state.whatToEdit) {
       case 'template':
@@ -476,15 +477,15 @@ class StampPad extends React.Component {
   }
 
   render() {
-    // {this.props.changepage('stamps')}
+  
     console.log(this.state.triggerToggle)
 
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
           key={templ.id}
-          // onClick={() => this.templateSelect(this.state.store.template[i].id)}
-          onClick={() => this.templateSelect(templ.id)} //change to storeTemplate?? *******************
+        
+          onClick={() => this.templateSelect(templ.id)} 
           template={this.state.selectedTemplate}
           className="template_button edit-select"
         >
@@ -492,7 +493,7 @@ class StampPad extends React.Component {
         </Button>
       )
     })
-    // .sort((a, b) => (a.order > b.order ? -1 : 1))
+   
 
     const profileRow = this.state.storeProfile
       .filter(
@@ -503,7 +504,7 @@ class StampPad extends React.Component {
         return (
           <Button
             key={prof.id}
-            onClick={() => this.profileSelect(prof.id)} //change to storeTemplate?? *******************
+            onClick={() => this.profileSelect(prof.id)} 
             // onMouseEnter={() => console.log('mouse')}
 
             className="profile_button "
@@ -521,7 +522,7 @@ class StampPad extends React.Component {
         return (
           <Button
             key={stamp.id}
-            // onClick={() => this.copyToClipboard(stamp.content)}  //change to storeTemplate?? *******************
+            
             onClick={() => this.stampSelect(stamp.id)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
@@ -531,14 +532,14 @@ class StampPad extends React.Component {
           </Button>
         )
       })
-    // .sort((a, b) => (a.order > b.order ? -1 : 1))
+    
 
     const templateRowEdit = this.state.storeTemplate.map((templ, i) => {
       return (
         <button
           key={templ.id}
-          // onClick={() => this.templateSelect(this.state.store.template[i].id)}
-          onClick={() => this.templateSelectEdit(templ)} //change to storeTemplate?? *******************
+          
+          onClick={() => this.templateSelectEdit(templ)} 
           template={this.state.selectedTemplate}
           className="template_button edit-select"
         >
@@ -546,7 +547,7 @@ class StampPad extends React.Component {
         </button>
       )
     })
-    // .sort((a, b) => (a.order > b.order ? -1 : 1))
+   
 
     const profileRowEdit = this.state.storeProfile
       .filter(
@@ -557,7 +558,7 @@ class StampPad extends React.Component {
         return (
           <button
             key={prof.id}
-            onClick={() => this.profileSelectEdit(prof)} //change to storeTemplate?? *******************
+            onClick={() => this.profileSelectEdit(prof)}
             // onMouseEnter={() => console.log('mouse')}
 
             className="profile_button edit-select"
@@ -574,7 +575,7 @@ class StampPad extends React.Component {
         return (
           <button
             key={stamp.id}
-            // onClick={() => this.copyToClipboard(stamp.content)}  //change to storeTemplate?? *******************
+            
             onClick={() => this.stampSelectEdit(stamp)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
@@ -689,7 +690,7 @@ class StampPad extends React.Component {
 
           {!this.state.triggerToggle ? (
             <form className="toggleEditForm" id="edit-form">
-              {/* <form className="toggleEditForm invisible" id="edit-form"> */}
+          
               Template: <br />
               <input
                 type="text"
@@ -768,7 +769,7 @@ class StampPad extends React.Component {
           ) : (
             ''
           )}
-          {/* </form> */}
+ 
 
           <hr className="hr" />
           {addButtonForm}
