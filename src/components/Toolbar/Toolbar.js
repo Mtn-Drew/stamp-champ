@@ -1,15 +1,12 @@
 import React from 'react'
-import './Navbar.css'
-import DrawerToggleButton from '../SideDrawer/DrawerToggleButton'
+import './Toolbar.css'
+
 import { Route } from 'react-router-dom'
 
 const navbar = (props) => (
   <header className="navbar">
     <nav className="navbar__navigation">
-      <div className="navbar__toggle-button">
-        <DrawerToggleButton click={props.drawerClickHandler} />
-      </div>
-
+ 
       <Route
         path="/"
         render={(props) => (
@@ -121,15 +118,6 @@ const navbar = (props) => (
               </li>
             )}
           ></Route>
-
-          {/* <Route
-            path="/edit_button"
-            render={(props) => (
-              <li>
-                <a href="/save">Save</a>
-              </li>
-            )}
-          ></Route> */}
 
           <Route
             path="/edit_button"

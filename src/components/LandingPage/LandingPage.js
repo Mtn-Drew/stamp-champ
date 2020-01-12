@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-// import Toolbar from '../Navbar/Navbar'
+import email from '../../art/email.webp'
+import edit from '../../art/edit.webp'
+import './LandingPage.css'
 
  class LandingPage extends Component {
   render() {
@@ -16,10 +18,10 @@ import React, { Component } from 'react'
         <header>
           <h3>
             Take the drudgery out of frequently copying and pasting the same
-            information over and over...
+            information over and over...  Use it for work.  Use if for home, or anywhere you need to output the same text over and over.
           </h3>
         </header>
-        <p>[<em>placeholder for gif of click and copy</em>]</p>
+        <p><img src={email} alt="fast email" /></p>
         <p>
           Stamp Champ takes your most copied items and stores them in a button
           that you simply click to access. Click and paste. That's it.
@@ -30,7 +32,7 @@ import React, { Component } from 'react'
           <h3>Completely Customizable.</h3>
         </header>
         <p>
-          [<em>placeholder for gif of editing text and label for button</em>]
+        <img src={edit} alt="edit buttons" />
         </p>
         <p>
           Choose from pre-made copies, or create your own. Each button is
@@ -44,11 +46,19 @@ import React, { Component } from 'react'
             layout pre-build by your employer.
           </h3>
         </header>
-        <p>[<em>placeholder for gif of uploading custom template</em>]</p>
+        
         <p>
           Its as easy as downloading or uploading a csv file, right from the
           app.
         </p>
+
+        <h3>How it Works</h3>
+        <p>There are three rows of buttons.  The top row is your template row.  These are linked to catagories of more specific profiles, for example, Work and Home.</p>
+        <p>The second row of buttons are your profiles.  These are sub-catagories that describe the button set they are linked to.</p>
+        <p>
+          You can have up to four templates, and each template can in turn have up to four profiles.
+        </p>
+        <p>Finally, the bottom buttons are your stamps!  Each stamp has loaded text that copies to your clipboard when clicked.  No need for Sticky Notes to copy and paste from.  No need to type out over and over again that one last need you forgot to add to your email template.  Just click and paste!</p>
       </section>
       
     </main>

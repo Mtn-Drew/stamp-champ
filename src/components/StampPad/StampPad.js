@@ -37,15 +37,13 @@ class StampPad extends React.Component {
     })
   }
 
-  
   render() {
-    
-
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
           key={templ.id}
-          onClick={() => this.templateSelect(this.state.storeTemplate[i].id)}
+          // onClick={() => this.templateSelect(this.state.storeTemplate[i].id)}
+          onMouseOver={() => this.templateSelect(this.state.storeTemplate[i].id)}
           template={this.state.selectedTemplate}
         >
           {this.state.storeTemplate[i].title}
@@ -62,8 +60,9 @@ class StampPad extends React.Component {
         return (
           <Button
             key={prof.id}
-            onClick={() => this.profileSelect(prof.id)}
-            onMouseEnter={() => console.log('mouse')}
+            // onClick={() => this.profileSelect(prof.id)}
+            // onMouseEnter={() => console.log('mouse')}
+            onMouseOver={() => this.profileSelect(prof.id)}
             draggable
           >
             {prof.title}
@@ -89,11 +88,9 @@ class StampPad extends React.Component {
       })
 
     return (
-      
       <div className="main-wrapper">
         <div style={{ height: '100%' }} className="stampButtons">
           <main style={{ marginTop: '64px' }}>
-
             <div className="template-row">
               <div className="spacer" />
               <div className="template">{templateRow} </div>
@@ -111,10 +108,9 @@ class StampPad extends React.Component {
             <hr className="hr" />
 
             <div className="stamps-row">
-            <div className="">{stampRow}</div>
+              <div className="">{stampRow}</div>
 
-            <hr className="hr" />
-
+              <hr className="hr" />
             </div>
           </main>
         </div>

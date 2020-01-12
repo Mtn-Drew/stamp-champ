@@ -19,7 +19,8 @@ export const Button = ({
   type,
   onClick,
   buttonStyle,
-  buttonSize
+  buttonSize,
+  onMouseOver
 }) => {
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
@@ -32,9 +33,7 @@ export const Button = ({
       className={`btn ${checkButtonStyle} ${checkButtonSize}`}
       onClick={onClick}
       type={type}
-      
-
-      // onDragStart={e=>(console.log(e))}
+      onMouseOver={onMouseOver}
     >
       {children}
     </button>

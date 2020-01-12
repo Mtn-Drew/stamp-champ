@@ -1,6 +1,6 @@
 import React from 'react'
 import STORE from '../../STORE'
-import './Configure2.css'
+import './Configure.css'
 import { Button } from '../Button/Button'
 
 // import AddButton from '../AddButton/AddButton'

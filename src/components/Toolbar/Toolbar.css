@@ -57,7 +57,7 @@
 .spacer {
   flex: 1;
 }
-
+/* 
 @media (max-width:480px) {
   .navbar_navigation_items {
     display: none;
@@ -72,4 +72,4 @@
   .navbar__logo {
     margin-left: 0;
   }
-}
+} */
