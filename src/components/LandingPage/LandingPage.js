@@ -59,6 +59,7 @@ import './LandingPage.css'
           You can have up to four templates, and each template can in turn have up to four profiles.
         </p>
         <p>Finally, the bottom buttons are your stamps!  Each stamp has loaded text that copies to your clipboard when clicked.  No need for Sticky Notes to copy and paste from.  No need to type out over and over again that one last need you forgot to add to your email template.  Just click and paste!</p>
+        <h1>Click 'Sign In' to Begin!</h1>
       </section>
       
     </main>
