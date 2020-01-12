@@ -53,6 +53,7 @@ import './LandingPage.css'
         </p>
 
         <h3>How it Works</h3>
+        <p>First, shrink you browser width until it stops.  You only need a small window to hold your stamps, and you don't want to cover your work.</p>
         <p>There are three rows of buttons.  The top row is your template row.  These are linked to catagories of more specific profiles, for example, Work and Home.</p>
         <p>The second row of buttons are your profiles.  These are sub-catagories that describe the button set they are linked to.</p>
         <p>
