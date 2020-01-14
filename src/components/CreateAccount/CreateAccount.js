@@ -1,45 +1,96 @@
 import React from 'react'
+import AuthApiService from '../../services/auth-api-service'
 
 class CreateAccount extends React.Component {
+  static defaultProps = {
+    onRegistrationSuccess: () => {}
+  }
+
+  state = { error: null }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('in handleSubmit')
+    const { email, user_name, password } = e.target
+
+    this.setState({ error: null })
+    AuthApiService.postUser({
+      user_name: user_name.value,
+      password: password.value,
+      
+      email: email.value
+    })
+      .then((user) => {
+        user_name.value = ''
+        email.value = ''
+        password.value = ''
+        this.handleRegistrationSuccess()
+      })
+      .catch((res) => {
+        this.setState({ error: res.error })
+      })
+  }
+
+  handleRegistrationSuccess = user => {
+    const { history } = this.props
+    history.push('/sign_in')
+  }
 
   render() {
-    return(
+    const { error } = this.state
+    return (
       <div>
         <section id="create-account">
-        <header>
-          <h3>Create Your Account</h3>
-        </header>
-        <form className="signup-form">
-          <div>
-            <label htmlFor="first-name">First name</label>
-            <input
-              placeholder="First Name"
-              type="text"
-              name="first-name"
-              id="first-name"
-            />
-          </div>
-          <div>
-            <label htmlFor="last-name">Last name</label>
-            <input
-              type="text"
-              name="last-name"
-              id="last-name"
-              placeholder="Last Name"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="username">Email</label>
-            <input type="text" name="username" id="username" />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" />
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
-      </section>
+          <header>
+            <h3>Create Your Account</h3>
+          </header>
+          <form
+        className='RegistrationForm'
+        onSubmit={this.handleSubmit}
+        
+      >
+        <div role='alert'>
+          {error && <p className='red'>{error}</p>}
+        </div>
+        <div className='user_name'>
+          <label htmlFor='RegistrationForm__full_name'>
+            User name 
+          </label>
+          <input
+            name='user_name'
+            type='text'
+            required
+            id='RegistrationForm__full_name'>
+          </input>
+        </div>
+        
+        <div className='password'>
+          <label htmlFor='RegistrationForm__password'>
+            Password 
+          </label>
+          <input
+            name='password'
+            type='password'
+            required
+            id='RegistrationForm__password'>
+          </input>
+        </div>
+        <div className='nick_name'>
+          <label htmlFor='RegistrationForm__nick_name'>
+            Email   
+          </label>
+          <input
+            name='email'
+            type='text'
+            required
+            id='RegistrationForm__nick_name'>
+          </input>
+        </div>
+        <button type='submit'>
+          Register
+        </button>
+      </form>
+        </section>
       </div>
     )
   }

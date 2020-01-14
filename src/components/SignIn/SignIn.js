@@ -19,7 +19,7 @@ class SignIn extends React.Component {
           
 
           <div>
-            <label htmlFor="username">Email</label>
+            <label htmlFor="username">User Name</label>
             <input type="text" name="username" id="username" />
           </div>
           <div>
