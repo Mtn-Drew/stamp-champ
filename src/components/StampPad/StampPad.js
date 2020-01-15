@@ -2,6 +2,9 @@ import React from 'react'
 import { Button } from '../Button/Button'
 import STORE from '../../STORE'
 import './StampPad.css'
+import TemplateService from '../../services/template-service'
+import ProfilesService from '../../services/profile-service'
+import StampsService from '../../services/stamp-service'
 
 class StampPad extends React.Component {
   state = {
@@ -35,6 +38,14 @@ class StampPad extends React.Component {
     this.setState({
       selectedTemplate: templateId
     })
+  }
+
+  componentDidMount() {
+    TemplateService.getTemplates()
+    console.log('in componentDidMount');
+    console.log('getTemplates');
+    ProfilesService.getProfiles()
+    StampsService.getStamps()
   }
 
   render() {
