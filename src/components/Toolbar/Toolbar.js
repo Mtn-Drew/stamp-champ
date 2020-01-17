@@ -1,5 +1,7 @@
 import React from 'react'
 import './Toolbar.css'
+import PrivateRoute from '../Utils/PrivateRoute'
+import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
 
 import { Route } from 'react-router-dom'
 
@@ -27,7 +29,7 @@ const navbar = (props) => (
                 <a href="/configure">Configure</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/stamps"
@@ -36,7 +38,7 @@ const navbar = (props) => (
                 <a href="/">Sign Out</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/"
@@ -46,7 +48,7 @@ const navbar = (props) => (
                 <a href="/create_account">Create Account</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/"
@@ -56,7 +58,7 @@ const navbar = (props) => (
                 <a href="/sign_in">Sign In</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/configure"
@@ -65,7 +67,7 @@ const navbar = (props) => (
                 <a href="/save">Save</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/configure"
@@ -74,7 +76,7 @@ const navbar = (props) => (
                 <a href="/stamps">Done</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/configure"
@@ -83,7 +85,7 @@ const navbar = (props) => (
                 <a href="/">Sign Out</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/create_account"
@@ -92,7 +94,7 @@ const navbar = (props) => (
                 <a href="/">Cancel</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/sign_in"
@@ -101,7 +103,7 @@ const navbar = (props) => (
                 <a href="/">Cancel</a>
               </li>
             )}
-          ></Route>
+          />
           <Route
             path="/add_button"
             render={(props) => (
@@ -109,7 +111,7 @@ const navbar = (props) => (
                 <a href="/save">Save</a>
               </li>
             )}
-          ></Route>
+          />
           <Route
             path="/add_button"
             render={(props) => (
@@ -117,7 +119,7 @@ const navbar = (props) => (
                 <a href="/configure">Done</a>
               </li>
             )}
-          ></Route>
+          />
 
           <Route
             path="/edit_button"
@@ -126,7 +128,7 @@ const navbar = (props) => (
                 <a href="/configure">Done</a>
               </li>
             )}
-          ></Route>
+          />
 
           
         </ul>

@@ -5,6 +5,7 @@ const TemplateService ={
   getTemplates () {
     return fetch(`${config.API_ENDPOINT}/templates`, {
       headers: {
+        authorization : `Bearer ${TokenService.getAuthToken()}`
       },
     })
     .then(res =>

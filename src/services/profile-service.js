@@ -5,6 +5,7 @@ const ProfilesService ={
   getProfiles () {
     return fetch(`${config.API_ENDPOINT}/profiles`, {
       headers: {
+        authorization : `Bearer ${TokenService.getAuthToken()}`
       },
     })
     .then(res =>

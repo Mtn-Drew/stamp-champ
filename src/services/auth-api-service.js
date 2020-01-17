@@ -30,7 +30,7 @@ const AuthApiService = {
           ? res.json().then(e => Promise.reject(e))
           : res.json()
       )
-      .then(res => {
+      .then(res => { 
         /*
           whenever a logint is performed:
           1. save the token in local storage

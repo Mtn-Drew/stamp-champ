@@ -5,6 +5,7 @@ const StampsService ={
   getStamps () {
     return fetch(`${config.API_ENDPOINT}/stamps`, {
       headers: {
+        authorization : `Bearer ${TokenService.getAuthToken()}`
       },
     })
     .then(res =>

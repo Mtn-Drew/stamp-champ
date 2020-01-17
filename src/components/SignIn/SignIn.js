@@ -5,6 +5,7 @@ class SignIn extends React.Component {
 
   handleClick = (e) => {
     console.log('handleClick');
+    // get owner id and load associated templates, profiles and stamps
   }
  
   render() {

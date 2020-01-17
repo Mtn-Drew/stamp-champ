@@ -6,9 +6,13 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import StampPad from './components/StampPad/StampPad.js'
 
 import CreateAccount from './components/CreateAccount/CreateAccount'
-import SignIn from './components/SignIn/SignIn'
+// import SignIn from './components/SignIn/SignIn'
+import SignIn from './components/SignIn/LoginForm'
 import AddButton from './components/AddButton/AddButton'
-import EditButton2 from './components/EditButton/EditButton'
+import EditButton from './components/EditButton/EditButton'
+
+import PrivateRoute from './components/Utils/PrivateRoute'
+import PublicOnlyRoute from './components/Utils/PublicOnlyRoute'
 
 class App extends React.Component {
   state = {
@@ -32,13 +36,23 @@ class App extends React.Component {
           />
 
           <main style={{ marginTop: '64px' }}>
-            <Route path="/stamps" component={StampPad} />
+            
+
+
+            <PrivateRoute path="/stamps" component={StampPad} />
 
             <Route path="/" exact component={LandingPage} />
-            <Route path="/create_account" component={CreateAccount} />
+
+            <PublicOnlyRoute
+             path="/create_account" component={CreateAccount} />
+
+
+
             <Route path="/sign_in" component={SignIn} />
-            <Route path="/add_button" component={AddButton} />
-            <Route path="/configure" component={EditButton2} />
+
+
+            <PrivateRoute path="/add_button" component={AddButton} />
+            <PrivateRoute path="/configure" component={EditButton} />
           </main>
         </Router>
       </div>
