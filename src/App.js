@@ -7,7 +7,7 @@ import StampPad from './components/StampPad/StampPad.js'
 
 import CreateAccount from './components/CreateAccount/CreateAccount'
 // import SignIn from './components/SignIn/SignIn'
-import SignIn from './components/SignIn/LoginForm'
+import SignIn from './components/SignIn/LoginPage'
 import AddButton from './components/AddButton/AddButton'
 import EditButton from './components/EditButton/EditButton'
 
@@ -17,7 +17,8 @@ import PublicOnlyRoute from './components/Utils/PublicOnlyRoute'
 class App extends React.Component {
   state = {
     sideDrawerOpen: false,
-    isLoggedIn: false
+    // isLoggedIn: false
+    isLoggedIn: true
   }
 
   handleDataCallback = (page) => {
