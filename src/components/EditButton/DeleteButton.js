@@ -54,11 +54,6 @@ class DeleteButton extends React.Component {
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
 
-        // const tempArray = this.state.storeTemplate.concat(newTemplate)
-        //       this.setState({
-        //         storeTemplate: tempArray
-        //       })
-        //       this.props.onAddButton(this.state.whatToAdd,tempArray)
       }
     }
   }

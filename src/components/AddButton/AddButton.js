@@ -8,9 +8,9 @@ class AddButton extends React.Component {
     storeTemplate: STORE.template,
     storeProfile: STORE.load_out,
     storeStamps: STORE.stamps,
-    newStampName: '',
-    selectProfile: '',
-    newStampContent: '',
+    // newStampName: '',
+    // selectProfile: '',
+    // newStampContent: '',
     whatToAdd: '',
     templateTextBoxIsVisible: false,
     templateSelectFormIsVisible: false,
@@ -18,7 +18,7 @@ class AddButton extends React.Component {
     profileSelectFormIsVisible: false,
     stampTextBoxIsVisible: false,
     stampContentBoxIsVisible: false,
-    template_selection: '',
+    // template_selection: '',
     selectedProfile: this.props.selectedProfile,
     selectedTemplate: this.props.selectedTemplate,
     disabled: true,
@@ -26,13 +26,13 @@ class AddButton extends React.Component {
   }
 
   resetState = () => {
+    console.log('in resetState')
     //trigger re-render
     this.setState({ requirementKey: Math.random() })
     this.setState({
       trigger: false,
       disabled: true
     })
-    console.log('reset')
   }
 
   handleTypeSelect = (e) => {
@@ -48,17 +48,17 @@ class AddButton extends React.Component {
     if (selection === 'stamps') {
       this.createStamp()
     }
-    //
     if (this.state.trigger) {
       this.resetState()
     }
   }
 
   createTemplate = (e) => {
+    console.log('in createTemplate')
     this.setState({
       whatToAdd: 'template'
     })
-    console.log('in createTemplate')
+
     this.setState({
       templateTextBoxIsVisible: true,
       templateSelectFormIsVisible: false,
@@ -70,10 +70,10 @@ class AddButton extends React.Component {
   }
 
   createProfile = () => {
+    console.log('in createProfile')
     this.setState({
       whatToAdd: 'profile'
     })
-    console.log('in createProfile')
 
     this.setState({
       templateTextBoxIsVisible: false,
@@ -86,45 +86,34 @@ class AddButton extends React.Component {
   }
 
   createStamp = () => {
+    console.log('in createStamp')
     this.setState({
       whatToAdd: 'stamp'
     })
 
-    console.log('in createStamp')
     this.setState({
       templateTextBoxIsVisible: false,
       templateSelectFormIsVisible: false,
       profileTextBoxIsVisible: false,
       profileSelectFormIsVisible: true
-      // stampTextBoxIsVisible: true,
-      // stampContentBoxIsVisible: true
     })
   }
 
-  find_template_id = (obj) => {
-    console.log('in find_template_id')
-    console.log(obj)
-    console.log('selectTemplate')
-    console.log(this.state.selectTemplate)
-    console.log('this.state')
-    console.log(this.state)
-    return obj.id === this.state.selectedTemplate
-  }
+  // find_template_id = (obj) => {
+  //   console.log('in find_template_id')
+  //   console.log(obj)
+  //   console.log('selectTemplate')
+  //   console.log(this.state.selectTemplate)
+  //   console.log('this.state')
+  //   console.log(this.state)
+  //   return obj.id === this.state.selectedTemplate
+  // }
 
   handleSubmit = (e) => {
-    e.preventDefault()
     console.log('in handleSubmit')
-    console.log(e.target)
-
+    e.preventDefault()
     if (this.state.whatToAdd === 'template') {
-      // this.templateSubmit()
-      // const text = document.getElementById('template_text_box').value
       const text = this.state.textBoxValue
-      // this.setState({
-      //   newTemplateName: text
-      // })
-      console.log(text)
-
       const newTemplate = {
         id: '3',
         title: text,
@@ -140,30 +129,14 @@ class AddButton extends React.Component {
     }
 
     if (this.state.whatToAdd === 'profile') {
-      // const text = document.getElementById('profile_text_box').value
       const text = this.state.textBoxValue
-      // const selected = document.getElementById('template-select').value
       const selected = this.state.selectedTemplate
-      // this.setState({
-      //   newProfileName: text,
-      //   selectTemplate: selected
-      // })
-      console.log(text)
-      console.log(selected)
-      console.log(this.state)
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
-      // const temp_id = this.state.storeTemplate.filter(this.find_template_id())
+
       const temp_id = this.state.storeTemplate.filter((obj) => {
-        console.log('in filter')
-        console.log(obj)
-        console.log(obj.id)
-        console.log('selected')
-        console.log(selected)
         return obj.title === selected
       })
-      console.log('temp_id')
-      console.log(temp_id)
-      console.log(temp_id[0].id)
+
       const newProfile = {
         id: '9',
         title: text,
@@ -182,34 +155,17 @@ class AddButton extends React.Component {
 
     if (this.state.whatToAdd === 'stamp') {
       const text = this.state.textBoxValue
-      // const text = document.getElementById('stamp_text_box').value
-      // const selected = document.getElementById('profile-select').value
-      const selected = this.state.selectedProfile
-      // const content = document.getElementById('stamp_content_box').value
-      const content = this.state.textareaValue
-      // this.setState({
-      //   newStampName: text,
-      //   selectedProfile: selected,
-      //   newStampContent: content
-      // })
 
-      console.log(text)
-      console.log(selected)
-      console.log(content)
-      console.log(this.state)
+      const selected = this.state.selectedProfile
+
+      const content = this.state.textareaValue
+
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
-      // const temp_id = this.state.storeTemplate.filter(this.find_template_id())
+
       const temp_id = this.state.storeProfile.filter((obj) => {
-        console.log('in filter')
-        console.log(obj)
-        console.log(obj.id)
-        console.log('selected')
-        console.log(selected)
         return obj.title === selected
       })
-      console.log('temp_id')
-      console.log(temp_id)
-      console.log(temp_id[0].id)
+
       const newStamp = {
         id: '9hgsfd',
         title: text,
@@ -226,11 +182,19 @@ class AddButton extends React.Component {
       console.log('stamp added')
     }
     this.resetState()
+    this.setState({
+      templateTextBoxIsVisible: false,
+    templateSelectFormIsVisible: false,
+    profileTextBoxIsVisible: false,
+    profileSelectFormIsVisible: false,
+    stampTextBoxIsVisible: false,
+    stampContentBoxIsVisible: false,
+    })
   }
 
   createProfileTemplateSelect = (e) => {
     console.log('in createProfileTemplateSelect')
-    console.log(e.target.value)
+
     if (e.target.value === 'Select Template') {
       this.resetState()
     }
@@ -245,7 +209,6 @@ class AddButton extends React.Component {
 
   createStampProfileSelect = (e) => {
     console.log('in createStampProfileSelect')
-    console.log(e.target.value)
 
     if (e.target.value === 'Select Profile') {
       this.resetState()
@@ -260,7 +223,7 @@ class AddButton extends React.Component {
   }
 
   handleTextBox = (e) => {
-    if (e.target.value == '') {
+    if (e.target.value === '') {
       this.setState({
         disabled: true
       })
@@ -273,7 +236,7 @@ class AddButton extends React.Component {
   }
 
   handleTextarea = (e) => {
-    if (e.target.value == '') {
+    if (e.target.value === '') {
       this.setState({
         disabled: true
       })
