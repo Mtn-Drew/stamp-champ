@@ -11,19 +11,33 @@ class AddButton extends React.Component {
     newStampName: '',
     selectProfile: '',
     newStampContent: '',
-    whatToAdd: ''
+    whatToAdd: '',
+    templateTextBoxIsVisible: false,
+    templateSelectFormIsVisible: false,
+    profileTextBoxIsVisible: false,
+    profileSelectFormIsVisible: false,
+    stampTextBoxIsVisible: false,
+    stampContentBoxIsVisible: false,
+    template_selection: '',
+    selectedProfile: this.props.selectedProfile,
+    selectedTemplate: this.props.selectedTemplate,
+    disabled: true,
+    textareaValue: ''
   }
 
   resetState = () => {
     //trigger re-render
     this.setState({ requirementKey: Math.random() })
     this.setState({
-      trigger: false
+      trigger: false,
+      disabled: true
     })
+    console.log('reset')
   }
 
   handleTypeSelect = (e) => {
     console.log('in handleTypeSelect')
+    console.log(e.target)
     const selection = e.target.value
     if (selection === 'template') {
       this.createTemplate()
@@ -45,11 +59,14 @@ class AddButton extends React.Component {
       whatToAdd: 'template'
     })
     console.log('in createTemplate')
-    document.getElementById('template_text_box').classList.remove('invisible')
-    document.getElementById('template-select-form').classList.add('invisible')
-    document.getElementById('stamp_text_box').classList.add('invisible')
-    document.getElementById('stamp_content_box').classList.add('invisible')
-    document.getElementById('profile-select-form').classList.add('invisible')
+    this.setState({
+      templateTextBoxIsVisible: true,
+      templateSelectFormIsVisible: false,
+      profileTextBoxIsVisible: false,
+      profileSelectFormIsVisible: false,
+      stampTextBoxIsVisible: false,
+      stampContentBoxIsVisible: false
+    })
   }
 
   createProfile = () => {
@@ -57,22 +74,15 @@ class AddButton extends React.Component {
       whatToAdd: 'profile'
     })
     console.log('in createProfile')
-    document.getElementById('template_text_box').classList.add('invisible')
-    document.getElementById('stamp_text_box').classList.add('invisible')
-    document.getElementById('stamp_content_box').classList.add('invisible')
-    document
-      .getElementById('template-select-form')
-      .classList.remove('invisible')
-    document.getElementById('profile-select-form').classList.add('invisible')
-    const template_selection = document.getElementById('template-select')
-    const arr = this.state.storeTemplate.map((tmpl) => tmpl.title)
-    for (let i = 0; i < arr.length; i++) {
-      let option = document.createElement('OPTION')
-      let txt = document.createTextNode(arr[i])
-      option.appendChild(txt)
-      option.setAttribute('value', arr[i])
-      template_selection.insertBefore(option, template_selection.lastChild)
-    }
+
+    this.setState({
+      templateTextBoxIsVisible: false,
+      templateSelectFormIsVisible: true,
+      profileTextBoxIsVisible: false,
+      profileSelectFormIsVisible: false,
+      stampTextBoxIsVisible: false,
+      stampContentBoxIsVisible: false
+    })
   }
 
   createStamp = () => {
@@ -81,18 +91,14 @@ class AddButton extends React.Component {
     })
 
     console.log('in createStamp')
-    document.getElementById('template_text_box').classList.add('invisible')
-    document.getElementById('template-select-form').classList.add('invisible')
-    document.getElementById('profile-select-form').classList.remove('invisible')
-    const profile_selection = document.getElementById('profile-select')
-    const arr = this.state.storeProfile.map((prof) => prof.title)
-    for (let i = 0; i < arr.length; i++) {
-      let option = document.createElement('OPTION')
-      let txt = document.createTextNode(arr[i])
-      option.appendChild(txt)
-      option.setAttribute('value', arr[i])
-      profile_selection.insertBefore(option, profile_selection.lastChild)
-    }
+    this.setState({
+      templateTextBoxIsVisible: false,
+      templateSelectFormIsVisible: false,
+      profileTextBoxIsVisible: false,
+      profileSelectFormIsVisible: true
+      // stampTextBoxIsVisible: true,
+      // stampContentBoxIsVisible: true
+    })
   }
 
   find_template_id = (obj) => {
@@ -108,10 +114,12 @@ class AddButton extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     console.log('in handleSubmit')
+    console.log(e.target)
 
     if (this.state.whatToAdd === 'template') {
       // this.templateSubmit()
-      const text = document.getElementById('template_text_box').value
+      // const text = document.getElementById('template_text_box').value
+      const text = this.state.textBoxValue
       // this.setState({
       //   newTemplateName: text
       // })
@@ -126,14 +134,16 @@ class AddButton extends React.Component {
       this.setState({
         storeTemplate: tempArray
       })
-      this.props.onAddButton(this.state.whatToAdd,tempArray)
+      this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('template added')
     }
 
     if (this.state.whatToAdd === 'profile') {
-      const text = document.getElementById('profile_text_box').value
-      const selected = document.getElementById('template-select').value
+      // const text = document.getElementById('profile_text_box').value
+      const text = this.state.textBoxValue
+      // const selected = document.getElementById('template-select').value
+      const selected = this.state.selectedTemplate
       // this.setState({
       //   newProfileName: text,
       //   selectTemplate: selected
@@ -164,16 +174,19 @@ class AddButton extends React.Component {
       this.setState({
         storeProfile: tempArray
       })
-      this.props.onAddButton(this.state.whatToAdd,tempArray)
+      this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('profile added')
       console.log(this.state.storeProfile)
     }
 
     if (this.state.whatToAdd === 'stamp') {
-      const text = document.getElementById('stamp_text_box').value
-      const selected = document.getElementById('profile-select').value
-      const content = document.getElementById('stamp_content_box').value
+      const text = this.state.textBoxValue
+      // const text = document.getElementById('stamp_text_box').value
+      // const selected = document.getElementById('profile-select').value
+      const selected = this.state.selectedProfile
+      // const content = document.getElementById('stamp_content_box').value
+      const content = this.state.textareaValue
       // this.setState({
       //   newStampName: text,
       //   selectedProfile: selected,
@@ -208,7 +221,7 @@ class AddButton extends React.Component {
       this.setState({
         storeStamps: tempArray
       })
-      this.props.onAddButton(this.state.whatToAdd,tempArray)
+      this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('stamp added')
     }
@@ -218,28 +231,79 @@ class AddButton extends React.Component {
   createProfileTemplateSelect = (e) => {
     console.log('in createProfileTemplateSelect')
     console.log(e.target.value)
-    document.getElementById('profile_text_box').classList.remove('invisible')
+    if (e.target.value === 'Select Template') {
+      this.resetState()
+    }
+
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
-      trigger: true
+      trigger: true,
+      profileTextBoxIsVisible: true,
+      selectedTemplate: e.target.value
     })
   }
 
   createStampProfileSelect = (e) => {
     console.log('in createStampProfileSelect')
     console.log(e.target.value)
-    document.getElementById('stamp_text_box').classList.remove('invisible')
-    document.getElementById('stamp_content_box').classList.remove('invisible')
+
+    if (e.target.value === 'Select Profile') {
+      this.resetState()
+    }
     //set flag to trigger re-render if not submitted
     this.setState({
-      trigger: true
+      trigger: true,
+      stampTextBoxIsVisible: true,
+      stampContentBoxIsVisible: true,
+      selectedProfile: e.target.value
     })
   }
 
+  handleTextBox = (e) => {
+    if (e.target.value == '') {
+      this.setState({
+        disabled: true
+      })
+    } else {
+      this.setState({
+        disabled: false,
+        textBoxValue: e.target.value
+      })
+    }
+  }
+
+  handleTextarea = (e) => {
+    if (e.target.value == '') {
+      this.setState({
+        disabled: true
+      })
+    } else {
+      this.setState({
+        disabled: false,
+        textareaValue: e.target.value
+      })
+    }
+  }
+
   render() {
+    const templateSelectOptions = this.state.storeTemplate.map((temp, i) => {
+      return (
+        <option key={i} value={temp.title}>
+          {temp.title}
+        </option>
+      )
+    })
+
+    const profileSelectOptions = this.state.storeProfile.map((prof, i) => {
+      return (
+        <option key={i} value={prof.title}>
+          {prof.title}
+        </option>
+      )
+    })
 
     return (
-      <main  key={this.state.requirementKey}>
+      <main key={this.state.requirementKey}>
         <div>
           <h1>Add Button></h1>
         </div>
@@ -258,20 +322,34 @@ class AddButton extends React.Component {
             <option value="stamps">Stamp Button</option>
           </select>
 
-          <input type="submit" value="Submit" onClick={this.handleSubmit} />
+          <input
+            type="submit"
+            value="Submit"
+            onClick={this.handleSubmit}
+            disabled={this.state.disabled}
+          />
         </form>
         <input
           type="text"
-          className=" template-title invisible"
+          className={
+            this.state.templateTextBoxIsVisible
+              ? 'template-title show'
+              : 'template-title hide'
+          }
           placeholder="New Template Name"
           id="template_text_box"
+          onChange={this.handleTextBox}
         />
-        
-        <form id="template-select-form" className="invisible">
+
+        <form
+          id="template-select-form"
+          className={this.state.templateSelectFormIsVisible ? 'show' : 'hide'}
+        >
           <select
             name="template-selection"
             id="template-select"
             onChange={(e) => this.createProfileTemplateSelect(e)}
+            required
           >
             <option
               value="Select Template"
@@ -280,16 +358,21 @@ class AddButton extends React.Component {
             >
               Select Template
             </option>
+            {templateSelectOptions}
           </select>
           <input
             type="text"
-            className="profile-title invisible"
+            className={this.state.profileTextBoxIsVisible ? 'show' : 'hide'}
             placeholder="New Profile Name"
             id="profile_text_box"
+            onChange={this.handleTextBox}
           />
         </form>
 
-        <form id="profile-select-form" className="invisible">
+        <form
+          id="profile-select-form"
+          className={this.state.profileSelectFormIsVisible ? 'show' : 'hide'}
+        >
           <select
             name="profile-selection"
             id="profile-select"
@@ -302,20 +385,22 @@ class AddButton extends React.Component {
             >
               Select Profile
             </option>
+            {profileSelectOptions}
           </select>
           <input
             type="text"
-            className="stamp-title invisible"
+            className={this.state.stampTextBoxIsVisible ? 'show' : 'hide'}
             placeholder="New Stamp Name"
             id="stamp_text_box"
+            onChange={this.handleTextBox}
           />
           <textarea
-            className="stamp-content invisible"
+            className={this.state.stampContentBoxIsVisible ? 'show' : 'hide'}
             placeholder="New Stamp Content"
             id="stamp_content_box"
+            onChange={this.handleTextarea}
           ></textarea>
         </form>
-        {/* {console.log(this.state)} */}
       </main>
     )
   }

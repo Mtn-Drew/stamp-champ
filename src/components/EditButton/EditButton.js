@@ -592,7 +592,7 @@ class StampPad extends React.Component {
       })
 
     const addButtonForm = this.state.triggerToggle ? (
-      <AddButton onAddButton={this.handleAddDeleteButton} />
+      <AddButton onAddButton={this.handleAddDeleteButton} selectedProfile={this.state.selectedProfile} selectedTemplate={this.state.selectedTemplate}/>
     ) : (
       <DeleteButton
         onDeleteButton={this.handleAddDeleteButton}
