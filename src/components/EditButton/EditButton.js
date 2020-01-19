@@ -4,16 +4,24 @@ import STORE from '../../STORE'
 import './EditButton.css'
 import AddButton from '../AddButton/AddButton'
 import DeleteButton from './DeleteButton'
+import TemplateService from '../../services/template-service'
+import ProfilesService from '../../services/profile-service'
+import StampsService from '../../services/stamp-service'
 
 class StampPad extends React.Component {
   state = {
-    store: STORE,
-    selectedTemplate: '1',
-    selectedProfile: '1',
-    selectedStamp: '1',
-    storeTemplate: STORE.template,
-    storeProfile: STORE.load_out,
-    storeStamps: STORE.stamps,
+    // store: STORE,
+    // selectedTemplate: '1',
+    // selectedProfile: '1',
+    // selectedStamp: '1',
+    // storeTemplate: STORE.template,
+    // storeProfile: STORE.load_out,
+    // storeStamps: STORE.stamps,
+    selectedTemplate: {},
+    selectedProfile: {},
+    storeTemplate: [],
+    storeProfile: [],
+    storeStamps: [],
     showAddProfileForm: false,
     showAddTemplateForm: false,
     showAddStampForm: false,
@@ -439,6 +447,23 @@ class StampPad extends React.Component {
       default:
         console.log('wrong selection in contentBoxChange')
     }
+  }
+
+  componentDidMount() {
+    TemplateService.getTemplates((value) => this.setTemplates(value))
+    ProfilesService.getProfiles((value) => {
+      this.setState({ storeProfile: value })
+    })
+    StampsService.getStamps((value) => {
+      this.setState({ storeStamps: value })
+    })
+  }
+
+  setTemplates = (value) => {
+    //use this setup if there is more state to set ----------------------------------------
+    this.setState({
+      storeTemplate: value
+    })
   }
 
   render() {

@@ -2,7 +2,7 @@ import TokenService from './token-service'
 import config from '../config'
 
 const ProfilesService ={
-  getProfiles () {
+  getProfiles (props) {
     return fetch(`${config.API_ENDPOINT}/profiles`, {
       headers: {
         authorization : `Bearer ${TokenService.getAuthToken()}`
@@ -12,6 +12,9 @@ const ProfilesService ={
       (!res.ok)
         ? res.json().then(e => Promise.reject(e))
         : res.json()
+    )
+    .then(
+      props
     )
   }
 }

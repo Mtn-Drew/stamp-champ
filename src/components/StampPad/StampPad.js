@@ -8,14 +8,14 @@ import StampsService from '../../services/stamp-service'
 
 class StampPad extends React.Component {
   state = {
-    store: STORE,
-    selectedTemplate: STORE.template[0].id,
-    selectedProfile: STORE.stamps[0].load_out_id,
-    storeTemplate: STORE.template,
-    storeProfile: STORE.load_out,
-    storeStamps: STORE.stamps,
+    // store: STORE,
+    // selectedTemplate: {},
+    // selectedProfile: {},
+    storeTemplate: [],
+    storeProfile: [],
+    storeStamps: [],
     isLoaded: false,
-    items: [],
+    items: []
   }
 
   copyToClipboard = (str) => {
@@ -34,6 +34,7 @@ class StampPad extends React.Component {
     this.setState({
       selectedProfile: profileId
     })
+    console.log('selected profile is ', this.state.selectedProfile);
   }
 
   templateSelect = (templateId) => {
@@ -42,44 +43,31 @@ class StampPad extends React.Component {
     })
   }
 
-  
   componentDidMount() {
-    TemplateService.getTemplates()
-      
-    console.log('in componentDidMount');
-    console.log('getTemplates');
-    console.log();
-    ProfilesService.getProfiles()
-    StampsService.getStamps()
-//temp+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    fetch('http://localhost:8000/api/templates', {
-      headers: {
-        // authorization : `Bearer ${TokenService.getAuthToken()}`
-      },
+    TemplateService.getTemplates((value) => this.setTemplates(value))
+    ProfilesService.getProfiles((value) => {
+      this.setState({ storeProfile: value })
     })
-    .then(res =>
-      (!res.ok)
-        ? res.json().then(e => Promise.reject(e))
-        : res.json()
-    ).then(json => {
-      this.setState({
-        isLoaded: true,
-        items: json
-      })
+    StampsService.getStamps((value) => {
+      this.setState({ storeStamps: value })
     })
-    console.log('items');
-    console.log(this.state.items);
+  }
+
+  setTemplates = (value) => {
+    //use this setup if there is more state to set ----------------------------------------
+    this.setState({
+      storeTemplate: value
+    })
   }
 
   render() {
-    console.log('items');
-    console.log(this.state.items);
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
           key={templ.id}
-          // onClick={() => this.templateSelect(this.state.storeTemplate[i].id)}
-          onMouseOver={() => this.templateSelect(this.state.storeTemplate[i].id)}
+          onMouseOver={() =>
+            this.templateSelect(this.state.storeTemplate[i].id)
+          }
           template={this.state.selectedTemplate}
         >
           {this.state.storeTemplate[i].title}
@@ -94,20 +82,14 @@ class StampPad extends React.Component {
 
       .map((prof, i) => {
         return (
-          <Button
-            key={prof.id}
-            // onClick={() => this.profileSelect(prof.id)}
-            // onMouseEnter={() => console.log('mouse')}
-            onMouseOver={() => this.profileSelect(prof.id)}
-            draggable
-          >
+          <Button key={prof.id} onMouseOver={() => this.profileSelect(this.state.storeProfile[i].id)}>
             {prof.title}
           </Button>
         )
       })
 
     const stampRow = this.state.storeStamps
-      .filter((stamp) => stamp.load_out_id === this.state.selectedProfile)
+      .filter((selected) => selected.profile_id === this.state.selectedProfile)
 
       .map((stamp, i) => {
         return (
@@ -116,7 +98,6 @@ class StampPad extends React.Component {
             onClick={() => this.copyToClipboard(stamp.content)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
-            draggable
           >
             {stamp.title}
           </Button>
