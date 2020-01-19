@@ -13,7 +13,9 @@ class StampPad extends React.Component {
     selectedProfile: STORE.stamps[0].load_out_id,
     storeTemplate: STORE.template,
     storeProfile: STORE.load_out,
-    storeStamps: STORE.stamps
+    storeStamps: STORE.stamps,
+    isLoaded: false,
+    items: [],
   }
 
   copyToClipboard = (str) => {
@@ -40,15 +42,38 @@ class StampPad extends React.Component {
     })
   }
 
+  
   componentDidMount() {
     TemplateService.getTemplates()
+      
     console.log('in componentDidMount');
     console.log('getTemplates');
+    console.log();
     ProfilesService.getProfiles()
     StampsService.getStamps()
+//temp+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    fetch('http://localhost:8000/api/templates', {
+      headers: {
+        // authorization : `Bearer ${TokenService.getAuthToken()}`
+      },
+    })
+    .then(res =>
+      (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
+    ).then(json => {
+      this.setState({
+        isLoaded: true,
+        items: json
+      })
+    })
+    console.log('items');
+    console.log(this.state.items);
   }
 
   render() {
+    console.log('items');
+    console.log(this.state.items);
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button

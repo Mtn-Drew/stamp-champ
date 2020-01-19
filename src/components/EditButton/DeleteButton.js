@@ -3,20 +3,15 @@ import STORE from '../../STORE'
 import './DeleteButton.css'
 
 class DeleteButton extends React.Component {
-  state = {
-    storeTemplate: STORE.template,
-    storeProfile: STORE.load_out,
-    storeStamps: STORE.stamps
-  }
 
   handleDelete = () => {
     //alert 'are you sure?'
     console.log('in handleDelete')
     console.log(this.props.whatToEdit)
-    console.log(this.state.storeTemplate)
+    console.log(this.props.storeTemplate)
     if (this.props.whatToEdit === 'template') {
       console.log('in if')
-      const tempArray = this.state.storeTemplate
+      const tempArray = this.props.storeTemplate
       for (let i = 0; i < tempArray.length; i++) {
         console.log(tempArray[i])
         console.log(this.props.target)
@@ -30,7 +25,7 @@ class DeleteButton extends React.Component {
 
     if (this.props.whatToEdit === 'profile') {
       console.log('in if')
-      const tempArray = this.state.storeProfile
+      const tempArray = this.props.storeProfile
       for (let i = 0; i < tempArray.length; i++) {
         console.log(tempArray[i])
         console.log(this.props.target)
@@ -44,7 +39,7 @@ class DeleteButton extends React.Component {
 
     if (this.props.whatToEdit === 'stamp') {
       console.log('in if')
-      const tempArray = this.state.storeStamps
+      const tempArray = this.props.storeStamps
       for (let i = 0; i < tempArray.length; i++) {
         console.log(tempArray[i])
         console.log(this.props.target)
@@ -59,6 +54,7 @@ class DeleteButton extends React.Component {
   }
 
   render() {
+
     return (
       <div>
         <button className="delete" onClick={this.handleDelete}>DELETE</button>

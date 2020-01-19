@@ -276,6 +276,13 @@ class StampPad extends React.Component {
         storeStamps: arr
       })
     }
+    //clear form
+    this.setState({
+    formTemplateTextBox: '',
+      formProfileTextBox: '',
+      formStampTextBox: '',
+      formContentTextBox: '',
+    })
   }
 
   toggleTemplateTitle = (e) => {
@@ -550,6 +557,9 @@ class StampPad extends React.Component {
         onDeleteButton={this.handleAddDeleteButton}
         target={this.state.target.title}
         whatToEdit={this.state.whatToEdit}
+        storeTemplate={this.state.storeTemplate}
+        storeProfile={this.state.storeProfile}
+        storeStamps={this.state.storeStamps}
       />
     )
 
