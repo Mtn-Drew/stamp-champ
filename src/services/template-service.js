@@ -12,7 +12,7 @@ const TemplateService = {
       .then((res) =>
         !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
       )
-      .then(console.log(props))
+      .then(console.log('props', props))
       .then(props)
   },
   addTemplate(props) {
@@ -24,9 +24,10 @@ const TemplateService = {
         authorization: `Bearer ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify({
-        id: props.id,
+
         title: props.title,
         owner_id: props.owner_id
+        //owner_id: '14b8763d-c4cc-48f7-9569-50fb08c2b742'  //need user.id +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       })
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()

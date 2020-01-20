@@ -8,6 +8,7 @@ import StampPad from './components/StampPad/StampPad.js'
 import CreateAccount from './components/CreateAccount/CreateAccount'
 // import SignIn from './components/SignIn/SignIn'
 import SignIn from './components/SignIn/LoginPage'
+
 import AddButton from './components/AddButton/AddButton'
 import EditButton from './components/EditButton/EditButton'
 
@@ -18,7 +19,7 @@ class App extends React.Component {
   state = {
     sideDrawerOpen: false,
     // isLoggedIn: false
-    isLoggedIn: true
+    isLoggedIn: false
   }
 
   handleDataCallback = (page) => {

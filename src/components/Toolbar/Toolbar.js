@@ -1,14 +1,13 @@
 import React from 'react'
 import './Toolbar.css'
-import PrivateRoute from '../Utils/PrivateRoute'
-import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
+// import PrivateRoute from '../Utils/PrivateRoute'
+// import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
 
 import { Route } from 'react-router-dom'
 
 const navbar = (props) => (
   <header className="navbar">
     <nav className="navbar__navigation">
- 
       <Route
         path="/"
         render={(props) => (
@@ -129,8 +128,6 @@ const navbar = (props) => (
               </li>
             )}
           />
-
-          
         </ul>
       </div>
     </nav>

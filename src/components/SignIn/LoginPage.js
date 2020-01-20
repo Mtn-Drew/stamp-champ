@@ -14,7 +14,7 @@ export default class LoginPage extends Component {
     console.log('in handleLoginSuccess');
     const { location, history } = this.props
     const destination = (location.state || {}).from || '/'
-    history.push('stamps')
+    history.push(destination)
   }
 
   render() {

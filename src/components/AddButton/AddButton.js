@@ -1,18 +1,14 @@
 import React from 'react'
 import './AddButton.css'
-import STORE from '../../STORE'
+// import STORE from '../../STORE'
 import TemplateService from '../../services/template-service'
-import uuid from 'react-uuid'
+// import uuid from 'react-uuid'
 
 class AddButton extends React.Component {
   state = {
-    // store: STORE,
-    storeTemplate: STORE.template,
-    storeProfile: STORE.load_out,
-    storeStamps: STORE.stamps,
-    // newStampName: '',
-    // selectProfile: '',
-    // newStampContent: '',
+    storeTemplate: [],
+    storeProfile: [],
+    storeStamps: [],
     whatToAdd: '',
     templateTextBoxIsVisible: false,
     templateSelectFormIsVisible: false,
@@ -117,10 +113,10 @@ class AddButton extends React.Component {
     if (this.state.whatToAdd === 'template') {
       const text = this.state.textBoxValue
       const newTemplate = {
-        id: uuid(),
         title: text,
-        owner_id: '7e116f8f-e326-4727-83a7-59e2b626711f'
+        owner_id: this.props.owner_id
       }
+      console.log('new template', newTemplate);
       const tempArray = this.state.storeTemplate.concat(newTemplate)
       this.setState({
         storeTemplate: tempArray
@@ -141,17 +137,17 @@ class AddButton extends React.Component {
       })
 
       const newProfile = {
-        // id: '9',
+
         title: text,
         template_id: temp_id[0].id,
-        order: this.state.storeProfile.length + 1
+  
       }
       const tempArray = this.state.storeProfile.concat(newProfile)
       this.setState({
         storeProfile: tempArray
       })
       this.props.onAddButton(this.state.whatToAdd, tempArray)
-      //post to database and callback to configure to update state? ****************
+
       console.log('profile added')
       console.log(this.state.storeProfile)
     }
@@ -170,11 +166,11 @@ class AddButton extends React.Component {
       })
 
       const newStamp = {
-        id: '9hgsfd',
+        // id: '9hgsfd',
         title: text,
         load_out_id: temp_id[0].id,
         content: content,
-        order: this.state.storeStamps.length + 1
+        // order: this.state.storeStamps.length + 1
       }
       const tempArray = this.state.storeStamps.concat(newStamp)
       this.setState({

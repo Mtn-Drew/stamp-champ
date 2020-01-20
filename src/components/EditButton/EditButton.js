@@ -7,16 +7,10 @@ import DeleteButton from './DeleteButton'
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
+import Userservice from '../../services/user-service'
 
 class StampPad extends React.Component {
   state = {
-    // store: STORE,
-    // selectedTemplate: '1',
-    // selectedProfile: '1',
-    // selectedStamp: '1',
-    // storeTemplate: STORE.template,
-    // storeProfile: STORE.load_out,
-    // storeStamps: STORE.stamps,
     selectedTemplate: {},
     selectedProfile: {},
     storeTemplate: [],
@@ -44,8 +38,8 @@ class StampPad extends React.Component {
       selectedTemplate: templateId
     })
     console.log('in templateSelect')
-    console.log('this.state.selectedTemplate');
-    console.log(this.state.selectedTemplate);
+    console.log('this.state.selectedTemplate')
+    console.log(this.state.selectedTemplate)
   }
 
   //handle profileSelect
@@ -264,33 +258,36 @@ class StampPad extends React.Component {
       formContentTextBox: ''
     })
     this.resetState()
+   
   }
 
   handleAddDeleteButton = (type, arr) => {
     console.log('in handleAddDeleteButton')
     console.log(type, arr)
-    if (type === 'template') {
-      this.setState({
-        storeTemplate: arr
-      })
-    }
-    if (type === 'profile') {
-      this.setState({
-        storeProfile: arr
-      })
-    }
-    if (type === 'stamp') {
-      this.setState({
-        storeStamps: arr
-      })
-    }
+    // if (type === 'template') {
+    //   this.setState({ 
+    //     requirementKey: Math.random() 
+    //   })
+      
+    // }
+    // if (type === 'profile') {
+    //   this.setState({
+    //     storeProfile: arr
+    //   })
+    // }
+    // if (type === 'stamp') {
+    //   this.setState({
+    //     storeStamps: arr
+    //   })
+    // }
     //clear form
     this.setState({
-    formTemplateTextBox: '',
+      formTemplateTextBox: '',
       formProfileTextBox: '',
       formStampTextBox: '',
-      formContentTextBox: '',
+      formContentTextBox: ''
     })
+    this.reloadButtons()
   }
 
   toggleTemplateTitle = (e) => {
@@ -450,6 +447,10 @@ class StampPad extends React.Component {
   }
 
   componentDidMount() {
+    this.reloadButtons()
+  }
+
+  reloadButtons = () => {
     TemplateService.getTemplates((value) => this.setTemplates(value))
     ProfilesService.getProfiles((value) => {
       this.setState({ storeProfile: value })
@@ -464,19 +465,20 @@ class StampPad extends React.Component {
     this.setState({
       storeTemplate: value
     })
+    //this.resetState()
   }
 
   render() {
-    console.log('RENDER RENDER');
+    console.log('RENDER RENDER')
     console.log(this.state.triggerToggle)
     console.log(this.state.storeTemplate)
     console.log(this.state.storeProfile)
-    console.log(this.state.storeStamps);
+    console.log(this.state.storeStamps)
 
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
-          key={templ.id}
+          key={templ.id ? templ.id : i}
           onClick={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
           className="template_button edit-select"
@@ -576,6 +578,7 @@ class StampPad extends React.Component {
         onAddButton={this.handleAddDeleteButton}
         selectedProfile={this.state.selectedProfile}
         selectedTemplate={this.state.selectedTemplate}
+        // owner={this.state.user.id}
       />
     ) : (
       <DeleteButton
