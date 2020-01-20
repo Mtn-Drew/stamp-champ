@@ -1,10 +1,12 @@
 import React from 'react'
 import './AddButton.css'
 import STORE from '../../STORE'
+import TemplateService from '../../services/template-service'
+import uuid from 'react-uuid'
 
 class AddButton extends React.Component {
   state = {
-    store: STORE,
+    // store: STORE,
     storeTemplate: STORE.template,
     storeProfile: STORE.load_out,
     storeStamps: STORE.stamps,
@@ -115,9 +117,9 @@ class AddButton extends React.Component {
     if (this.state.whatToAdd === 'template') {
       const text = this.state.textBoxValue
       const newTemplate = {
-        id: '3',
+        id: uuid(),
         title: text,
-        order: this.state.storeTemplate.length + 1
+        owner_id: '7e116f8f-e326-4727-83a7-59e2b626711f'
       }
       const tempArray = this.state.storeTemplate.concat(newTemplate)
       this.setState({
@@ -126,6 +128,7 @@ class AddButton extends React.Component {
       this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('template added')
+      TemplateService.addTemplate(newTemplate)
     }
 
     if (this.state.whatToAdd === 'profile') {
@@ -138,7 +141,7 @@ class AddButton extends React.Component {
       })
 
       const newProfile = {
-        id: '9',
+        // id: '9',
         title: text,
         template_id: temp_id[0].id,
         order: this.state.storeProfile.length + 1

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../Button/Button'
-import STORE from '../../STORE'
+// import STORE from '../../STORE'
 import './EditButton.css'
 import AddButton from '../AddButton/AddButton'
 import DeleteButton from './DeleteButton'
@@ -128,7 +128,7 @@ class StampPad extends React.Component {
     console.log('in stampSelectEdit')
 
     const newArray = this.state.storeProfile.filter(
-      (profile) => profile.id === id.load_out_id
+      (profile) => profile.id === id.profile_id
     )
     this.setState({
       formProfileTextBox: newArray[0].title
@@ -506,7 +506,7 @@ class StampPad extends React.Component {
       })
 
     const stampRow = this.state.storeStamps
-      .filter((stamp) => stamp.load_out_id === this.state.selectedProfile)
+      .filter((selected) => selected.profile_id === this.state.selectedProfile)
 
       .map((stamp, i) => {
         return (
@@ -555,7 +555,7 @@ class StampPad extends React.Component {
       })
 
     const stampRowEdit = this.state.storeStamps
-      .filter((stamp) => stamp.load_out_id === this.state.selectedProfile)
+      .filter((selected) => selected.profile_id === this.state.selectedProfile)
 
       .map((stamp, i) => {
         return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../Button/Button'
-import STORE from '../../STORE'
+// import STORE from '../../STORE'
 import './StampPad.css'
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
