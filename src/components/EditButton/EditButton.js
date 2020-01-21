@@ -7,7 +7,7 @@ import DeleteButton from './DeleteButton'
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
-import Userservice from '../../services/user-service'
+// import Userservice from '../../services/user-service'
 
 class StampPad extends React.Component {
   state = {
@@ -71,6 +71,7 @@ class StampPad extends React.Component {
   //when template button is clicked during 'select'
   templateSelectEdit = (id) => {
     console.log('in templateSelectEdit')
+    console.log('id->',id);
 
     this.setState({
       templateRowSelected: true,
@@ -280,14 +281,19 @@ class StampPad extends React.Component {
     //     storeStamps: arr
     //   })
     // }
+
     //clear form
     this.setState({
+      //force re-render?
+      storeTemplate: arr,
+
       formTemplateTextBox: '',
       formProfileTextBox: '',
       formStampTextBox: '',
       formContentTextBox: ''
     })
-    this.reloadButtons()
+    // this.reloadButtons()  messing up delete
+    
   }
 
   toggleTemplateTitle = (e) => {
@@ -583,11 +589,12 @@ class StampPad extends React.Component {
     ) : (
       <DeleteButton
         onDeleteButton={this.handleAddDeleteButton}
-        target={this.state.target.title}
+        target={this.state.target.title}//just the title???? _______________________________________
         whatToEdit={this.state.whatToEdit}
         storeTemplate={this.state.storeTemplate}
         storeProfile={this.state.storeProfile}
         storeStamps={this.state.storeStamps}
+        templateId={this.state.target.id}
       />
     )
 

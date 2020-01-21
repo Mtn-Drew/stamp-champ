@@ -1,6 +1,7 @@
 import React from 'react'
 // import STORE from '../../STORE'
 import './DeleteButton.css'
+import TemplateService from '../../services/template-service'
 
 class DeleteButton extends React.Component {
 
@@ -13,14 +14,15 @@ class DeleteButton extends React.Component {
       console.log('in if')
       const tempArray = this.props.storeTemplate
       for (let i = 0; i < tempArray.length; i++) {
-        console.log(tempArray[i])
-        console.log(this.props.target)
+        // console.log(tempArray[i])
+        // console.log(this.props.target)
         if (tempArray[i].title === this.props.target) {
           tempArray.splice(i, 1)
           console.log('remove template target')
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
       }
+       TemplateService.deleteTemplate(this.props.templateId)
     }
 
     if (this.props.whatToEdit === 'profile') {

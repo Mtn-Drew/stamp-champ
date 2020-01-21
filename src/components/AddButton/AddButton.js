@@ -124,7 +124,7 @@ class AddButton extends React.Component {
       this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('template added')
-      TemplateService.addTemplate(newTemplate)
+      TemplateService.addTemplate(newTemplate)  //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     }
 
     if (this.state.whatToAdd === 'profile') {
