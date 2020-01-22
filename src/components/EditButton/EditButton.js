@@ -71,7 +71,7 @@ class StampPad extends React.Component {
   //when template button is clicked during 'select'
   templateSelectEdit = (id) => {
     console.log('in templateSelectEdit')
-    console.log('id->',id);
+    console.log('id->', id)
 
     this.setState({
       templateRowSelected: true,
@@ -89,7 +89,7 @@ class StampPad extends React.Component {
   //when profile button is clicked during 'select'
   profileSelectEdit = (id) => {
     console.log('in profileSelectEdit')
-    console.log('id->',id);
+    console.log('id->', id)
     this.setState({
       whatToEdit: 'profile',
       target: id,
@@ -101,7 +101,7 @@ class StampPad extends React.Component {
       formStampTextBox: 'N/A',
       formContentTextBox: 'N/A'
     })
-    console.log('in profileSelectEdit')
+
     const newArray = this.state.storeTemplate.filter(
       (template) => template.id === id.template_id
     )
@@ -261,23 +261,22 @@ class StampPad extends React.Component {
       formContentTextBox: ''
     })
     this.resetState()
-   
   }
 
   handleAddDeleteButton = (type, arr) => {
     console.log('in handleAddDeleteButton')
     console.log(type, arr)
-    if (type === 'template') {//???????????????????????????????????????????????????????
-      this.setState({ 
-        storeTemplate:arr
+    if (type === 'template') {
+      //???????????????????????????????????????????????????????
+      this.setState({
+        storeTemplate: arr
       })
-      
     }
     if (type === 'profile') {
-      const temp= this.state.storeProfile
-      console.log('temp', temp);
-      temp.push(arr[arr.length-1])// for loading the latest added item into state
-      console.log('newTemp',temp);
+      const temp = this.state.storeProfile
+      console.log('temp', temp)
+      temp.push(arr[arr.length - 1]) // for loading the latest added item into state
+      console.log('newTemp', temp)
       this.setState({
         storeProfile: temp
       })
@@ -300,7 +299,6 @@ class StampPad extends React.Component {
       formContentTextBox: ''
     })
     // this.reloadButtons()  messing up delete
-    
   }
 
   toggleTemplateTitle = (e) => {
@@ -357,7 +355,6 @@ class StampPad extends React.Component {
     console.log('in renderTemplateOptions')
     return this.state.storeTemplate.map((tmpl) => {
       // let select = ''
-      
 
       return (
         <option key={tmpl.id} value={tmpl.title}>
@@ -597,12 +594,12 @@ class StampPad extends React.Component {
     ) : (
       <DeleteButton
         onDeleteButton={this.handleAddDeleteButton}
-        target={this.state.target}//just the title???? _______________________________________
+        target={this.state.target} 
         whatToEdit={this.state.whatToEdit}
         storeTemplate={this.state.storeTemplate}
         storeProfile={this.state.storeProfile}
         storeStamps={this.state.storeStamps}
-        // templateId={this.state.target.id}
+        
       />
     )
 
