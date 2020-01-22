@@ -42,7 +42,7 @@ class DeleteButton extends React.Component {
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
       }
-      //ProfileService.deleteProfile(this.props.target.id)
+      ProfileService.deleteProfile(this.props.target.id)
     }
 
     if (this.props.whatToEdit === 'stamp') {
