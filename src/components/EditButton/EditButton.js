@@ -265,17 +265,22 @@ class StampPad extends React.Component {
   handleAddDeleteButton = (type, arr) => {
     console.log('in handleAddDeleteButton')
     console.log(type, arr)
-    // if (type === 'template') {
-    //   this.setState({ 
-    //     requirementKey: Math.random() 
-    //   })
+    if (type === 'template') {//???????????????????????????????????????????????????????
+      this.setState({ 
+        storeTemplate:arr
+      })
       
-    // }
-    // if (type === 'profile') {
-    //   this.setState({
-    //     storeProfile: arr
-    //   })
-    // }
+    }
+    if (type === 'profile') {
+      const temp= this.state.storeProfile
+      console.log('temp', temp);
+      temp.push(arr[arr.length-1])// for loading the latest added item into state
+      console.log('newTemp',temp);
+      this.setState({
+        storeProfile: temp
+      })
+    }
+
     // if (type === 'stamp') {
     //   this.setState({
     //     storeStamps: arr
@@ -285,7 +290,7 @@ class StampPad extends React.Component {
     //clear form
     this.setState({
       //force re-render?
-      storeTemplate: arr,
+      //storeTemplate: arr,
 
       formTemplateTextBox: '',
       formProfileTextBox: '',
@@ -502,7 +507,7 @@ class StampPad extends React.Component {
       .map((prof, i) => {
         return (
           <Button
-            key={prof.id}
+            key={prof.id ? prof.id : i}
             onClick={() => this.profileSelect(prof.id)}
             // onMouseEnter={() => console.log('mouse')}
 
@@ -551,7 +556,7 @@ class StampPad extends React.Component {
       .map((prof, i) => {
         return (
           <button
-            key={prof.id}
+            key={prof.id || i}
             onClick={() => this.profileSelectEdit(prof)}
             // onMouseEnter={() => console.log('mouse')}
 

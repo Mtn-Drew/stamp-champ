@@ -2,6 +2,7 @@ import React from 'react'
 import './AddButton.css'
 // import STORE from '../../STORE'
 import TemplateService from '../../services/template-service'
+import ProfilesService from '../../services/profile-service'
 // import uuid from 'react-uuid'
 
 class AddButton extends React.Component {
@@ -132,14 +133,15 @@ class AddButton extends React.Component {
       const selected = this.state.selectedTemplate
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
 
-      const temp_id = this.state.storeTemplate.filter((obj) => {
+      const tmpl = this.state.storeTemplate.filter((obj) => {
         return obj.title === selected
       })
-
+      console.log('tmpl=>', tmpl);
       const newProfile = {
 
         title: text,
-        template_id: temp_id[0].id,
+        template_id: tmpl[0].id,
+        owner_id:tmpl[0].owner
   
       }
       const tempArray = this.state.storeProfile.concat(newProfile)
@@ -147,9 +149,11 @@ class AddButton extends React.Component {
         storeProfile: tempArray
       })
       this.props.onAddButton(this.state.whatToAdd, tempArray)
-
+      console.log('templArray->', tempArray);
       console.log('profile added')
       console.log(this.state.storeProfile)
+      console.log('newProfile ->', newProfile);
+      ProfilesService.addProfile(newProfile)
     }
 
     if (this.state.whatToAdd === 'stamp') {
@@ -194,9 +198,8 @@ class AddButton extends React.Component {
   createProfileTemplateSelect = (e) => {
     console.log('in createProfileTemplateSelect')
 
-    if (e.target.value === 'Select Template') {
-      this.resetState()
-    }
+    e.target.value === 'Select Template' ? this.setState({ disabled : true}) : this.setState({disable:false}) //To prevent submitting with template value 'Select Template'
+    
 
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
@@ -209,9 +212,7 @@ class AddButton extends React.Component {
   createStampProfileSelect = (e) => {
     console.log('in createStampProfileSelect')
 
-    if (e.target.value === 'Select Profile') {
-      this.resetState()
-    }
+    e.target.value === 'Select Profile' ? this.setState({ disabled : true}) : this.setState({disable:false})//To prevent submitting with template value 'Select Profile'
     //set flag to trigger re-render if not submitted
     this.setState({
       trigger: true,
@@ -247,7 +248,21 @@ class AddButton extends React.Component {
     }
   }
 
+  componentDidMount() {
+    TemplateService.getTemplates((value) => this.setState({
+      storeTemplate: value
+    }),
+    // ProfilesService.getProfiles((value) => {
+    //   this.setState({ storeProfile: value })
+    // })
+    // StampsService.getStamps((value) => {
+    //   this.setState({ storeStamps: value })
+    // })
+  //  )
+    )}
+
   render() {
+
     const templateSelectOptions = this.state.storeTemplate.map((temp, i) => {
       return (
         <option key={i} value={temp.title}>
