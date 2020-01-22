@@ -88,6 +88,8 @@ class StampPad extends React.Component {
 
   //when profile button is clicked during 'select'
   profileSelectEdit = (id) => {
+    console.log('in profileSelectEdit')
+    console.log('id->',id);
     this.setState({
       whatToEdit: 'profile',
       target: id,
@@ -352,9 +354,10 @@ class StampPad extends React.Component {
 
   //maps through template array to populate dropdown
   renderTemplateOptions = () => {
+    console.log('in renderTemplateOptions')
     return this.state.storeTemplate.map((tmpl) => {
       // let select = ''
-      console.log('in renderTemplateOptions')
+      
 
       return (
         <option key={tmpl.id} value={tmpl.title}>
@@ -594,12 +597,12 @@ class StampPad extends React.Component {
     ) : (
       <DeleteButton
         onDeleteButton={this.handleAddDeleteButton}
-        target={this.state.target.title}//just the title???? _______________________________________
+        target={this.state.target}//just the title???? _______________________________________
         whatToEdit={this.state.whatToEdit}
         storeTemplate={this.state.storeTemplate}
         storeProfile={this.state.storeProfile}
         storeStamps={this.state.storeStamps}
-        templateId={this.state.target.id}
+        // templateId={this.state.target.id}
       />
     )
 

@@ -82,7 +82,7 @@ class StampPad extends React.Component {
 
       .map((prof, i) => {
         return (
-          <Button key={prof.id} onMouseOver={() => this.profileSelect(this.state.storeProfile[i].id)}>
+          <Button key={prof.id} onMouseEnter={() => this.profileSelect(this.state.storeProfile[i].id)}>
             {prof.title}
           </Button>
         )
