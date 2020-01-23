@@ -34,7 +34,7 @@ class StampPad extends React.Component {
     this.setState({
       selectedProfile: profileId
     })
-    console.log('selected profile is ', this.state.selectedProfile);
+    console.log('selected profile is ', this.state.selectedProfile)
   }
 
   templateSelect = (templateId) => {
@@ -61,6 +61,10 @@ class StampPad extends React.Component {
   }
 
   render() {
+    console.log('in RENDER')
+    console.log('storeTemplate', this.state.storeTemplate)
+    console.log('storeProfile', this.state.storeProfile)
+    console.log('storeStamps', this.state.storeStamps);
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
@@ -82,7 +86,13 @@ class StampPad extends React.Component {
 
       .map((prof, i) => {
         return (
-          <Button key={prof.id} onMouseEnter={() => this.profileSelect(this.state.storeProfile[i].id)}>
+          <Button
+            key={prof.id}
+            onMouseOver={() =>
+              this.profileSelect(this.state.storeProfile[i].id)
+            }
+            profile={this.state.storeProfile}
+          >
             {prof.title}
           </Button>
         )

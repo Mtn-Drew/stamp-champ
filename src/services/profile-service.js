@@ -37,9 +37,10 @@ const ProfilesService = {
         'content-type': 'application/json',
         authorization: `Bearer ${TokenService.getAuthToken()}`
       }
-    }).then((res) =>
-    !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json(204)
-    )
+    })
+    // .then((res) =>
+    // !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json(204)
+    // )
     .catch((error) => {
       console.error({ error })
     })

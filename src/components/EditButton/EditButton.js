@@ -282,11 +282,11 @@ class StampPad extends React.Component {
       })
     }
 
-    // if (type === 'stamp') {
-    //   this.setState({
-    //     storeStamps: arr
-    //   })
-    // }
+    if (type === 'stamp') {
+      this.setState({
+        storeStamps: arr
+      })
+    }
 
     //clear form
     this.setState({
@@ -524,7 +524,7 @@ class StampPad extends React.Component {
       .map((stamp, i) => {
         return (
           <Button
-            key={stamp.id}
+            key={stamp.id ? stamp.id : i}
             onClick={() => this.stampSelect(stamp.id)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}

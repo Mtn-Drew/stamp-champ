@@ -3,6 +3,7 @@ import './AddButton.css'
 // import STORE from '../../STORE'
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
+import StampsService from '../../services/stamp-service'
 // import uuid from 'react-uuid'
 
 class AddButton extends React.Component {
@@ -117,7 +118,7 @@ class AddButton extends React.Component {
         title: text,
         owner_id: this.props.owner_id
       }
-      console.log('new template', newTemplate);
+      console.log('new template', newTemplate)
       const tempArray = this.state.storeTemplate.concat(newTemplate)
       this.setState({
         storeTemplate: tempArray
@@ -125,7 +126,7 @@ class AddButton extends React.Component {
       this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('template added')
-      TemplateService.addTemplate(newTemplate)  //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      TemplateService.addTemplate(newTemplate) //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     }
 
     if (this.state.whatToAdd === 'profile') {
@@ -136,46 +137,49 @@ class AddButton extends React.Component {
       const tmpl = this.state.storeTemplate.filter((obj) => {
         return obj.title === selected
       })
-      console.log('tmpl=>', tmpl);
+      console.log('tmpl=>', tmpl)
       const newProfile = {
-
         title: text,
         template_id: tmpl[0].id,
-        owner_id:tmpl[0].owner
-  
+        owner_id: tmpl[0].owner
       }
       const tempArray = this.state.storeProfile.concat(newProfile)
       this.setState({
         storeProfile: tempArray
       })
       this.props.onAddButton(this.state.whatToAdd, tempArray)
-      console.log('templArray->', tempArray);
+      console.log('templArray->', tempArray)
       console.log('profile added')
       console.log(this.state.storeProfile)
-      console.log('newProfile ->', newProfile);
+      console.log('newProfile ->', newProfile)
       ProfilesService.addProfile(newProfile)
     }
 
     if (this.state.whatToAdd === 'stamp') {
-      const text = this.state.textBoxValue
-
-      const selected = this.state.selectedProfile
-
-      const content = this.state.textareaValue
-
-      // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
-
-      const temp_id = this.state.storeProfile.filter((obj) => {
-        return obj.title === selected
+      const selectedProf = this.state.selectedProfile
+     
+      //get profile object with matching title from dropdown
+      const prof = this.state.storeProfile.filter((obj)=>{
+        return obj.title === selectedProf
       })
-
+      const text = this.state.textBoxValue
+      // const selected = this.state.selectedProfile
+      const content = this.state.textareaValue
+      // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
+      // const temp_id = this.state.storeProfile.filter((obj) => {
+      //   return obj.title === selected
+      // })
       const newStamp = {
-        // id: '9hgsfd',
+
         title: text,
-        load_out_id: temp_id[0].id,
+        template_id: prof[0].template_id,
         content: content,
-        // order: this.state.storeStamps.length + 1
+        owner_id: prof[0].owner_id,
+        profile_id: prof[0].id
+        // will [0] cause issues??  if more than one thing is entered?????
       }
+      console.log('prof', prof);
+      console.log('new stamp', newStamp);
       const tempArray = this.state.storeStamps.concat(newStamp)
       this.setState({
         storeStamps: tempArray
@@ -183,23 +187,25 @@ class AddButton extends React.Component {
       this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('stamp added')
+      StampsService.addStamps(newStamp)
     }
     this.resetState()
     this.setState({
       templateTextBoxIsVisible: false,
-    templateSelectFormIsVisible: false,
-    profileTextBoxIsVisible: false,
-    profileSelectFormIsVisible: false,
-    stampTextBoxIsVisible: false,
-    stampContentBoxIsVisible: false,
+      templateSelectFormIsVisible: false,
+      profileTextBoxIsVisible: false,
+      profileSelectFormIsVisible: false,
+      stampTextBoxIsVisible: false,
+      stampContentBoxIsVisible: false
     })
   }
 
   createProfileTemplateSelect = (e) => {
     console.log('in createProfileTemplateSelect')
 
-    e.target.value === 'Select Template' ? this.setState({ disabled : true}) : this.setState({disable:false}) //To prevent submitting with template value 'Select Template'
-    
+    e.target.value === 'Select Template'
+      ? this.setState({ disabled: true })
+      : this.setState({ disable: false }) //To prevent submitting with template value 'Select Template'
 
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
@@ -212,7 +218,9 @@ class AddButton extends React.Component {
   createStampProfileSelect = (e) => {
     console.log('in createStampProfileSelect')
 
-    e.target.value === 'Select Profile' ? this.setState({ disabled : true}) : this.setState({disable:false})//To prevent submitting with template value 'Select Profile'
+    e.target.value === 'Select Profile'
+      ? this.setState({ disabled: true })
+      : this.setState({ disable: false }) //To prevent submitting with template value 'Select Profile'
     //set flag to trigger re-render if not submitted
     this.setState({
       trigger: true,
@@ -249,20 +257,22 @@ class AddButton extends React.Component {
   }
 
   componentDidMount() {
-    TemplateService.getTemplates((value) => this.setState({
-      storeTemplate: value
-    }),
-    // ProfilesService.getProfiles((value) => {
-    //   this.setState({ storeProfile: value })
-    // })
-    // StampsService.getStamps((value) => {
-    //   this.setState({ storeStamps: value })
-    // })
-  //  )
-    )}
+    TemplateService.getTemplates(
+      (value) =>
+        this.setState({
+          storeTemplate: value
+        }))
+     ProfilesService.getProfiles((value) => {
+        this.setState({ storeProfile: value })
+      })
+      StampsService.getStamps((value) => {
+        this.setState({ storeStamps: value })
+      })
+       
+    
+  }
 
   render() {
-
     const templateSelectOptions = this.state.storeTemplate.map((temp, i) => {
       return (
         <option key={i} value={temp.title}>
@@ -278,6 +288,11 @@ class AddButton extends React.Component {
         </option>
       )
     })
+
+    console.log('options---');
+    console.log(templateSelectOptions);
+    console.log(profileSelectOptions);
+    console.log(this.state.storeProfile);
 
     return (
       <main key={this.state.requirementKey}>

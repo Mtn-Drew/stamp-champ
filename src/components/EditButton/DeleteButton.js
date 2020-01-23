@@ -53,7 +53,7 @@ class DeleteButton extends React.Component {
         console.log(this.props.target)
         if (tempArray[i].title === this.props.target) {
           tempArray.splice(i, 1)
-          console.log('remove template target')
+          console.log('remove stamp target')
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
       }

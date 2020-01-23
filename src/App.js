@@ -28,13 +28,29 @@ class App extends React.Component {
     console.log(page)
   }
 
+  signOut = (history) => {
+    console.log('in signOut');
+    localStorage.clear()
+    this.setState({
+      isLoggedIn: false
+    })
+    history.push('/')
+  }
+
   render() {
     return (
       <div style={{ height: '100%' }}>
         <Router>
-          <Toolbar
-            drawerClickHandler={this.drawerToggleClickHandler}
-            onpage={this.state.onPage}
+          <Route
+            path="/"
+            render={(props) => (
+              <Toolbar
+                drawerClickHandler={this.drawerToggleClickHandler}
+                onpage={this.state.onPage}
+                signOut={this.signOut.bind(this, props.history)}
+                history={props.history}
+              />
+            )}
           />
 
           <main style={{ marginTop: '64px' }}>

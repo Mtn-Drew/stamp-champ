@@ -3,7 +3,9 @@ import './Toolbar.css'
 // import PrivateRoute from '../Utils/PrivateRoute'
 // import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
 
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
+
+
 
 const navbar = (props) => (
   <header className="navbar">
@@ -32,9 +34,10 @@ const navbar = (props) => (
 
           <Route
             path="/stamps"
-            render={(props) => (
+            render={() => (
               <li>
-                <a href="/">Sign Out</a>
+                <button 
+                  onClick={props.signOut}>Sign Out!!!</button>
               </li>
             )}
           />
@@ -46,7 +49,8 @@ const navbar = (props) => (
               <li>
                 <a href="/create_account">Create Account</a>
               </li>
-            )}
+               )}
+            
           />
 
           <Route
@@ -79,9 +83,10 @@ const navbar = (props) => (
 
           <Route
             path="/configure"
-            render={(props) => (
+            render={() => (
               <li>
-                <a href="/">Sign Out</a>
+                <button 
+                  onClick={props.signOut}>Sign Out!!!</button>
               </li>
             )}
           />
