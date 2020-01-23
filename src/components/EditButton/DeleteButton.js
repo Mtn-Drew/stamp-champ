@@ -3,6 +3,7 @@ import React from 'react'
 import './DeleteButton.css'
 import TemplateService from '../../services/template-service'
 import ProfileService from '../../services/profile-service'
+import StampsService from '../../services/stamp-service'
 
 class DeleteButton extends React.Component {
   handleDelete = () => {
@@ -27,7 +28,7 @@ class DeleteButton extends React.Component {
     }
 
 
-    console.log('props.storeProfile', this.props.storeProfile)
+    // console.log('props.storeProfile', this.props.storeProfile)
     if (this.props.whatToEdit === 'profile') {
       console.log('in if')
       const tempArray = this.props.storeProfile
@@ -45,18 +46,21 @@ class DeleteButton extends React.Component {
       ProfileService.deleteProfile(this.props.target.id)
     }
 
+      console.log('this.props.storeStamps', this.props.storeStamps);
     if (this.props.whatToEdit === 'stamp') {
       console.log('in if')
       const tempArray = this.props.storeStamps
       for (let i = 0; i < tempArray.length; i++) {
         console.log(tempArray[i])
-        console.log(this.props.target)
-        if (tempArray[i].title === this.props.target) {
+        console.log(this.props.target.title)
+        if (tempArray[i].title === this.props.target.title) {
           tempArray.splice(i, 1)
           console.log('remove stamp target')
+          console.log('tempArray',tempArray);
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
       }
+    StampsService.deleteStamp(this.props.target.id)
     }
   }
 
