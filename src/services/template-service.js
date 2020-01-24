@@ -60,9 +60,9 @@ const TemplateService = {
         id:props.id
       })
     })
-  //.then((res) =>
-  //   !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
-  // )
+    .catch((error) => {
+      console.error({ error })
+    })
   }
 }
 export default TemplateService

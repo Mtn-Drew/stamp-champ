@@ -210,7 +210,9 @@ class StampPad extends React.Component {
           storeProfile: resProfile
         })
         // post to DB storeTemplate
+        ProfilesService.updateProfile(finalProfileObj)
         break
+
       case 'stamp':
         console.log('in STAMP')
         console.log('target?')
