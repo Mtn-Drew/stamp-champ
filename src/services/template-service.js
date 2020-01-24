@@ -46,5 +46,23 @@ const TemplateService = {
       console.error({ error })
     })
   },
+  updateTemplate(props){
+    console.log('in ts updateTemplate', props);
+    return fetch(`${config.API_ENDPOINT}/templates/${props.id}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify({
+        title: props.title,
+        owner_id: props.owner_id,
+        id:props.id
+      })
+    })
+  //.then((res) =>
+  //   !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+  // )
+  }
 }
 export default TemplateService

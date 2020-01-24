@@ -164,6 +164,10 @@ class StampPad extends React.Component {
           storeTemplate: resTemplate
         })
         // post to DB storeTemplate
+        console.log('target->', this.state.target);
+        const tmpl = this.state.target
+        TemplateService.updateTemplate(finalTemplateObj)
+        //reload??
         break
 
       case 'profile':

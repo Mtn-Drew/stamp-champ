@@ -289,10 +289,10 @@ class AddButton extends React.Component {
       )
     })
 
-    console.log('options---');
-    console.log(templateSelectOptions);
-    console.log(profileSelectOptions);
-    console.log(this.state.storeProfile);
+    // console.log('options---');
+    // console.log(templateSelectOptions);
+    // console.log(profileSelectOptions);
+    // console.log(this.state.storeProfile);
 
     return (
       <main key={this.state.requirementKey}>
