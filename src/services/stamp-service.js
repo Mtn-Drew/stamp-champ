@@ -49,6 +49,28 @@ const StampsService ={
       console.error({ error })
     })
   },
+
+  updateStamp(props){
+    console.log('in ts updateStamp', props);
+    return fetch(`${config.API_ENDPOINT}/stamps/${props.id}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify({
+        title: props.title,
+        owner_id: props.owner_id,
+        id:props.id,
+        template_id: props.template_id,
+        content: props.content,
+        profile_id: props.profile_id
+      })
+    })
+    .catch((error) => {
+      console.error({ error })
+    })
+  }
 }
 
 export default StampsService

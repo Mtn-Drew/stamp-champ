@@ -250,6 +250,7 @@ class StampPad extends React.Component {
           storeStamps: resStamp
         })
         // post to DB storeTemplate
+        StampsService.updateStamp(finalStampObj)
         break
       default:
         console.log('selection error eb2')
