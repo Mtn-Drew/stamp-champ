@@ -3,7 +3,7 @@ import { Button } from '../Button/Button'
 // import STORE from '../../STORE'
 import './EditButton.css'
 import AddButton from '../AddButton/AddButton'
-import DeleteButton from './DeleteButton'
+import DeleteButton from '../DeleteButton/DeleteButton'
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
@@ -164,7 +164,7 @@ class StampPad extends React.Component {
           storeTemplate: resTemplate
         })
         // post to DB storeTemplate
-        console.log('target->', this.state.target);
+        console.log('target->', this.state.target)
         const tmpl = this.state.target
         TemplateService.updateTemplate(finalTemplateObj)
         //reload??
@@ -469,21 +469,15 @@ class StampPad extends React.Component {
   }
 
   reloadButtons = () => {
-    TemplateService.getTemplates((value) => this.setTemplates(value))
+    TemplateService.getTemplates((value) => {
+      this.setState({ storeTemplate: value })
+    })
     ProfilesService.getProfiles((value) => {
       this.setState({ storeProfile: value })
     })
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
-  }
-
-  setTemplates = (value) => {
-    //use this setup if there is more state to set ----------------------------------------
-    this.setState({
-      storeTemplate: value
-    })
-    //this.resetState()
   }
 
   render() {
@@ -601,12 +595,11 @@ class StampPad extends React.Component {
     ) : (
       <DeleteButton
         onDeleteButton={this.handleAddDeleteButton}
-        target={this.state.target} 
+        target={this.state.target}
         whatToEdit={this.state.whatToEdit}
         storeTemplate={this.state.storeTemplate}
         storeProfile={this.state.storeProfile}
         storeStamps={this.state.storeStamps}
-        
       />
     )
 
