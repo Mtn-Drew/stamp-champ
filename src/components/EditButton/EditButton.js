@@ -40,6 +40,7 @@ class StampPad extends React.Component {
     console.log('in templateSelect')
     console.log('this.state.selectedTemplate')
     console.log(this.state.selectedTemplate)
+    console.log('templateID', templateId);
   }
 
   //handle profileSelect
@@ -64,7 +65,7 @@ class StampPad extends React.Component {
     this.setState({
       triggerToggle: !this.state.triggerToggle
     })
-
+    //this.reloadButtons()
     console.log(this.state.triggerToggle)
   }
 
@@ -112,6 +113,7 @@ class StampPad extends React.Component {
 
   // when stamp button is clicked during 'select'
   stampSelectEdit = (id) => {
+    console.log('in stampSelectEdit')
     this.setState({
       whatToEdit: 'stamp',
       target: id,
@@ -122,7 +124,7 @@ class StampPad extends React.Component {
       formStampTextBox: id.title,
       formContentTextBox: id.content
     })
-    console.log('in stampSelectEdit')
+    
 
     const newArray = this.state.storeProfile.filter(
       (profile) => profile.id === id.profile_id
@@ -166,7 +168,10 @@ class StampPad extends React.Component {
         // post to DB storeTemplate
         console.log('target->', this.state.target)
         const tmpl = this.state.target
-        TemplateService.updateTemplate(finalTemplateObj)
+        if (this.state.target !== '') {
+          console.log('call update template');
+          TemplateService.updateTemplate(finalTemplateObj)
+        }
         //reload??
         break
 
@@ -209,8 +214,12 @@ class StampPad extends React.Component {
         this.setState({
           storeProfile: resProfile
         })
+        console.log('target->', this.state.target)
         // post to DB storeTemplate
-        ProfilesService.updateProfile(finalProfileObj)
+        if (this.state.target !== '') {
+          console.log('call update profile');
+          ProfilesService.updateProfile(finalProfileObj)
+        }
         break
 
       case 'stamp':
@@ -221,7 +230,7 @@ class StampPad extends React.Component {
         const selStmp = this.state.storeProfile.filter((temp) => {
           return temp.title === this.state.profileSelectedValue
         })
-        console.log(document.getElementById('profile-select2').value)
+        
         console.log('selStmp')
         console.log(selStmp)
         const newStampObj = {
@@ -229,8 +238,9 @@ class StampPad extends React.Component {
 
           content: this.state.formContentTextBox
         }
+        console.log('newStampObj', newStampObj);
         if (selStmp[0] !== undefined) {
-          newStampObj.load_out_id = selStmp[0].id
+          newStampObj.profile = selStmp[0].id
         }
 
         const newStampArr = this.state.storeStamps.filter(
@@ -249,8 +259,12 @@ class StampPad extends React.Component {
         this.setState({
           storeStamps: resStamp
         })
+        console.log('target->', this.state.target)
         // post to DB storeTemplate
-        StampsService.updateStamp(finalStampObj)
+        if (this.state.target !== '') {
+          console.log('call update stamps');
+          StampsService.updateStamp(finalStampObj)
+        }
         break
       default:
         console.log('selection error eb2')
@@ -465,10 +479,17 @@ class StampPad extends React.Component {
   }
 
   componentDidMount() {
+    console.log(
+      'componentDidMount----------------------------------------------------------------'
+    )
     this.reloadButtons()
   }
 
   reloadButtons = () => {
+    console.log('in reloadButtons')
+    console.log(this.state.storeTemplate)
+    console.log(this.state.storeProfile)
+    console.log(this.state.storeStamps)
     TemplateService.getTemplates((value) => {
       this.setState({ storeTemplate: value })
     })
@@ -477,6 +498,18 @@ class StampPad extends React.Component {
     })
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
+    })
+  }
+
+  handleProfileSelect = (select) => {
+    this.setState({
+      selectedProfile : select
+    })
+  }
+
+  handleTemplateSelect = (select) =>{
+    this.setState({
+      selectedTemplate: select
     })
   }
 
@@ -539,7 +572,7 @@ class StampPad extends React.Component {
     const templateRowEdit = this.state.storeTemplate.map((templ, i) => {
       return (
         <button
-          key={templ.id}
+          key={templ.id ? templ.id : i}
           onClick={() => this.templateSelectEdit(templ)}
           template={this.state.selectedTemplate}
           className="template_button edit-select"
@@ -557,7 +590,7 @@ class StampPad extends React.Component {
       .map((prof, i) => {
         return (
           <button
-            key={prof.id || i}
+            key={prof.id ? prof.id : i}
             onClick={() => this.profileSelectEdit(prof)}
             // onMouseEnter={() => console.log('mouse')}
 
@@ -574,7 +607,7 @@ class StampPad extends React.Component {
       .map((stamp, i) => {
         return (
           <button
-            key={stamp.id}
+            key={stamp.id ? stamp.id : i}
             onClick={() => this.stampSelectEdit(stamp)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
@@ -590,6 +623,8 @@ class StampPad extends React.Component {
         onAddButton={this.handleAddDeleteButton}
         selectedProfile={this.state.selectedProfile}
         selectedTemplate={this.state.selectedTemplate}
+        onProfileSelect={this.handleProfileSelect}
+        onTemplateSelect={this.templateSelect}
         // owner={this.state.user.id}
       />
     ) : (
@@ -619,7 +654,7 @@ class StampPad extends React.Component {
             <div className="spacer" />
             <button id="select-trigger" onClick={() => this.triggerToggle()}>
               {' '}
-              SELECT{' '}
+              TOGGLE EDIT MODE{' '}
             </button>
             <div className="spacer" />
 
@@ -630,7 +665,7 @@ class StampPad extends React.Component {
                   className="save-button"
                   onClick={() => this.saveConfiguration()}
                 >
-                  ACCEPT
+                  SUBMIT
                 </button>
 
                 <div className="spacer" />
@@ -640,7 +675,7 @@ class StampPad extends React.Component {
                   className="save-button"
                   onClick={() => this.cancelConfiguration()}
                 >
-                  CANCEL
+                  CANCEL EDIT {this.state.whatToEdit}
                 </button>
 
                 <div className="spacer" />
