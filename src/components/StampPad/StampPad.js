@@ -15,7 +15,8 @@ class StampPad extends React.Component {
     storeProfile: [],
     storeStamps: [],
     isLoaded: false,
-    items: []
+    items: [],
+    stampValue: ''
   }
 
   copyToClipboard = (str) => {
@@ -32,14 +33,22 @@ class StampPad extends React.Component {
 
   profileSelect = (profileId) => {
     this.setState({
-      selectedProfile: profileId
+      selectedProfile: profileId,
+      stampValue: ''
     })
     console.log('selected profile is ', this.state.selectedProfile)
   }
 
   templateSelect = (templateId) => {
     this.setState({
-      selectedTemplate: templateId
+      selectedTemplate: templateId,
+      stampValue:''
+    })
+  }
+
+  stampSelect = (stampContent) => {
+    this.setState({
+      stampValue: stampContent
     })
   }
 
@@ -60,17 +69,19 @@ class StampPad extends React.Component {
     })
   }
 
+  displayStamp = (e) => {}
+
   render() {
-    console.log('in RENDER')
+    console.log('in RENDER SP')
     console.log('storeTemplate', this.state.storeTemplate)
     console.log('storeProfile', this.state.storeProfile)
-    console.log('storeStamps', this.state.storeStamps);
+    console.log('storeStamps', this.state.storeStamps)
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
           key={templ.id}
           onMouseOver={() =>
-            this.templateSelect(this.state.storeTemplate[i].id)
+            this.templateSelect(templ.id)
           }
           template={this.state.selectedTemplate}
         >
@@ -89,7 +100,7 @@ class StampPad extends React.Component {
           <Button
             key={prof.id}
             onMouseOver={() =>
-              this.profileSelect(this.state.storeProfile[i].id)
+              this.profileSelect(prof.id)
             }
             profile={this.state.storeProfile}
           >
@@ -108,6 +119,9 @@ class StampPad extends React.Component {
             onClick={() => this.copyToClipboard(stamp.content)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
+            onMouseOver={() => {
+              this.stampSelect(stamp.content)
+            }}
           >
             {stamp.title}
           </Button>
@@ -136,8 +150,17 @@ class StampPad extends React.Component {
 
             <div className="stamps-row">
               <div className="">{stampRow}</div>
-
-              <hr className="hr" />
+            </div>
+            <hr className="hr" />
+            <div>
+              <textarea
+                name="stamp_display"
+                id="stamp_display"
+                cols="30"
+                rows="30"
+                value={this.state.stampValue}
+                readOnly
+              />
             </div>
           </main>
         </div>
