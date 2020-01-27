@@ -46,7 +46,7 @@ class App extends React.Component {
             render={(props) => (
               <Toolbar
                 drawerClickHandler={this.drawerToggleClickHandler}
-                onpage={this.state.onPage}
+                onPage={this.state.onPage}
                 signOut={this.signOut.bind(this, props.history)}
                 history={props.history}
               />
