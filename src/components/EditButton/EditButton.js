@@ -29,7 +29,8 @@ class StampPad extends React.Component {
     formTemplateTextBox: '',
     formProfileTextBox: '',
     formStampTextBox: '',
-    formContentTextBox: ''
+    formContentTextBox: '',
+    order:''
   }
 
   //handle templateSelect
@@ -235,8 +236,8 @@ class StampPad extends React.Component {
         console.log(selStmp)
         const newStampObj = {
           title: this.state.formStampTextBox,
-
-          content: this.state.formContentTextBox
+          content: this.state.formContentTextBox,
+          disp_ord: this.state.order
         }
         console.log('newStampObj', newStampObj);
         if (selStmp[0] !== undefined) {
@@ -511,6 +512,24 @@ class StampPad extends React.Component {
     this.setState({
       selectedTemplate: select
     })
+  }
+  
+  moveUp = ()=> {
+    console.log('in moveUp');
+    console.log(this.state.target);
+    console.log(this.state.target.disp_ord);
+    // if (this.state.target) {
+    //   this.state.order = 0
+    // }
+    // if (this.state.whatToEdit==='stamps') {
+    //   this.setState({
+    //     target: 
+    //   })
+    // }
+  }
+
+  moveDown = ()=>{
+    console.log('in moveDown');
   }
 
   render() {
@@ -812,7 +831,14 @@ class StampPad extends React.Component {
           )}
 
           <hr className="hr" />
+          <div>
           {addButtonForm}
+          {this.state.triggerToggle ? null :
+          <div>
+          <button onClick={this.moveUp}>Move Up</button>
+          <button onClick={this.moveDown}>Move Down</button>
+          </div>}
+          </div>
         </main>
       </div>
     )

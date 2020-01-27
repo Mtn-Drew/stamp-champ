@@ -42,9 +42,6 @@ const StampsService ={
         authorization: `Bearer ${TokenService.getAuthToken()}`
       }
     })
-    // .then((res) =>
-    // !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json(204)
-    // )
     .catch((error) => {
       console.error({ error })
     })
@@ -64,7 +61,8 @@ const StampsService ={
         id:props.id,
         template_id: props.template_id,
         content: props.content,
-        profile_id: props.profile_id
+        profile_id: props.profile_id,
+        disp_ord: props.disp_ord
       })
     })
     .catch((error) => {
