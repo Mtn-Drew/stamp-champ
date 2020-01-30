@@ -258,6 +258,7 @@ class AddButton extends React.Component {
   }
 
   handleTextBox = (e) => {
+    
     if (e.target.value === '') {
       this.setState({
         disabled: true
@@ -283,7 +284,7 @@ class AddButton extends React.Component {
     }
   }
 
-  componentDidMount() {
+  reloadButtons = () =>{
     TemplateService.getTemplates((value) =>
       this.setState({
         storeTemplate: value
@@ -295,6 +296,10 @@ class AddButton extends React.Component {
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
+  }
+
+  componentDidMount() {
+    this.reloadButtons()
   }
 
   render() {
@@ -313,11 +318,6 @@ class AddButton extends React.Component {
         </option>
       )
     })
-
-    // console.log('options---');
-    // console.log(templateSelectOptions);
-    // console.log(profileSelectOptions);
-    // console.log(this.state.storeProfile);
 
     return (
       <main key={this.state.requirementKey}>
@@ -389,6 +389,7 @@ class AddButton extends React.Component {
         <form
           id="profile-select-form"
           className={this.state.profileSelectFormIsVisible ? 'show' : 'hide'}
+          
         >
           <select
             name="profile-selection"
@@ -410,6 +411,7 @@ class AddButton extends React.Component {
             placeholder="New Stamp Name"
             id="stamp_text_box"
             onChange={this.handleTextBox}
+            // onSubmit={e => { e.preventDefault() }}
           />
           <textarea
             className={this.state.stampContentBoxIsVisible ? 'show' : 'hide'}
@@ -418,6 +420,7 @@ class AddButton extends React.Component {
             onChange={this.handleTextarea}
           ></textarea>
         </form>
+
       </main>
     )
   }

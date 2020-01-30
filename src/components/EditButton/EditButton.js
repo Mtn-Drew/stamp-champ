@@ -30,7 +30,7 @@ class StampPad extends React.Component {
     formProfileTextBox: '',
     formStampTextBox: '',
     formContentTextBox: '',
-    order:''
+    order: ''
   }
 
   //handle templateSelect
@@ -41,7 +41,7 @@ class StampPad extends React.Component {
     console.log('in templateSelect')
     console.log('this.state.selectedTemplate')
     console.log(this.state.selectedTemplate)
-    console.log('templateID', templateId);
+    console.log('templateID', templateId)
   }
 
   //handle profileSelect
@@ -66,7 +66,7 @@ class StampPad extends React.Component {
     this.setState({
       triggerToggle: !this.state.triggerToggle
     })
-    //this.reloadButtons()
+    this.reloadButtons()
     console.log(this.state.triggerToggle)
   }
 
@@ -125,8 +125,6 @@ class StampPad extends React.Component {
       formStampTextBox: id.title,
       formContentTextBox: id.content
     })
-    
-
     const newArray = this.state.storeProfile.filter(
       (profile) => profile.id === id.profile_id
     )
@@ -136,8 +134,9 @@ class StampPad extends React.Component {
   }
 
   // Save changes to state
-  saveConfiguration = () => {
+  saveConfiguration = (e) => {
     console.log('in saveConfiguration')
+
 
     switch (this.state.whatToEdit) {
       case 'template':
@@ -168,9 +167,9 @@ class StampPad extends React.Component {
         })
         // post to DB storeTemplate
         console.log('target->', this.state.target)
-        const tmpl = this.state.target
-        if (this.state.target !== '') {
-          console.log('call update template');
+        // const tmpl = this.state.target
+        if (finalTemplateObj.title !== '') {
+          console.log('call update template')
           TemplateService.updateTemplate(finalTemplateObj)
         }
         //reload??
@@ -217,8 +216,8 @@ class StampPad extends React.Component {
         })
         console.log('target->', this.state.target)
         // post to DB storeTemplate
-        if (this.state.target !== '') {
-          console.log('call update profile');
+        if (finalProfileObj.title !== '') {
+          console.log('call update profile')
           ProfilesService.updateProfile(finalProfileObj)
         }
         break
@@ -231,7 +230,7 @@ class StampPad extends React.Component {
         const selStmp = this.state.storeProfile.filter((temp) => {
           return temp.title === this.state.profileSelectedValue
         })
-        
+
         console.log('selStmp')
         console.log(selStmp)
         const newStampObj = {
@@ -239,7 +238,7 @@ class StampPad extends React.Component {
           content: this.state.formContentTextBox,
           disp_ord: this.state.order
         }
-        console.log('newStampObj', newStampObj);
+        console.log('newStampObj', newStampObj)
         if (selStmp[0] !== undefined) {
           newStampObj.profile = selStmp[0].id
         }
@@ -262,8 +261,8 @@ class StampPad extends React.Component {
         })
         console.log('target->', this.state.target)
         // post to DB storeTemplate
-        if (this.state.target !== '') {
-          console.log('call update stamps');
+        if (finalStampObj.title !== '') {
+          console.log('call update stamps')
           StampsService.updateStamp(finalStampObj)
         }
         break
@@ -402,6 +401,7 @@ class StampPad extends React.Component {
 
   templateBoxChange = (e) => {
     console.log('in templateBoxChange')
+    e.preventDefault()
 
     switch (this.state.whatToEdit) {
       case 'template':
@@ -504,32 +504,32 @@ class StampPad extends React.Component {
 
   handleProfileSelect = (select) => {
     this.setState({
-      selectedProfile : select
+      selectedProfile: select
     })
   }
 
-  handleTemplateSelect = (select) =>{
+  handleTemplateSelect = (select) => {
     this.setState({
       selectedTemplate: select
     })
   }
-  
-  moveUp = ()=> {
-    console.log('in moveUp');
-    console.log(this.state.target);
-    console.log(this.state.target.disp_ord);
+
+  moveUp = () => {
+    console.log('in moveUp')
+    console.log(this.state.target)
+    console.log(this.state.target.disp_ord)
     // if (this.state.target) {
     //   this.state.order = 0
     // }
     // if (this.state.whatToEdit==='stamps') {
     //   this.setState({
-    //     target: 
+    //     target:
     //   })
     // }
   }
 
-  moveDown = ()=>{
-    console.log('in moveDown');
+  moveDown = () => {
+    console.log('in moveDown')
   }
 
   render() {
@@ -832,12 +832,13 @@ class StampPad extends React.Component {
 
           <hr className="hr" />
           <div>
-          {addButtonForm}
-          {this.state.triggerToggle ? null :
-          <div>
-          <button onClick={this.moveUp}>Move Up</button>
-          <button onClick={this.moveDown}>Move Down</button>
-          </div>}
+            {addButtonForm}
+            {this.state.triggerToggle ? null : (
+              <div>
+                <button onClick={this.moveUp}>Move Up</button>
+                <button onClick={this.moveDown}>Move Down</button>
+              </div>
+            )}
           </div>
         </main>
       </div>

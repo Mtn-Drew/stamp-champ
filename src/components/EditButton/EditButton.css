@@ -77,6 +77,10 @@
   border: 3px black dashed;
 }
 
+.edit-disable {
+  background-color: gray;
+}
+
 
 
 textarea {
@@ -87,6 +91,7 @@ textarea {
 
 .disable-button {
   pointer-events: none;
+  background-color: rgb(206, 204, 204);
 }
 
 .enable-button {
