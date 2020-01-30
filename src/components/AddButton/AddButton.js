@@ -272,16 +272,17 @@ class AddButton extends React.Component {
   }
 
   handleTextarea = (e) => {
-    if (e.target.value === '') {
-      this.setState({
-        disabled: true
-      })
-    } else {
-      this.setState({
-        disabled: false,
-        textareaValue: e.target.value
-      })
-    }
+    // if (e.target.value === '') {
+    //   this.setState({
+    //     disabled: true
+    //   })
+    // } else {
+    //   this.setState({
+    //     disabled: false,
+    //     textareaValue: e.target.value
+    //   })
+    // }
+    // if textarea is blank, ask 'are you sure you want a blank stamp? ++++++++++++++++++++++++++++++++++++++++++
   }
 
   reloadButtons = () =>{
