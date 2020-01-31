@@ -22,7 +22,8 @@ class AddButton extends React.Component {
     selectedProfile: this.props.selectedProfile,
     selectedTemplate: this.props.selectedTemplate,
     disabled: true,
-    textareaValue: ''
+    textareaValue: '', 
+    errorMessage: ''
   }
 
   resetState = () => {
@@ -126,6 +127,21 @@ class AddButton extends React.Component {
 
     if (this.state.whatToAdd === 'template') {
       const text = this.state.textBoxValue
+      // loop through current array of templates and prevent duplicate name
+      console.log('storeTemplate ->', this.state.storeTemplate);
+      const duplicate = this.state.storeTemplate.filter((tmpl)=> tmpl.title===text)
+      console.log('duplicate array->', duplicate);
+      if (duplicate.length!==0) {
+        this.setState({
+          errorMessage: 'Duplicate title names are not permitted'
+        })
+        return console.log('duplicate title detected');
+
+      } else {
+        this.setState({
+          errorMessage: ''
+        })
+      }
       const newTemplate = {
         title: text,
         owner_id: this.props.owner_id
@@ -143,6 +159,25 @@ class AddButton extends React.Component {
 
     if (this.state.whatToAdd === 'profile') {
       const text = this.state.textBoxValue
+
+    
+      // loop through current array of profiles and prevent duplicate name
+      console.log('storeProfile ->', this.state.storeProfile);
+      const duplicate = this.state.storeProfile.filter((prof)=> prof.title===text)
+      console.log('duplicate array->', duplicate);
+      if (duplicate.length!==0) {
+        this.setState({
+          errorMessage: 'Duplicate title names are not permitted'
+        })
+        return console.log('duplicate title detected');
+
+      } else {
+        this.setState({
+          errorMessage: ''
+        })
+      }
+
+
       const selected = this.state.selectedTemplate
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
 
@@ -170,13 +205,31 @@ class AddButton extends React.Component {
 
     if (this.state.whatToAdd === 'stamp') {
       const selectedProf = this.state.selectedProfile
-
+      const text = this.state.textBoxValue
+      // const selected = this.state.selectedProfile
       //get profile object with matching title from dropdown
+
+      // loop through current array of profiles and prevent duplicate name
+      console.log('storeStamps ->', this.state.storeStamps);
+      const duplicate = this.state.storeStamps.filter((stmp)=> stmp.title===text)
+      console.log('duplicate array->', duplicate);
+      if (duplicate.length!==0) {
+        this.setState({
+          errorMessage: 'Duplicate title names are not permitted'
+        })
+        return console.log('duplicate title detected');
+
+      } else {
+        this.setState({
+          errorMessage: ''
+        })
+      }
+
+
       const prof = this.state.storeProfile.filter((obj) => {
         return obj.title === selectedProf
       })
-      const text = this.state.textBoxValue
-      // const selected = this.state.selectedProfile
+      
       const content = this.state.textareaValue
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
       // const temp_id = this.state.storeProfile.filter((obj) => {
@@ -323,6 +376,7 @@ class AddButton extends React.Component {
 
     return (
       <main key={this.state.requirementKey}>
+        {this.state.errorMessage}
         <div>
           <h1>Add Button></h1>
         </div>
