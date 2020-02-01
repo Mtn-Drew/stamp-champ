@@ -545,7 +545,7 @@ class StampPad extends React.Component {
           key={templ.id ? templ.id : i}
           onClick={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
-          className="template_button edit-select"
+          className="template_button edit-select btn--edit--solid"  //how to overwrite css??
         >
           {this.state.storeTemplate[i].title}
         </Button>

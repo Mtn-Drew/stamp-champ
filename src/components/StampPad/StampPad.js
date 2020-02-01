@@ -121,7 +121,9 @@ class StampPad extends React.Component {
             text={this.state.storeStamps[i].content}
             onMouseOver={() => {
               this.stampSelect(stamp.content)
+              
             }}
+            className='btn--primary--solid'
           >
             {stamp.title}
           </Button>

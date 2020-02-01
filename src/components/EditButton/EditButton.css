@@ -53,11 +53,11 @@
   box-shadow: none;
 }
 
-.btn--primary--solid {
+.btn--edit--solid {
   background-color: rgba(50,50,50,.7);
 }
 
-.btn--primary--solid:hover {
+.btn--edit--solid:hover {
   background-color: rgba(50,50,50,1);
 }
 
