@@ -32,6 +32,9 @@ class DeleteButton extends React.Component {
       console.log('in if')
       const tempArray = this.props.storeProfile
       console.log('tempArray->', tempArray);
+
+
+      
       for (let i = 0; i < tempArray.length; i++) { //instead of this for loop-> use .find and then delete from db??
         console.log('tempArray[i]',tempArray[i])
         console.log('i', i);
@@ -47,6 +50,8 @@ class DeleteButton extends React.Component {
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
       }
+
+
       ProfileService.deleteProfile(this.props.target.id)
     }
 

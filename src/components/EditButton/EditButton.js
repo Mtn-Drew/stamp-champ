@@ -296,10 +296,10 @@ class StampPad extends React.Component {
     if (type === 'profile') {
       const temp = this.state.storeProfile
       console.log('temp', temp)
-      temp.push(arr[arr.length - 1]) // for loading the latest added item into state
+      //temp.push(arr[arr.length - 1]) // for loading the latest added item into state
       console.log('newTemp', temp)
       this.setState({
-        storeProfile: temp
+        storeProfile: arr
       })
     }
 
