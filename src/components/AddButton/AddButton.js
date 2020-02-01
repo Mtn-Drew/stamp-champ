@@ -325,19 +325,15 @@ class AddButton extends React.Component {
     }
   }
 
-  //handleTextarea = (e) => {
-    // if (e.target.value === '') {
-    //   this.setState({
-    //     disabled: true
-    //   })
-    // } else {
-    //   this.setState({
-    //     disabled: false,
-    //     textareaValue: e.target.value
-    //   })
-    // }
-    // if textarea is blank, ask 'are you sure you want a blank stamp? ++++++++++++++++++++++++++++++++++++++++++
- // }
+  handleTextarea = (e) => {
+    
+      this.setState({
+        disabled: false,
+        textareaValue: e.target.value
+      })
+    
+
+ }
 
   reloadButtons = () =>{
     TemplateService.getTemplates((value) =>
@@ -473,7 +469,7 @@ class AddButton extends React.Component {
             className={this.state.stampContentBoxIsVisible ? 'show' : 'hide'}
             placeholder="New Stamp Content"
             id="stamp_content_box"
-            // onChange={this.handleTextarea}
+            onChange={this.handleTextarea}
           ></textarea>
         </form>
 
