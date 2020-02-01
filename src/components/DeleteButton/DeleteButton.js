@@ -31,11 +31,16 @@ class DeleteButton extends React.Component {
     if (this.props.whatToEdit === 'profile') {
       console.log('in if')
       const tempArray = this.props.storeProfile
-      for (let i = 0; i < tempArray.length; i++) {
-        console.log(tempArray[i])
-        console.log(this.props.target.title)
+      console.log('tempArray->', tempArray);
+      for (let i = 0; i < tempArray.length; i++) { //instead of this for loop-> use .find and then delete from db??
+        console.log('tempArray[i]',tempArray[i])
+        console.log('i', i);
+        console.log('target title->', this.props.target.title)
         if (tempArray[i].title === this.props.target.title) {
+          console.log('tempArray before splice->',tempArray);
           tempArray.splice(i, 1)
+          console.log('tempArray after splice->', tempArray);
+          console.log('i in splice', i);
           console.log('remove profile target')
 
           console.log('tempArray', tempArray)
