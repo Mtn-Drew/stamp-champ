@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button } from '../Button/Button'
-// import STORE from '../../STORE'
 import './StampPad.css'
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
@@ -8,9 +7,6 @@ import StampsService from '../../services/stamp-service'
 
 class StampPad extends React.Component {
   state = {
-    // store: STORE,
-    // selectedTemplate: {},
-    // selectedProfile: {},
     storeTemplate: [],
     storeProfile: [],
     storeStamps: [],
@@ -50,6 +46,7 @@ class StampPad extends React.Component {
     this.setState({
       stampValue: stampContent
     })
+    
   }
 
   componentDidMount() {
@@ -60,6 +57,7 @@ class StampPad extends React.Component {
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
+   
   }
 
   setTemplates = (value) => {
@@ -69,7 +67,7 @@ class StampPad extends React.Component {
     })
   }
 
-  displayStamp = (e) => {}
+  //displayStamp = (e) => {}
 
   render() {
     console.log('in RENDER SP')

@@ -6,8 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import StampPad from './components/StampPad/StampPad.js'
 
 import CreateAccount from './components/CreateAccount/CreateAccount'
-// import SignIn from './components/SignIn/SignIn'
-import SignIn from './components/SignIn/LoginPage'
+import LoginPage from './components/SignIn/LoginPage'
 
 import AddButton from './components/AddButton/AddButton'
 import EditButton from './components/EditButton/EditButton'
@@ -22,6 +21,13 @@ class App extends React.Component {
     isLoggedIn: false
   }
 
+  handleLogin = () => {
+    console.log('in handleLogin')
+    // this.setState({
+    //   isLoggedIn: true
+    // })
+  }
+
   handleDataCallback = (page) => {
     console.log('in data callback')
     console.log(this)
@@ -29,7 +35,7 @@ class App extends React.Component {
   }
 
   signOut = (history) => {
-    console.log('in signOut');
+    console.log('in signOut')
     localStorage.clear()
     this.setState({
       isLoggedIn: false
@@ -45,22 +51,34 @@ class App extends React.Component {
             path="/"
             render={(props) => (
               <Toolbar
-                drawerClickHandler={this.drawerToggleClickHandler}
+                //drawerClickHandler={this.drawerToggleClickHandler}
                 onPage={this.state.onPage}
                 signOut={this.signOut.bind(this, props.history)}
                 history={props.history}
+                isLoggedIn={this.state.isLoggedIn}
               />
             )}
           />
 
           <main style={{ marginTop: '64px' }}>
             <PrivateRoute path="/stamps" component={StampPad} />
+            {/* <PrivateRoute path="/stamps" component={(props) => <StampPad {...props} handleLogin={this.handleLogin} />}/> */}
 
             <Route path="/" exact component={LandingPage} />
 
             <PublicOnlyRoute path="/create_account" component={CreateAccount} />
 
-            <Route path="/sign_in" component={SignIn} />
+            {/* <Route path="/sign_in" component={LoginPage} /> */}
+            <Route
+              path="/sign_in"
+              render={(props) => (
+                <LoginPage
+                  {...props}
+                  isLoggedIn={this.state.isLoggedIn}
+                  handleLoggedIn={this.handleLogin}
+                />
+              )}
+            />
 
             <PrivateRoute path="/add_button" component={AddButton} />
             <PrivateRoute path="/configure" component={EditButton} />
