@@ -8,7 +8,7 @@
   ],
   "build" : {
     "env" :{
-        "API_ENDPOINT" : 
+        "API_ENDPOINT" : "https://vast-escarpment-43368.herokuapp.com/"
     }
   }
 }
