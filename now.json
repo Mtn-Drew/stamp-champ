@@ -5,5 +5,10 @@
   "routes": [
       { "handle": "filesystem" },
       { "src": "/.*", "dest": "/index.html" }
-  ]
+  ],
+  "build" : {
+    "env" :{
+        "API_ENDPOINT" : 
+    }
+  }
 }
