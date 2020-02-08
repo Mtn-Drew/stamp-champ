@@ -11,7 +11,7 @@ const TemplateService = {
       .then((res) =>
         !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
       )
-      .then(console.log('props', props))
+      .then(console.log('props->', props))
       .then(props)
   },
   addTemplate(props) {
@@ -31,23 +31,25 @@ const TemplateService = {
     )
   },
   deleteTemplate(templateId) {
-    console.log('in ts deleteTemplate', templateId);
-    return fetch(`${config.API_ENDPOINT}/templates/${templateId}`, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-        authorization: `Bearer ${TokenService.getAuthToken()}`
-      }
-    })
-    // .then((res) =>
-    // !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json(204)
-    // )
-    .catch((error) => {
-      console.error({ error })
-    })
+    console.log('in ts deleteTemplate', templateId)
+    return (
+      fetch(`${config.API_ENDPOINT}/templates/${templateId}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${TokenService.getAuthToken()}`
+        }
+      })
+        // .then((res) =>
+        // !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json(204)
+        // )
+        .catch((error) => {
+          console.error({ error })
+        })
+    )
   },
-  updateTemplate(props){
-    console.log('in ts updateTemplate', props);
+  updateTemplate(props) {
+    console.log('in ts updateTemplate', props)
     return fetch(`${config.API_ENDPOINT}/templates/${props.id}`, {
       method: 'PATCH',
       headers: {
@@ -57,10 +59,9 @@ const TemplateService = {
       body: JSON.stringify({
         title: props.title,
         owner_id: props.owner_id,
-        id:props.id
+        id: props.id
       })
-    })
-    .catch((error) => {
+    }).catch((error) => {
       console.error({ error })
     })
   }

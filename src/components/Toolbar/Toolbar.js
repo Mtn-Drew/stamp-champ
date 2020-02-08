@@ -4,14 +4,14 @@ import './Toolbar.css'
 import { Route, Link } from 'react-router-dom'
 
 const navbar = (props) => (
- 
   <header className="navbar">
     <nav className="navbar__navigation">
       <Route
         path="/"
         render={(props) => (
           <div className="navbar__logo">
-        <a href="/">{props.isLoggedIn ? <p>true</p> : <p>false</p>}</a>
+            {/* <a href="/">{props.isLoggedIn ? <p>true</p> : <p>false</p>}</a> */}
+            <a href="/">Logo</a>
           </div>
         )}
       ></Route>
@@ -38,7 +38,7 @@ const navbar = (props) => (
             )}
           />
 
-          {!props.isLoggedIn ? (
+          {/* {!props.isLoggedIn ? ( */}
             <Route
               path="/"
               exact
@@ -48,7 +48,7 @@ const navbar = (props) => (
                 </li>
               )}
             />
-          ) : (
+          {/* ) : ( */}
             <Route
               path="/"
               exact
@@ -58,7 +58,7 @@ const navbar = (props) => (
                 </li>
               )}
             />
-          )}
+          {/* )} */}
 
           <Route
             path="/"
@@ -106,6 +106,15 @@ const navbar = (props) => (
             )}
           />
 
+            <Route
+              path="/sign_in"
+              exact
+              render={(props) => (
+                <li>
+                  <Link to="/create_account">Create Account</Link>
+                </li>
+              )}
+            />
           <Route
             path="/sign_in"
             render={(props) => (

@@ -68,8 +68,8 @@ class App extends React.Component {
 
             <PublicOnlyRoute path="/create_account" component={CreateAccount} />
 
-            {/* <Route path="/sign_in" component={LoginPage} /> */}
-            <Route
+            <Route path="/sign_in" component={LoginPage} />
+            {/* <Route
               path="/sign_in"
               render={(props) => (
                 <LoginPage
@@ -78,7 +78,7 @@ class App extends React.Component {
                   handleLoggedIn={this.handleLogin}
                 />
               )}
-            />
+            /> */}
 
             <PrivateRoute path="/add_button" component={AddButton} />
             <PrivateRoute path="/configure" component={EditButton} />
