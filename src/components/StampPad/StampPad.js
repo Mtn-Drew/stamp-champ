@@ -4,12 +4,17 @@ import './StampPad.css'
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
+import ShareService from '../../services/share-service'
 
 class StampPad extends React.Component {
   state = {
     storeTemplate: [],
     storeProfile: [],
     storeStamps: [],
+    storeShares: [],
+    storeShareTemplate: [],
+    storeShareProfile: [],
+    storeShareStamp: [],
     isLoaded: false,
     items: [],
     stampValue: ''
@@ -38,7 +43,7 @@ class StampPad extends React.Component {
   templateSelect = (templateId) => {
     this.setState({
       selectedTemplate: templateId,
-      stampValue:''
+      stampValue: ''
     })
   }
 
@@ -46,47 +51,76 @@ class StampPad extends React.Component {
     this.setState({
       stampValue: stampContent
     })
-    
   }
 
   componentDidMount() {
-    TemplateService.getTemplates((value) => this.setTemplates(value))
+    TemplateService.getTemplates((value) => {
+      this.setState({ storeTemplate: value })
+    })
     ProfilesService.getProfiles((value) => {
       this.setState({ storeProfile: value })
     })
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
-   
+    ShareService.getShares((value) => {
+      this.setState({ storeShares: value })
+    })
+    // loadShares()
   }
 
-  setTemplates = (value) => {
-    //use this setup if there is more state to set ----------------------------------------
-    this.setState({
-      storeTemplate: value
+  loadShares = () => {
+    //for each
+    console.log('in loadShares')
+    console.log('storeShares->', this.state.storeShares)
+    this.state.storeShares.forEach(() => {
+      ShareService.getTemplates((value) => {
+        //get every template with template_id
+        this.setState({ storeShareTemplate: value })
+      })
+      //get every profile with template_id
+      ShareService.getProfiles((value) => {
+        this.setState({ storeShareTemplate: value })
+      })
+      //get every stamp with template_id
+      ShareService.getStamps((value) => {
+        this.setState({ storeShareTemplate: value })
+      })
     })
   }
-
-  //displayStamp = (e) => {}
 
   render() {
     console.log('in RENDER SP')
     console.log('storeTemplate', this.state.storeTemplate)
     console.log('storeProfile', this.state.storeProfile)
     console.log('storeStamps', this.state.storeStamps)
-    const templateRow = this.state.storeTemplate.map((templ, i) => {
+    console.log('shares', this.state.storeShares)
+    console.log('storeShareTemplate', this.state.storeShareTemplate)
+    console.log('storeShareProfile', this.state.storeShareProfile)
+    console.log('storeShareStamps', this.state.storeShareStamp)
+    const myTemplateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
           key={templ.id}
-          onMouseOver={() =>
-            this.templateSelect(templ.id)
-          }
+          onMouseOver={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
         >
           {this.state.storeTemplate[i].title}
         </Button>
       )
     })
+    const shareTemplateRow = this.state.storeShareTemplate.map((templ, i) => {
+      return (
+        <Button
+          key={templ.id}
+          onMouseOver={() => this.templateSelect(templ.id)}
+          template={this.state.selectedTemplate}
+        >
+          {this.state.storeTemplate[i].title}
+        </Button>
+      )
+    })
+    const templateRow = myTemplateRow.concat(shareTemplateRow)
 
     const profileRow = this.state.storeProfile
       .filter(
@@ -97,9 +131,7 @@ class StampPad extends React.Component {
         return (
           <Button
             key={prof.id}
-            onMouseOver={() =>
-              this.profileSelect(prof.id)
-            }
+            onMouseOver={() => this.profileSelect(prof.id)}
             profile={this.state.storeProfile}
           >
             {prof.title}
@@ -119,9 +151,8 @@ class StampPad extends React.Component {
             text={this.state.storeStamps[i].content}
             onMouseOver={() => {
               this.stampSelect(stamp.content)
-              
             }}
-            className='btn--primary--solid'
+            className="btn--primary--solid"
           >
             {stamp.title}
           </Button>
@@ -164,6 +195,7 @@ class StampPad extends React.Component {
             </div>
           </main>
         </div>
+        <button onClick={this.loadShares}>shares</button>
       </div>
     )
   }

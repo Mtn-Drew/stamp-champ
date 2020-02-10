@@ -22,7 +22,7 @@ class AddButton extends React.Component {
     selectedProfile: this.props.selectedProfile,
     selectedTemplate: this.props.selectedTemplate,
     disabled: true,
-    textareaValue: '', 
+    textareaValue: '',
     errorMessage: ''
   }
 
@@ -128,15 +128,16 @@ class AddButton extends React.Component {
     if (this.state.whatToAdd === 'template') {
       const text = this.state.textBoxValue
       // loop through current array of templates and prevent duplicate name
-      console.log('storeTemplate ->', this.state.storeTemplate);
-      const duplicate = this.state.storeTemplate.filter((tmpl)=> tmpl.title===text)
-      console.log('duplicate array->', duplicate);
-      if (duplicate.length!==0) {
+      console.log('storeTemplate ->', this.state.storeTemplate)
+      const duplicate = this.state.storeTemplate.filter(
+        (tmpl) => tmpl.title === text
+      )
+      console.log('duplicate array->', duplicate)
+      if (duplicate.length !== 0) {
         this.setState({
           errorMessage: 'Duplicate title names are not permitted'
         })
-        return console.log('duplicate title detected');
-
+        return console.log('duplicate title detected')
       } else {
         this.setState({
           errorMessage: ''
@@ -160,23 +161,22 @@ class AddButton extends React.Component {
     if (this.state.whatToAdd === 'profile') {
       const text = this.state.textBoxValue
 
-    
       // loop through current array of profiles and prevent duplicate name
-      console.log('storeProfile ->', this.state.storeProfile);
-      const duplicate = this.state.storeProfile.filter((prof)=> prof.title===text)
-      console.log('duplicate array->', duplicate);
-      if (duplicate.length!==0) {
+      console.log('storeProfile ->', this.state.storeProfile)
+      const duplicate = this.state.storeProfile.filter(
+        (prof) => prof.title === text
+      )
+      console.log('duplicate array->', duplicate)
+      if (duplicate.length !== 0) {
         this.setState({
           errorMessage: 'Duplicate title names are not permitted'
         })
-        return console.log('duplicate title detected');
-
+        return console.log('duplicate title detected')
       } else {
         this.setState({
           errorMessage: ''
         })
       }
-
 
       const selected = this.state.selectedTemplate
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
@@ -210,26 +210,26 @@ class AddButton extends React.Component {
       //get profile object with matching title from dropdown
 
       // loop through current array of profiles and prevent duplicate name
-      console.log('storeStamps ->', this.state.storeStamps);
-      const duplicate = this.state.storeStamps.filter((stmp)=> stmp.title===text)
-      console.log('duplicate array->', duplicate);
-      if (duplicate.length!==0) {
+      console.log('storeStamps ->', this.state.storeStamps)
+      const duplicate = this.state.storeStamps.filter(
+        (stmp) => stmp.title === text
+      )
+      console.log('duplicate array->', duplicate)
+      if (duplicate.length !== 0) {
         this.setState({
           errorMessage: 'Duplicate title names are not permitted'
         })
-        return console.log('duplicate title detected');
-
+        return console.log('duplicate title detected')
       } else {
         this.setState({
           errorMessage: ''
         })
       }
 
-
       const prof = this.state.storeProfile.filter((obj) => {
         return obj.title === selectedProf
       })
-      
+
       const content = this.state.textareaValue
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
       // const temp_id = this.state.storeProfile.filter((obj) => {
@@ -266,15 +266,15 @@ class AddButton extends React.Component {
   }
 
   createProfileTemplateSelect = (e) => {
-    console.log('in createProfileTemplateSelect');
+    console.log('in createProfileTemplateSelect')
 
     if (e.target.value !== 'Select Template') {
       const tmpl = this.state.storeTemplate.filter((obj) => {
-        console.log(obj.title, e.target.value);
-      return obj.title === e.target.value
-    })
-    this.props.onTemplateSelect(tmpl[0].id)
-  }
+        console.log(obj.title, e.target.value)
+        return obj.title === e.target.value
+      })
+      this.props.onTemplateSelect(tmpl[0].id)
+    }
     e.target.value === 'Select Template'
       ? this.setState({ disabled: true })
       : this.setState({ disabled: false }) //To prevent submitting with template value 'Select Template'
@@ -292,11 +292,11 @@ class AddButton extends React.Component {
 
     if (e.target.value !== 'Select Profile') {
       const prof = this.state.storeProfile.filter((obj) => {
-        console.log(obj.title, e.target.value);
-      return obj.title === e.target.value
-    })
-    this.props.onProfileSelect(prof[0].id)
-  }
+        console.log(obj.title, e.target.value)
+        return obj.title === e.target.value
+      })
+      this.props.onProfileSelect(prof[0].id)
+    }
 
     e.target.value === 'Select Profile'
       ? this.setState({ disabled: true })
@@ -326,16 +326,13 @@ class AddButton extends React.Component {
   }
 
   handleTextarea = (e) => {
-    
-      this.setState({
-        disabled: false,
-        textareaValue: e.target.value
-      })
-    
+    this.setState({
+      disabled: false,
+      textareaValue: e.target.value
+    })
+  }
 
- }
-
-  reloadButtons = () =>{
+  reloadButtons = () => {
     TemplateService.getTemplates((value) =>
       this.setState({
         storeTemplate: value
@@ -441,7 +438,6 @@ class AddButton extends React.Component {
         <form
           id="profile-select-form"
           className={this.state.profileSelectFormIsVisible ? 'show' : 'hide'}
-          
         >
           <select
             name="profile-selection"
@@ -472,7 +468,6 @@ class AddButton extends React.Component {
             onChange={this.handleTextarea}
           ></textarea>
         </form>
-
       </main>
     )
   }

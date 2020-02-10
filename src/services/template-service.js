@@ -2,6 +2,7 @@ import TokenService from './token-service'
 import config from '../config'
 
 const TemplateService = {
+
   getTemplates(props) {
     return fetch(`${config.API_ENDPOINT}/templates`, {
       headers: {
@@ -11,9 +12,10 @@ const TemplateService = {
       .then((res) =>
         !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
       )
-      .then(console.log('props->', props))
+      .then(console.log('ts props->', props))
       .then(props)
   },
+
   addTemplate(props) {
     return fetch(`${config.API_ENDPOINT}/templates`, {
       method: 'POST',
@@ -30,24 +32,20 @@ const TemplateService = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     )
   },
+
   deleteTemplate(templateId) {
     console.log('in ts deleteTemplate', templateId)
-    return (
-      fetch(`${config.API_ENDPOINT}/templates/${templateId}`, {
-        method: 'DELETE',
-        headers: {
-          'content-type': 'application/json',
-          authorization: `Bearer ${TokenService.getAuthToken()}`
-        }
-      })
-        // .then((res) =>
-        // !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json(204)
-        // )
-        .catch((error) => {
-          console.error({ error })
-        })
-    )
+    return fetch(`${config.API_ENDPOINT}/templates/${templateId}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${TokenService.getAuthToken()}`
+      }
+    }).catch((error) => {
+      console.error({ error })
+    })
   },
+
   updateTemplate(props) {
     console.log('in ts updateTemplate', props)
     return fetch(`${config.API_ENDPOINT}/templates/${props.id}`, {
@@ -65,5 +63,6 @@ const TemplateService = {
       console.error({ error })
     })
   }
+
 }
 export default TemplateService

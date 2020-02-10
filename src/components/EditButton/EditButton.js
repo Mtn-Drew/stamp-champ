@@ -532,6 +532,10 @@ class StampPad extends React.Component {
     console.log('in moveDown')
   }
 
+  triggerShare = () => {
+    console.log('in triggerShare');
+  }
+
   render() {
     console.log('RENDER RENDER')
     console.log(this.state.triggerToggle)
@@ -674,6 +678,10 @@ class StampPad extends React.Component {
             <button id="select-trigger" onClick={() => this.triggerToggle()}>
               {' '}
               TOGGLE EDIT MODE{' '}
+            </button>
+            <button id="select-share" onClick={() => this.triggerShare()}>
+              {' '}
+              SHARED TEMPLATES{' '}
             </button>
             <div className="spacer" />
 
