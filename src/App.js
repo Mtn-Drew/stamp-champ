@@ -43,6 +43,10 @@ class App extends React.Component {
     history.push('/')
   }
 
+  componentDidMount () {
+
+  }
+
   render() {
     return (
       <div style={{ height: '100%' }}>
@@ -61,7 +65,7 @@ class App extends React.Component {
           />
 
           <main style={{ marginTop: '64px' }}>
-            <PrivateRoute path="/stamps" component={StampPad} />
+            <Route path="/stamps" component={StampPad} />
             {/* <PrivateRoute path="/stamps" component={(props) => <StampPad {...props} handleLogin={this.handleLogin} />}/> */}
 
             <Route path="/" exact component={LandingPage} />

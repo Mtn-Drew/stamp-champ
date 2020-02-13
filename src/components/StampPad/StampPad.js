@@ -56,6 +56,12 @@ class StampPad extends React.Component {
   componentDidMount() {
     TemplateService.getTemplates((value) => {
       this.setState({ storeTemplate: value })
+    }).catch(e=>{
+      console.log('error->',e)
+      if (e.error==="Unauthorized request"){
+        localStorage.clear()
+        this.props.history.push('/sign_in')
+      }
     })
     ProfilesService.getProfiles((value) => {
       this.setState({ storeProfile: value })
@@ -66,26 +72,57 @@ class StampPad extends React.Component {
     ShareService.getShares((value) => {
       this.setState({ storeShares: value })
     })
-    // loadShares()
+    this.loadShares()
+    Promise.all([
+      ShareService.getShares(),
+      StampsService.getStamps(),
+      ProfilesService.getProfiles(),
+      TemplateService.getTemplates(),
+      
+    ])
+    .then(res =>{
+      this.setState({ storeShares: res[0] })
+      this.setState({ storeStamps: res[1] })
+      this.setState({ storeProfile: res[2] })
+      this.setState({ storeTemplate: res[3] })
+      this.loadShares()
+    }).catch(e=>{
+      console.log('error->',e)
+      if (e.error==="Unauthorized request"){
+        localStorage.clear()
+        this.props.history.push('/sign_in')
+      }
+    })
   }
 
   loadShares = () => {
     //for each
     console.log('in loadShares')
     console.log('storeShares->', this.state.storeShares)
-    this.state.storeShares.forEach(() => {
-      ShareService.getTemplates((value) => {
-        //get every template with template_id
-        this.setState({ storeShareTemplate: value })
-      })
+    this.state.storeShares.forEach((shareObject) => {
+      ShareService.getSharedTemplates(shareObject.template_id).then(
+        (result) => {
+          console.log(result)
+          this.setState({
+            storeShareTemplate: [result]
+          }) //'result' is an object; we need to first put it in an array and append it to storeShareTemplate in case there is more than one
+        }
+        //  console.log(this.state.storeShareTemplate)
+        //console.log(res.json())
+        //   this.setState({
+        //   storeShareTemplate
+        // })
+      )
+      //console.log('template_id ->', shareObject.template_id);
+
       //get every profile with template_id
-      ShareService.getProfiles((value) => {
-        this.setState({ storeShareTemplate: value })
-      })
+      // ShareService.getProfiles((value) => {
+      //   this.setState({ storeShareTemplate: value })
+      // })
       //get every stamp with template_id
-      ShareService.getStamps((value) => {
-        this.setState({ storeShareTemplate: value })
-      })
+      // ShareService.getStamps((value) => {
+      //   this.setState({ storeShareTemplate: value })
+      // })
     })
   }
 
@@ -98,6 +135,7 @@ class StampPad extends React.Component {
     console.log('storeShareTemplate', this.state.storeShareTemplate)
     console.log('storeShareProfile', this.state.storeShareProfile)
     console.log('storeShareStamps', this.state.storeShareStamp)
+
     const myTemplateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
@@ -109,6 +147,7 @@ class StampPad extends React.Component {
         </Button>
       )
     })
+
     const shareTemplateRow = this.state.storeShareTemplate.map((templ, i) => {
       return (
         <Button
@@ -116,10 +155,11 @@ class StampPad extends React.Component {
           onMouseOver={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
         >
-          {this.state.storeTemplate[i].title}
+          {this.state.storeShareTemplate[i].title}
         </Button>
       )
     })
+
     const templateRow = myTemplateRow.concat(shareTemplateRow)
 
     const profileRow = this.state.storeProfile

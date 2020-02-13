@@ -3,7 +3,7 @@ import config from '../config'
 
 const TemplateService = {
 
-  getTemplates(props) {
+  getTemplates() {
     return fetch(`${config.API_ENDPOINT}/templates`, {
       headers: {
         authorization: `Bearer ${TokenService.getAuthToken()}`
@@ -12,8 +12,8 @@ const TemplateService = {
       .then((res) =>
         !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
       )
-      .then(console.log('ts props->', props))
-      .then(props)
+      // .then(console.log('ts props->', props))
+      // .then(props)
   },
 
   addTemplate(props) {

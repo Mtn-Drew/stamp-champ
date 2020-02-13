@@ -2,7 +2,7 @@ import TokenService from './token-service'
 import config from '../config'
 
 const StampsService ={
-  getStamps (props) {
+  getStamps () {
     return fetch(`${config.API_ENDPOINT}/stamps`, {
       headers: {
         authorization : `Bearer ${TokenService.getAuthToken()}`
@@ -13,7 +13,7 @@ const StampsService ={
         ? res.json().then(e => Promise.reject(e))
         : res.json()
     )
-    .then(props)
+    // .then(props)
   },
   addStamps(props) {
     return fetch(`${config.API_ENDPOINT}/stamps`, {
