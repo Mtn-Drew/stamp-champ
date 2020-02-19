@@ -27,17 +27,19 @@ const ShareService = {
     )
   },
 
-  getProfiles(props) {
-    return fetch(`${config.API_ENDPOINT}/shares/profiles/`, {
+  getSharedProfiles(templateId) {
+    console.log('in ss getSharedProfiles');
+    return fetch(`${config.API_ENDPOINT}/shares/profiles/${templateId}`, {
       headers: {
         authorization: `Bearer ${TokenService.getAuthToken()}`
+        
       }
     })
       .then((res) =>
         !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
       )
-      .then(console.log('props-->', props))
-      .then(props)
+      // .then(console.log('props-->', props))
+      // .then(props)
   },
 
   getStamps(props) {
