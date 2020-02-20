@@ -126,14 +126,24 @@ class StampPad extends React.Component {
             })
           }
         )
-      // ShareService.getProfiles((value) => {
-      //   this.setState({ storeShareTemplate: value })
-      // })
-      //get every stamp with template_id
-      // ShareService.getStamps((value) => {
-      //   this.setState({ storeShareTemplate: value })
-      // })
+ 
     })
+
+    //get every profile with shared template_id
+    this.state.storeShares.forEach((shareObject) => {
+      console.log('in forEach stamps')
+      //for each template listed on the shared table, add the stamps to storeSharedStamp state
+      ShareService.getSharedStamps(shareObject.template_id)
+      .then(
+        (result) =>{
+          console.log(result)
+          this.setState({
+              storeShareStamp: result
+          })
+        }
+      )
+
+  })
   }
 
   render() {
@@ -199,7 +209,7 @@ class StampPad extends React.Component {
           <Button
             key={prof.id}
             onMouseOver={() => this.profileSelect(prof.id)}
-            profile={this.state.storeProfile}
+            profile={this.state.storeShareProfile}
           >
             {prof.title}
           </Button>
@@ -208,7 +218,7 @@ class StampPad extends React.Component {
 
       const profileRow = myProfileRow.concat(shareProfileRow)
 
-    const stampRow = this.state.storeStamps
+    const myStampRow = this.state.storeStamps
       .filter((selected) => selected.profile_id === this.state.selectedProfile)
 
       .map((stamp, i) => {
@@ -227,6 +237,28 @@ class StampPad extends React.Component {
           </Button>
         )
       })
+
+      const shareStampRow = this.state.storeShareStamp
+      .filter((selected) => selected.profile_id === this.state.selectedProfile)
+
+      .map((stamp, i) => {
+        return (
+          <Button
+            key={stamp.id}
+            onClick={() => this.copyToClipboard(stamp.content)}
+            title={this.state.storeShareStamp[i].title}
+            text={this.state.storeShareStamp[i].content}
+            onMouseOver={() => {
+              this.stampSelect(stamp.content)
+            }}
+            className="btn--primary--solid"
+          >
+            {stamp.title}
+          </Button>
+        )
+      })
+
+      const stampRow = myStampRow.concat(shareStampRow)
 
     return (
       <div className="main-wrapper">

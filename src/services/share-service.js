@@ -42,8 +42,8 @@ const ShareService = {
       // .then(props)
   },
 
-  getStamps(props) {
-    return fetch(`${config.API_ENDPOINT}/shares/stamps/`, {
+  getSharedStamps(templateId) {
+    return fetch(`${config.API_ENDPOINT}/shares/stamps/${templateId}`, {
       headers: {
         authorization: `Bearer ${TokenService.getAuthToken()}`
       }
@@ -51,8 +51,8 @@ const ShareService = {
       .then((res) =>
         !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
       )
-      .then(console.log('props-->', props))
-      .then(props)
+      // .then(console.log('props-->', props))
+      // .then(props)
   }
 }
 
