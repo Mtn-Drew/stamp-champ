@@ -40,7 +40,7 @@ class App extends React.Component {
     this.setState({
       isLoggedIn: false
     })
-    history.push('/')
+    //history.push('/')
   }
 
   componentDidMount () {
@@ -55,9 +55,9 @@ class App extends React.Component {
             path="/"
             render={(props) => (
               <Toolbar
-                //drawerClickHandler={this.drawerToggleClickHandler}
+                signOut={this.signOut}
                 onPage={this.state.onPage}
-                signOut={this.signOut.bind(this, props.history)}
+                //signOut={this.signOut.bind(this, props.history)}
                 history={props.history}
                 isLoggedIn={this.state.isLoggedIn}
               />
@@ -73,17 +73,7 @@ class App extends React.Component {
             <PublicOnlyRoute path="/create_account" component={CreateAccount} />
 
             <Route path="/sign_in" component={LoginPage} />
-            {/* <Route
-              path="/sign_in"
-              render={(props) => (
-                <LoginPage
-                  {...props}
-                  isLoggedIn={this.state.isLoggedIn}
-                  handleLoggedIn={this.handleLogin}
-                />
-              )}
-            /> */}
-
+       
             <PrivateRoute path="/add_button" component={AddButton} />
             <PrivateRoute path="/configure" component={EditButton} />
           </main>

@@ -53,6 +53,27 @@ class AddButton extends React.Component {
     const selection = e.target.value
     if (selection === 'template') {
       this.createTemplate()
+
+      // Promise.all([
+      //   StampsService.getStamps(),
+      //   ProfilesService.getProfiles(),
+      //   TemplateService.getTemplates()
+      // ])
+      //   .then((res) => {
+      //     this.setState({ storeStamps: res[0] })
+      //     this.setState({ storeProfile: res[1] })
+      //     this.setState({ storeTemplate: res[2] })
+    
+      //   })
+      //   .catch((e) => {
+      //     console.log('error->', e)
+      //     if (e.error === 'Unauthorized request') {
+      //       localStorage.clear()
+      //       this.props.history.push('/sign_in')
+      //     }
+      //   })
+
+
     }
     if (selection === 'profile') {
       this.createProfile()
@@ -64,13 +85,11 @@ class AddButton extends React.Component {
       this.resetState()
     }
   }
-
   createTemplate = (e) => {
     console.log('in createTemplate')
     this.setState({
       whatToAdd: 'template'
     })
-
     this.setState({
       templateTextBoxIsVisible: true,
       templateSelectFormIsVisible: false,
@@ -344,6 +363,27 @@ class AddButton extends React.Component {
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
+
+   Promise.all([
+        StampsService.getStamps(),
+        ProfilesService.getProfiles(),
+        TemplateService.getTemplates()
+      ])
+        .then((res) => {
+          this.setState({ storeStamps: res[0] })
+          this.setState({ storeProfile: res[1] })
+          this.setState({ storeTemplate: res[2] })
+    
+        })
+        .catch((e) => {
+          console.log('error->', e)
+          if (e.error === 'Unauthorized request') {
+            localStorage.clear()
+            this.props.history.push('/sign_in')
+          }
+        })
+
+
   }
 
   componentDidMount() {
@@ -351,6 +391,10 @@ class AddButton extends React.Component {
   }
 
   render() {
+    console.log('add button render')
+    console.log('storeTemplate ', this.state.storeTemplate)
+    console.log('storeProfile ', this.state.storeProfile)
+
     const templateSelectOptions = this.state.storeTemplate.map((temp, i) => {
       return (
         <option key={i} value={temp.title}>

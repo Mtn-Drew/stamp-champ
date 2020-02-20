@@ -1,5 +1,5 @@
 import React from 'react'
-import STORE from '../../STORE'
+//import STORE from '../../STORE'
 import './Configure.css'
 import { Button } from '../Button/Button'
 
