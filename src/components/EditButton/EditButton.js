@@ -319,7 +319,7 @@ class StampPad extends React.Component {
       formStampTextBox: '',
       formContentTextBox: ''
     })
-    // this.reloadButtons()  messing up delete
+    
   }
 
   toggleTemplateTitle = (e) => {
@@ -483,7 +483,47 @@ class StampPad extends React.Component {
     console.log(
       'componentDidMount----------------------------------------------------------------'
     )
-    this.reloadButtons()
+    TemplateService.getTemplates((value) => {
+      this.setState({ storeTemplate: value })
+    }).catch((e) => {
+      console.log('error->', e)
+      if (e.error === 'Unauthorized request') {
+        localStorage.clear()
+        this.props.history.push('/sign_in')
+      }
+    })
+    ProfilesService.getProfiles((value) => {
+      this.setState({ storeProfile: value })
+    })
+    StampsService.getStamps((value) => {
+      this.setState({ storeStamps: value })
+    })
+    //ShareService.getShares((value) => {
+     // this.setState({ storeShares: value })
+    //})
+
+    Promise.all([
+      //ShareService.getShares(),
+      StampsService.getStamps(),
+      ProfilesService.getProfiles(),
+      TemplateService.getTemplates()
+    ])
+      .then((res) => {
+        //this.setState({ storeShares: res[0] })
+        this.setState({ storeStamps: res[0] })
+        this.setState({ storeProfile: res[1] })
+        this.setState({ storeTemplate: res[2] })
+        //this.loadShares()
+      })
+      .catch((e) => {
+        console.log('error->', e)
+        if (e.error === 'Unauthorized request') {
+          localStorage.clear()
+          this.props.history.push('/sign_in')
+        }
+      })
+  
+    //this.reloadButtons()
   }
 
   reloadButtons = () => {

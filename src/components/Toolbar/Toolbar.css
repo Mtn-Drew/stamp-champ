@@ -8,7 +8,7 @@
   left: 0;
   width: 100%;
   background-color: rgba(155, 6, 6, .8);
-  height: 54px;
+  height: 70px;
 }
 
 .navbar__navigation {
@@ -20,6 +20,7 @@
 
 .navbar__logo {
   margin-left: 1rem;
+  width: 100px;
 }
 
 .navbar__logo a {

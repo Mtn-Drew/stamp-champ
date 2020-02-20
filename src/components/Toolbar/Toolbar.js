@@ -1,5 +1,6 @@
 import React from 'react'
 import './Toolbar.css'
+import Logo from '../../art/logo.gif'
 
 import { Route, Link } from 'react-router-dom'
 
@@ -11,7 +12,8 @@ const navbar = (props) => (
         render={(props) => (
           <div className="navbar__logo">
             {/* <a href="/">{props.isLoggedIn ? <p>true</p> : <p>false</p>}</a> */}
-            <a href="/">Logo</a>
+            {/* <a href="/">Logo</a> */}
+            <img src={Logo} href='/' alt="logo" />
           </div>
         )}
       ></Route>
