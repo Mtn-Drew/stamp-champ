@@ -14,6 +14,8 @@ import EditButton from './components/EditButton/EditButton'
 import PrivateRoute from './components/Utils/PrivateRoute'
 import PublicOnlyRoute from './components/Utils/PublicOnlyRoute'
 
+import SharedTemplates from './components/SharedTemplates/SharedTemplates'
+
 class App extends React.Component {
   state = {
     sideDrawerOpen: false,
@@ -76,6 +78,9 @@ class App extends React.Component {
        
             <PrivateRoute path="/add_button" component={AddButton} />
             <PrivateRoute path="/configure" component={EditButton} />
+
+            <PrivateRoute path="/shared_templates" component={SharedTemplates} />
+
           </main>
         </Router>
       </div>

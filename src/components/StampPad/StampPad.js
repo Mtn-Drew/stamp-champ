@@ -105,10 +105,27 @@ class StampPad extends React.Component {
       //for each template listed on the shared table, add to storeSharedTemplate state
       ShareService.getSharedTemplates(shareObject.template_id).then(
         (result) => {
-          console.log(result)
+          console.log('result ->', result)
+          console.log('storeShareTemplate ', this.state.storeShareTemplate)
+          const newSST = this.state.storeShareTemplate
+          newSST.push(result)
+          console.log('newSST ', newSST)
+
+          // this.setState({
+          //   storeShareTemplate: this.state.storeShareTemplate.push(result)
+          // })
+
+          //  this.setState({ storeShareTemplate: this.state.storeShareTemplate.concat[result]})
+          
           this.setState({
-            storeShareTemplate: [result]
-          }) //'result' is an object; we need to first put it in an array and append it to storeShareTemplate in case there is more than one
+            storeShareTemplate: newSST
+          })
+
+
+          //  this.setState({
+          //   storeShareTemplate: [result]
+          // })
+           //'result' is an object; we need to first put it in an array and append it to storeShareTemplate in case there is more than one
         }
       )
     })

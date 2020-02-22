@@ -27,6 +27,19 @@ const ShareService = {
     )
   },
 
+  deleteSharedTemplate(templateId) {
+    console.log('in ss deleteSharedTemplate')
+    return fetch(`${config.API_ENDPOINT}/shares/templates/${templateId}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${TokenService.getAuthToken()}`
+      }
+    }).catch((error) => {
+      console.error({ error })
+    })
+  },
+
   getSharedProfiles(templateId) {
     console.log('in ss getSharedProfiles');
     return fetch(`${config.API_ENDPOINT}/shares/profiles/${templateId}`, {

@@ -7,7 +7,8 @@ import DeleteButton from '../DeleteButton/DeleteButton'
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
-// import Userservice from '../../services/user-service'
+
+import SharedTemplates from '../SharedTemplates/SharedTemplates'
 
 class StampPad extends React.Component {
   state = {
@@ -20,6 +21,7 @@ class StampPad extends React.Component {
     showAddTemplateForm: false,
     showAddStampForm: false,
     triggerToggle: true,
+    shareToggle: false,
     whatToEdit: '',
     target: '',
     templateSelectedValue: '',
@@ -68,6 +70,12 @@ class StampPad extends React.Component {
     })
     this.reloadButtons()
     console.log(this.state.triggerToggle)
+  }
+
+  shareToggle = () =>{
+    this.setState({
+      shareToggle: !this.state.shareToggle
+    })
   }
 
   //when template button is clicked during 'select'
@@ -136,7 +144,6 @@ class StampPad extends React.Component {
   // Save changes to state
   saveConfiguration = (e) => {
     console.log('in saveConfiguration')
-
 
     switch (this.state.whatToEdit) {
       case 'template':
@@ -319,7 +326,6 @@ class StampPad extends React.Component {
       formStampTextBox: '',
       formContentTextBox: ''
     })
-    
   }
 
   toggleTemplateTitle = (e) => {
@@ -499,7 +505,7 @@ class StampPad extends React.Component {
       this.setState({ storeStamps: value })
     })
     //ShareService.getShares((value) => {
-     // this.setState({ storeShares: value })
+    // this.setState({ storeShares: value })
     //})
 
     Promise.all([
@@ -522,7 +528,7 @@ class StampPad extends React.Component {
           this.props.history.push('/sign_in')
         }
       })
-  
+
     //this.reloadButtons()
   }
 
@@ -573,7 +579,8 @@ class StampPad extends React.Component {
   }
 
   triggerShare = () => {
-    console.log('in triggerShare');
+    console.log('in triggerShare')
+    this.shareToggle()
   }
 
   render() {
@@ -589,7 +596,7 @@ class StampPad extends React.Component {
           key={templ.id ? templ.id : i}
           onClick={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
-          className="template_button edit-select btn--edit--solid"  //how to overwrite css??
+          className="template_button edit-select btn--edit--solid" //how to overwrite css??
         >
           {this.state.storeTemplate[i].title}
         </Button>
@@ -719,10 +726,10 @@ class StampPad extends React.Component {
               {' '}
               TOGGLE EDIT MODE{' '}
             </button>
-            <button id="select-share" onClick={() => this.triggerShare()}>
+            {/* <button id="select-share" onClick={() => this.triggerShare()}>
               {' '}
               SHARED TEMPLATES{' '}
-            </button>
+            </button> */}
             <div className="spacer" />
 
             {!this.state.triggerToggle ? (
@@ -748,9 +755,17 @@ class StampPad extends React.Component {
                 <div className="spacer" />
               </>
             ) : (
-              ''
+              <button id="select-share" onClick={() => this.triggerShare()}>
+                {' '}
+                SHARED TEMPLATES{' '}
+              </button>
             )}
           </div>
+
+{/* main body */}
+              {!this.state.shareToggle ? (
+
+        <section>
 
           <div
             className={
@@ -881,13 +896,17 @@ class StampPad extends React.Component {
           <hr className="hr" />
           <div>
             {addButtonForm}
-            {this.state.triggerToggle ? null : (
+            {/* {this.state.triggerToggle ? null : (
               <div>
                 <button onClick={this.moveUp}>Move Up</button>
                 <button onClick={this.moveDown}>Move Down</button>
               </div>
-            )}
+            )} */}
           </div>
+          </section>
+          ) : (
+            <SharedTemplates/>
+          )}
         </main>
       </div>
     )
