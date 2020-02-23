@@ -11,8 +11,6 @@ const ShareService = {
       .then((res) =>
         !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
       )
-      // .then(console.log('shares props->', props))
-      // .then(props)
 
   },
 
@@ -66,7 +64,34 @@ const ShareService = {
       )
       // .then(console.log('props-->', props))
       // .then(props)
+  },
+
+  getShareables() {
+    return fetch(`${config.API_ENDPOINT}/shareables`, {
+      headers: {
+        authorization: `Bearer ${TokenService.getAuthToken()}`
+      }
+    })
+    .then((res)=> !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    )
+    },
+  
+  addShareables(template_id) {
+    console.log('addShareables props ',template_id)
+    return fetch(`${config.API_ENDPOINT}/shareables/${template_id}`, {
+      method: 'POST',
+
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify({
+        template_id: template_id,
+        //user_id: req.params.user_id
+      })
+    })
   }
+  
 }
 
 export default ShareService

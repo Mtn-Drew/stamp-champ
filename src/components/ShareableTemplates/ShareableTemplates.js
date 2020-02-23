@@ -2,20 +2,37 @@ import React from 'react'
 import { Button } from '../Button/Button'
 import ShareService from '../../services/share-service'
 
-class SharedTemplates extends React.Component {
+class ShareableTemplates extends React.Component {
   state = {
-    storeShares: [],
-    storeShareTemplate: [],
+    storeShareables: [],
+    storeShareableTemplate: [],
+    storeShares:[],
+    storeSharesTemplate:[],
     selected: '',
     target: ''
   }
 
-  // selected = (e) => {
-  //   console.log(e.target.key);
-  //   // this.setState({
-  //   //   selected: e.target.value.title
-  //   // })
-  // }
+  loadShareables = () => {
+    console.log('in loadShareables')
+    console.log('storeShareables->', this.state.storeShareables)
+
+    this.state.storeShareableTemplate.forEach((shareObject) => {
+      console.log('in forEach loadShareables')
+
+      //for each template listed on the shareable table, add to storeShareableTemplate state
+      ShareService.getShareables().then((result) => {
+        console.log('result ->', result)
+        console.log('storeShareTemplate ', this.state.storeShareTemplate)
+        const newSST = this.state.storeShareTemplate
+        newSST.push(result)
+        console.log('newSST ', newSST)
+
+        this.setState({
+          storeShareables: newSST
+        })
+      })
+    })
+  }
 
   loadShares = () => {
     //for each
@@ -68,22 +85,22 @@ class SharedTemplates extends React.Component {
   componentDidMount() {
     // this.loadShares()
 
-    ShareService.getShares((value) => {
+    ShareService.getShareables((value) => {
       this.setState({ storeShares: value })
     })
 
     Promise.all([
-      ShareService.getShares()
+      ShareService.getShareables()
       // StampsService.getStamps(),
       // ProfilesService.getProfiles(),
       // TemplateService.getTemplates()
     ])
       .then((res) => {
-        this.setState({ storeShares: res[0] })
+        this.setState({ storeShareables: res[0] })
         // this.setState({ storeStamps: res[1] })
         // this.setState({ storeProfile: res[2] })
         // this.setState({ storeTemplate: res[3] })
-        this.loadShares()
+        this.loadShareables()
       })
       .catch((e) => {
         console.log('error->', e)
@@ -94,46 +111,52 @@ class SharedTemplates extends React.Component {
       })
   }
 
-  templateSelect = (id) => {
+  templateSelect = (templ) => {
     console.log('in templateSelect')
+    console.log('templ ', templ)
     this.setState({
-      target: id
+      target: templ
     })
   }
 
-  deleteShare = () => {
-    ShareService.deleteSharedTemplate(this.state.target.id)
-    //load shares? to update shared with me?? (the deleted share should disappear)
+  addToMyShares = () => {
+    console.log('in addToMyShares')
+    console.log('storeShareables ', this.state.storeSharables)
+    ShareService.addShareables(this.state.target.template_id)
   }
 
   render() {
-    console.log('shares', this.state.storeShares)
-    console.log('storeShareTemplate', this.state.storeShareTemplate)
+    console.log('shareables ', this.state.storeShareables)
+    console.log('storeShareablesTemplate ', this.state.storeShareableTemplate)
 
-    const shareTemplateRow = this.state.storeShareTemplate.map((templ, i) => {
+    const shareablesRow = this.state.storeShareables.map((templ, i) => {
       return (
         <Button
           key={templ.id}
-          //onMouseOver={() => this.templateSelect(templ.id)}
           onClick={() => this.templateSelect(templ)}
           template={this.state.selectedTemplate}
         >
-          {this.state.storeShareTemplate[i].title}
+          {this.state.storeShareables[i].template_title}
         </Button>
       )
     })
 
+  
+
     return (
       <div>
-        <h1>Templates shared with me</h1>
-        {shareTemplateRow}
+        <h1>These can be imported from the shareable table~</h1>
         <br />
-        {/* <button onClick={this.loadShares}>shares</button> */}
-        <button onClick={this.deleteShare}>DELETE</button>
-        <p>{this.state.target.id}</p>
+        <button onClick={this.addToMyShares}>Add to my load out</button>
+        <br />
+        {shareablesRow}
+        {/* {validatedShareablesRow} */}
+        <div>
+          <p>{this.state.target.template_desc}</p>
+        </div>
       </div>
     )
   }
 }
 
-export default SharedTemplates
+export default ShareableTemplates

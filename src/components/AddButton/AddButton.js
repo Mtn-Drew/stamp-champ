@@ -167,6 +167,7 @@ class AddButton extends React.Component {
         owner_id: this.props.owner_id
       }
       console.log('new template', newTemplate)
+      console.log('props--> ', this.props)
       const tempArray = this.state.storeTemplate.concat(newTemplate)
       this.setState({
         storeTemplate: tempArray

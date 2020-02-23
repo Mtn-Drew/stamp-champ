@@ -9,6 +9,7 @@ import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
 
 import SharedTemplates from '../SharedTemplates/SharedTemplates'
+import ShareableTemplates from '../ShareableTemplates/ShareableTemplates'
 
 class StampPad extends React.Component {
   state = {
@@ -905,8 +906,13 @@ class StampPad extends React.Component {
           </div>
           </section>
           ) : (
+            <div>
             <SharedTemplates/>
+            
+            <ShareableTemplates/>
+          </div>
           )}
+         
         </main>
       </div>
     )

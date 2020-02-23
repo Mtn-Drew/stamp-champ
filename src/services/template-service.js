@@ -26,7 +26,7 @@ const TemplateService = {
       },
       body: JSON.stringify({
         title: props.title,
-        owner_id: props.owner_id
+        //owner_id: props.owner_id
       })
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
