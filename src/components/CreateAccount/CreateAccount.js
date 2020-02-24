@@ -1,5 +1,6 @@
 import React from 'react'
 import AuthApiService from '../../services/auth-api-service'
+import './CreateAccount.css'
 
 class CreateAccount extends React.Component {
   static defaultProps = {
@@ -17,7 +18,7 @@ class CreateAccount extends React.Component {
     AuthApiService.postUser({
       user_name: user_name.value,
       password: password.value,
-      
+
       email: email.value
     })
       .then((user) => {
@@ -31,7 +32,7 @@ class CreateAccount extends React.Component {
       })
   }
 
-  handleRegistrationSuccess = user => {
+  handleRegistrationSuccess = (user) => {
     const { history } = this.props
     history.push('/sign_in')
   }
@@ -39,58 +40,54 @@ class CreateAccount extends React.Component {
   render() {
     const { error } = this.state
     return (
-      <div>
-        <section id="create-account">
+      <div className="container">
+        <form
+          id="form"
+          className="form RegistrationForm"
+          onSubmit={this.handleSubmit}
+        >
           <header>
             <h3>Create Your Account</h3>
           </header>
-          <form
-        className='RegistrationForm'
-        onSubmit={this.handleSubmit}
-        
-      >
-        <div role='alert'>
-          {error && <p className='red'>{error}</p>}
-        </div>
-        <div className='user_name'>
-          <label htmlFor='RegistrationForm__full_name'>
-            User name 
-          </label>
-          <input
-            name='user_name'
-            type='text'
-            required
-            id='RegistrationForm__full_name'>
-          </input>
-        </div>
-        
-        <div className='password'>
-          <label htmlFor='RegistrationForm__password'>
-            Password 
-          </label>
-          <input
-            name='password'
-            type='password'
-            required
-            id='RegistrationForm__password'>
-          </input>
-        </div>
-        <div className='nick_name'>
-          <label htmlFor='RegistrationForm__nick_name'>
-            Email   
-          </label>
-          <input
-            name='email'
-            type='text'
-            required
-            id='RegistrationForm__nick_name'>
-          </input>
-        </div>
-        <button type='submit'>
-          Register
-        </button>
-      </form>
-        </section>
+
+          <div role="alert">{error && <p className="red">{error}</p>}</div>
+
+          <div className="form-control">
+            <label htmlFor="username">User name</label>
+
+            <input
+              name="user_name"
+              type="text"
+              required
+              id="username"
+              placeholder="Enter username"
+            />
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="password">Password</label>
+            <input
+              name="password"
+              type="password"
+              required
+              id="password"
+              placeholder="Enter password"
+            ></input>
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="email">Email</label>
+            <input
+              name="email"
+              type="text"
+              required
+              id="email"
+              placeholder="Enter email"
+            />
+          </div>
+
+          <button type="submit">Register</button>
+        </form>
       </div>
     )
   }

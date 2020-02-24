@@ -17,7 +17,8 @@ class StampPad extends React.Component {
     storeShareStamp: [],
     isLoaded: false,
     items: [],
-    stampValue: ''
+    stampValue: '',
+    hightlight: false
   }
 
   copyToClipboard = (str) => {
@@ -30,6 +31,11 @@ class StampPad extends React.Component {
     el.select()
     document.execCommand('copy')
     document.body.removeChild(el)
+
+    this.setState({ highlight: true })
+    setTimeout(() => {
+      this.setState({ highlight: false })
+    }, 100)
   }
 
   profileSelect = (profileId) => {
@@ -116,51 +122,42 @@ class StampPad extends React.Component {
           // })
 
           //  this.setState({ storeShareTemplate: this.state.storeShareTemplate.concat[result]})
-          
+
           this.setState({
             storeShareTemplate: newSST
           })
 
-
           //  this.setState({
           //   storeShareTemplate: [result]
           // })
-           //'result' is an object; we need to first put it in an array and append it to storeShareTemplate in case there is more than one
+          //'result' is an object; we need to first put it in an array and append it to storeShareTemplate in case there is more than one
         }
       )
     })
 
-      //get every profile with shared template_id
-      this.state.storeShares.forEach((shareObject) => {
-        console.log('in forEach profiles')
-        //for each template listed on the shared table, add the profiles to storeSharedProfile state
-        ShareService.getSharedProfiles(shareObject.template_id)
-        .then(
-          (result) =>{
-            console.log(result)
-            this.setState({
-                storeShareProfile: result
-            })
-          }
-        )
- 
+    //get every profile with shared template_id
+    this.state.storeShares.forEach((shareObject) => {
+      console.log('in forEach profiles')
+      //for each template listed on the shared table, add the profiles to storeSharedProfile state
+      ShareService.getSharedProfiles(shareObject.template_id).then((result) => {
+        console.log(result)
+        this.setState({
+          storeShareProfile: result
+        })
+      })
     })
 
     //get every profile with shared template_id
     this.state.storeShares.forEach((shareObject) => {
       console.log('in forEach stamps')
       //for each template listed on the shared table, add the stamps to storeSharedStamp state
-      ShareService.getSharedStamps(shareObject.template_id)
-      .then(
-        (result) =>{
-          console.log(result)
-          this.setState({
-              storeShareStamp: result
-          })
-        }
-      )
-
-  })
+      ShareService.getSharedStamps(shareObject.template_id).then((result) => {
+        console.log(result)
+        this.setState({
+          storeShareStamp: result
+        })
+      })
+    })
   }
 
   render() {
@@ -189,6 +186,7 @@ class StampPad extends React.Component {
       return (
         <Button
           key={templ.id}
+          className="share-button"
           onMouseOver={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
         >
@@ -216,7 +214,7 @@ class StampPad extends React.Component {
         )
       })
 
-      const shareProfileRow = this.state.storeShareProfile
+    const shareProfileRow = this.state.storeShareProfile
       .filter(
         (selected) => selected.template_id === this.state.selectedTemplate
       )
@@ -225,6 +223,7 @@ class StampPad extends React.Component {
         return (
           <Button
             key={prof.id}
+            className="share-button"
             onMouseOver={() => this.profileSelect(prof.id)}
             profile={this.state.storeShareProfile}
           >
@@ -233,7 +232,7 @@ class StampPad extends React.Component {
         )
       })
 
-      const profileRow = myProfileRow.concat(shareProfileRow)
+    const profileRow = myProfileRow.concat(shareProfileRow)
 
     const myStampRow = this.state.storeStamps
       .filter((selected) => selected.profile_id === this.state.selectedProfile)
@@ -255,13 +254,14 @@ class StampPad extends React.Component {
         )
       })
 
-      const shareStampRow = this.state.storeShareStamp
+    const shareStampRow = this.state.storeShareStamp
       .filter((selected) => selected.profile_id === this.state.selectedProfile)
 
       .map((stamp, i) => {
         return (
           <Button
             key={stamp.id}
+            className="share-button"
             onClick={() => this.copyToClipboard(stamp.content)}
             title={this.state.storeShareStamp[i].title}
             text={this.state.storeShareStamp[i].content}
@@ -275,7 +275,7 @@ class StampPad extends React.Component {
         )
       })
 
-      const stampRow = myStampRow.concat(shareStampRow)
+    const stampRow = myStampRow.concat(shareStampRow)
 
     return (
       <div className="main-wrapper">
@@ -303,12 +303,14 @@ class StampPad extends React.Component {
             <hr className="hr" />
             <div>
               <textarea
+                className={`stamp-textarea ${this.state.highlight ? "text-border-blink" : ""}`}
                 name="stamp_display"
                 id="stamp_display"
                 cols="30"
                 rows="30"
                 value={this.state.stampValue}
                 readOnly
+                highlighting={this.state.highlight} 
               />
             </div>
           </main>

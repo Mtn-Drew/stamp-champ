@@ -20,7 +20,8 @@ export const Button = ({
   onClick,
   buttonStyle,
   buttonSize,
-  onMouseOver
+  onMouseOver,
+  className
 }) => {
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
