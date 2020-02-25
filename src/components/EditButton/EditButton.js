@@ -73,7 +73,7 @@ class StampPad extends React.Component {
     console.log(this.state.triggerToggle)
   }
 
-  shareToggle = () =>{
+  shareToggle = () => {
     this.setState({
       shareToggle: !this.state.shareToggle
     })
@@ -719,18 +719,18 @@ class StampPad extends React.Component {
     return (
       <div style={{ height: '100%' }} className="mainPage ">
         <main style={{ marginTop: '64px' }} key={this.state.requirementKey}>
-          <div style={{ display: 'flex' }}>
+          <div 
+          // style={{ display: 'flex' }}
+          >
             <div className="spacer" />
-            <h1>Edit Buttons!!</h1>
+            <h1>Configuration</h1>
             <div className="spacer" />
-            <button id="select-trigger" onClick={() => this.triggerToggle()}>
+            
+            {!this.state.shareToggle ? <h3 className="select-trigger" onClick={() => this.triggerToggle()}>
               {' '}
               TOGGLE EDIT MODE{' '}
-            </button>
-            {/* <button id="select-share" onClick={() => this.triggerShare()}>
-              {' '}
-              SHARED TEMPLATES{' '}
-            </button> */}
+            </h3> : ""}
+    
             <div className="spacer" />
 
             {!this.state.triggerToggle ? (
@@ -756,163 +756,160 @@ class StampPad extends React.Component {
                 <div className="spacer" />
               </>
             ) : (
-              <button id="select-share" onClick={() => this.triggerShare()}>
+              <h3 className="select-share" onClick={() => this.triggerShare()}>
                 {' '}
                 SHARED TEMPLATES{' '}
-              </button>
+              </h3>
             )}
           </div>
 
-{/* main body */}
-              {!this.state.shareToggle ? (
+          {/* main body */}
+          {!this.state.shareToggle ? (
+            <section>
+              <div
+                className={
+                  this.state.templateRowSelected
+                    ? 'buttonRow'
+                    : 'disable-button buttonRow'
+                }
+                id="button-row-template"
+              >
+                <div className="spacer" />
+                {this.state.triggerToggle ? templateRow : templateRowEdit}
+                <div className="spacer" />
+              </div>
 
-        <section>
+              <hr className="hr" />
 
-          <div
-            className={
-              this.state.templateRowSelected
-                ? 'buttonRow'
-                : 'disable-button buttonRow'
-            }
-            id="button-row-template"
-          >
-            <div className="spacer" />
-            {this.state.triggerToggle ? templateRow : templateRowEdit}
-            <div className="spacer" />
-          </div>
+              <div
+                className={
+                  this.state.profileRowSelected
+                    ? 'buttonRow'
+                    : 'disable-button buttonRow'
+                }
+                id="button-row-profile"
+              >
+                <div className="spacer" />
 
-          <hr className="hr" />
+                {this.state.triggerToggle ? profileRow : profileRowEdit}
 
-          <div
-            className={
-              this.state.profileRowSelected
-                ? 'buttonRow'
-                : 'disable-button buttonRow'
-            }
-            id="button-row-profile"
-          >
-            <div className="spacer" />
+                <div className="spacer" />
+              </div>
 
-            {this.state.triggerToggle ? profileRow : profileRowEdit}
+              <hr className="hr" />
 
-            <div className="spacer" />
-          </div>
+              <div
+                className={
+                  this.state.stampRowSelected
+                    ? 'buttonRow'
+                    : 'disable-button buttonRow'
+                }
+                id="button-row-stamps"
+              >
+                <div className="spacer" />
+                {this.state.triggerToggle ? stampRow : stampRowEdit}
+                <div className="spacer" />
+              </div>
 
-          <hr className="hr" />
-
-          <div
-            className={
-              this.state.stampRowSelected
-                ? 'buttonRow'
-                : 'disable-button buttonRow'
-            }
-            id="button-row-stamps"
-          >
-            <div className="spacer" />
-            {this.state.triggerToggle ? stampRow : stampRowEdit}
-            <div className="spacer" />
-          </div>
-
-          {!this.state.triggerToggle ? (
-            <form className="toggleEditForm" id="edit-form">
-              Template: <br />
-              <input
-                type="text"
-                name="template"
-                id="templateTitle"
-                // onClick={(e) => this.toggleTemplateTitle(e)}
-                value={this.state.formTemplateTextBox}
-                onChange={(e) => this.templateBoxChange(e)}
-              />
-              {this.state.whatToEdit === 'profile' ? (
-                <select
-                  name="template-selection"
-                  id="template-select2"
-                  onChange={(e) => this.editProfileTemplateSelect(e)}
-                  defaultValue={profileDefaultValue}
-                >
-                  <option
-                    value="Select Template"
-                    name="default"
-                    id="template_default_option"
-                  >
-                    Select Template
-                  </option>
-                  {this.renderTemplateOptions()}
-                </select>
+              {!this.state.triggerToggle ? (
+                <form className="toggleEditForm" id="edit-form">
+                  Template: <br />
+                  <input
+                    type="text"
+                    name="template"
+                    id="templateTitle"
+                    // onClick={(e) => this.toggleTemplateTitle(e)}
+                    value={this.state.formTemplateTextBox}
+                    onChange={(e) => this.templateBoxChange(e)}
+                  />
+                  {this.state.whatToEdit === 'profile' ? (
+                    <select
+                      name="template-selection"
+                      id="template-select2"
+                      onChange={(e) => this.editProfileTemplateSelect(e)}
+                      defaultValue={profileDefaultValue}
+                    >
+                      <option
+                        value="Select Template"
+                        name="default"
+                        id="template_default_option"
+                      >
+                        Select Template
+                      </option>
+                      {this.renderTemplateOptions()}
+                    </select>
+                  ) : (
+                    ''
+                  )}
+                  <br />
+                  Profile: <br />
+                  <input
+                    type="text"
+                    name="profile"
+                    id="profileTitle"
+                    value={this.state.formProfileTextBox}
+                    onChange={(e) => this.profileBoxChange(e)}
+                  />
+                  {this.state.whatToEdit === 'stamp' ? (
+                    <select
+                      name="profile-selection"
+                      id="profile-select2"
+                      onChange={(e) => this.editStampProfileSelect(e)}
+                      defaultValue={stampDefaultValue}
+                    >
+                      <option
+                        value="Select Profile"
+                        name="default"
+                        id="profile_default_option"
+                      >
+                        Select Profile
+                      </option>
+                      {this.renderProfileOptions()}
+                    </select>
+                  ) : (
+                    ''
+                  )}
+                  <br />
+                  Stamp: <br />
+                  <input
+                    type="text"
+                    name="stamp"
+                    id="stampTitle"
+                    value={this.state.formStampTextBox}
+                    onChange={(e) => this.stampBoxChange(e)}
+                  />
+                  <br />
+                  Content: <br />
+                  <textarea
+                    type="text"
+                    name="content"
+                    id="contentTitle"
+                    value={this.state.formContentTextBox}
+                    onChange={(e) => this.contentBoxChange(e)}
+                  />
+                </form>
               ) : (
                 ''
               )}
-              <br />
-              Profile: <br />
-              <input
-                type="text"
-                name="profile"
-                id="profileTitle"
-                value={this.state.formProfileTextBox}
-                onChange={(e) => this.profileBoxChange(e)}
-              />
-              {this.state.whatToEdit === 'stamp' ? (
-                <select
-                  name="profile-selection"
-                  id="profile-select2"
-                  onChange={(e) => this.editStampProfileSelect(e)}
-                  defaultValue={stampDefaultValue}
-                >
-                  <option
-                    value="Select Profile"
-                    name="default"
-                    id="profile_default_option"
-                  >
-                    Select Profile
-                  </option>
-                  {this.renderProfileOptions()}
-                </select>
-              ) : (
-                ''
-              )}
-              <br />
-              Stamp: <br />
-              <input
-                type="text"
-                name="stamp"
-                id="stampTitle"
-                value={this.state.formStampTextBox}
-                onChange={(e) => this.stampBoxChange(e)}
-              />
-              <br />
-              Content: <br />
-              <textarea
-                type="text"
-                name="content"
-                id="contentTitle"
-                value={this.state.formContentTextBox}
-                onChange={(e) => this.contentBoxChange(e)}
-              />
-            </form>
-          ) : (
-            ''
-          )}
 
-          <hr className="hr" />
-          <div>
-            {addButtonForm}
-            {/* {this.state.triggerToggle ? null : (
+              <hr className="hr" />
+              <div>
+                {addButtonForm}
+                {/* {this.state.triggerToggle ? null : (
               <div>
                 <button onClick={this.moveUp}>Move Up</button>
                 <button onClick={this.moveDown}>Move Down</button>
               </div>
             )} */}
-          </div>
-          </section>
+              </div>
+            </section>
           ) : (
             <div>
-            <SharedTemplates/>
-            
-            <ShareableTemplates/>
-          </div>
+              <SharedTemplates />
+
+              <ShareableTemplates />
+            </div>
           )}
-         
         </main>
       </div>
     )

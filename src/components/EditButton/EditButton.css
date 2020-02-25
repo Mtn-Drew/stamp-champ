@@ -1,22 +1,13 @@
-/* .spacer {
-  flex: 1;
-} */
-
-/* .stampButtons {
-  display: flex;
-} */
-
 .main-wrapper {
-  display:grid;
+  display: grid;
 }
 
-.template-row, .profile-row {
+.template-row,
+.profile-row {
   display: grid;
-  grid-template-columns: (1fr,1fr);
+  grid-template-columns: (1fr, 1fr);
   grid-gap: 1em;
- 
   grid-auto-rows: 10px;
- 
   margin-right: auto;
   margin-left: auto;
   justify-items: center;
@@ -25,9 +16,7 @@
 
 .stamps-row {
   display: flex-row;
-  /* grid-template-columns: (1fr); */
   grid-gap: 1em;
-  
   grid-auto-rows: 10px;
   border: 1px solid red;
   margin-right: auto;
@@ -36,8 +25,9 @@
   align-items: center;
 }
 
-.profile-row .btn--medium, .template-row .btn--medium {
-  min-width:100px;
+.profile-row .btn--medium,
+.template-row .btn--medium {
+  min-width: 100px;
 }
 
 .stamps-row .btn--medium {
@@ -54,11 +44,11 @@
 }
 
 .btn--edit--solid {
-  background-color: rgba(50,50,50,.7);
+  background-color: rgba(50, 50, 50, 0.7);
 }
 
 .btn--edit--solid:hover {
-  background-color: rgba(50,50,50,1);
+  background-color: rgba(50, 50, 50, 1);
 }
 
 .btn:hover {
@@ -71,7 +61,8 @@
   margin: 0 3px;
 }
 
-.edit-select:hover, .edit-select:focus {
+.edit-select:hover,
+.edit-select:focus {
   background-color: crimson;
   color: white;
   border: 3px black dashed;
@@ -80,8 +71,6 @@
 .edit-disable {
   background-color: rgb(197, 197, 197);
 }
-
-
 
 textarea {
   display: flex;
@@ -96,4 +85,13 @@ textarea {
 
 .enable-button {
   pointer-events: auto;
+}
+
+.select-share, .select-trigger {
+  cursor: pointer;
+  color:red;
+  border: solid black 1px;
+  margin: 5px;
+  padding: 5px;
+  font-size: 14px;
 }

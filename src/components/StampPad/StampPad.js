@@ -303,19 +303,21 @@ class StampPad extends React.Component {
             <hr className="hr" />
             <div>
               <textarea
-                className={`stamp-textarea ${this.state.highlight ? "text-border-blink" : ""}`}
+                className={`stamp-textarea ${
+                  this.state.highlight ? 'text-border-blink' : ''
+                }`}
                 name="stamp_display"
                 id="stamp_display"
                 cols="30"
                 rows="30"
                 value={this.state.stampValue}
                 readOnly
-                highlighting={this.state.highlight} 
+            
               />
             </div>
           </main>
         </div>
-        <button onClick={this.loadShares}>shares</button>
+       
       </div>
     )
   }
