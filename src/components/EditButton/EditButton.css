@@ -56,9 +56,10 @@
 }
 
 .edit-select {
-  border: 3px red dashed;
+  border: 1px red dashed;
   height: 40px;
   margin: 0 3px;
+  cursor: pointer;
 }
 
 .edit-select:hover,
@@ -69,7 +70,7 @@
 }
 
 .edit-disable {
-  background-color: rgb(197, 197, 197);
+  background-color: rgb(206, 204, 204);
 }
 
 textarea {
@@ -81,6 +82,8 @@ textarea {
 .disable-button {
   pointer-events: none;
   background-color: rgb(206, 204, 204);
+  opacity: .7;
+  color: rgba(50, 50, 50, 0.7); 
 }
 
 .enable-button {

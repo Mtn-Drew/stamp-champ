@@ -505,9 +505,7 @@ class StampPad extends React.Component {
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
-    //ShareService.getShares((value) => {
-    // this.setState({ storeShares: value })
-    //})
+
 
     Promise.all([
       //ShareService.getShares(),
@@ -646,7 +644,7 @@ class StampPad extends React.Component {
           key={templ.id ? templ.id : i}
           onClick={() => this.templateSelectEdit(templ)}
           template={this.state.selectedTemplate}
-          className="template_button edit-select"
+          className={this.state.templateRowSelected ? "template_button edit-select" : "template_button edit-select disable-button"}
         >
           {this.state.storeTemplate[i].title}
         </button>
@@ -665,7 +663,7 @@ class StampPad extends React.Component {
             onClick={() => this.profileSelectEdit(prof)}
             // onMouseEnter={() => console.log('mouse')}
 
-            className="profile_button edit-select"
+            className={this.state.profileRowSelected ? "profile_button edit-select" : "profile_button edit-select disable-button"}
           >
             {prof.title}
           </button>
@@ -682,7 +680,7 @@ class StampPad extends React.Component {
             onClick={() => this.stampSelectEdit(stamp)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
-            className="stamps_button edit-select"
+            className={this.state.stampRowSelected ? "stamp_button edit-select" : "stamp_button edit-select disable-button"}
           >
             {stamp.title}
           </button>
@@ -767,11 +765,12 @@ class StampPad extends React.Component {
           {!this.state.shareToggle ? (
             <section>
               <div
-                className={
-                  this.state.templateRowSelected
-                    ? 'buttonRow'
-                    : 'disable-button buttonRow'
-                }
+                // className={
+                //   this.state.templateRowSelected
+                //     ? 'buttonRow'
+                //     : 'disable-button buttonRow'
+                // }
+                className="buttonRow"
                 id="button-row-template"
               >
                 <div className="spacer" />
@@ -782,11 +781,12 @@ class StampPad extends React.Component {
               <hr className="hr" />
 
               <div
-                className={
-                  this.state.profileRowSelected
-                    ? 'buttonRow'
-                    : 'disable-button buttonRow'
-                }
+                className="buttonRow"
+                // {
+                //   this.state.profileRowSelected
+                //     ? 'buttonRow'
+                //     : 'disable-button buttonRow'
+                // }
                 id="button-row-profile"
               >
                 <div className="spacer" />
@@ -799,11 +799,12 @@ class StampPad extends React.Component {
               <hr className="hr" />
 
               <div
-                className={
-                  this.state.stampRowSelected
-                    ? 'buttonRow'
-                    : 'disable-button buttonRow'
-                }
+                className="buttonRow"
+                // {
+                //   this.state.stampRowSelected
+                //     ? 'buttonRow'
+                //     : 'disable-button buttonRow'
+                // }
                 id="button-row-stamps"
               >
                 <div className="spacer" />
@@ -812,7 +813,10 @@ class StampPad extends React.Component {
               </div>
 
               {!this.state.triggerToggle ? (
-                <form className="toggleEditForm" id="edit-form">
+                <form 
+                // className="toggleEditForm" 
+                className="form" 
+                id="edit-form">
                   Template: <br />
                   <input
                     type="text"
@@ -821,6 +825,7 @@ class StampPad extends React.Component {
                     // onClick={(e) => this.toggleTemplateTitle(e)}
                     value={this.state.formTemplateTextBox}
                     onChange={(e) => this.templateBoxChange(e)}
+                    className={this.state.stampRowSelected ? "disable-button" : ""}
                   />
                   {this.state.whatToEdit === 'profile' ? (
                     <select
@@ -849,6 +854,8 @@ class StampPad extends React.Component {
                     id="profileTitle"
                     value={this.state.formProfileTextBox}
                     onChange={(e) => this.profileBoxChange(e)}
+                    className={this.state.templateRowSelected ? "disable-button" : ""}
+                    
                   />
                   {this.state.whatToEdit === 'stamp' ? (
                     <select
@@ -877,6 +884,7 @@ class StampPad extends React.Component {
                     id="stampTitle"
                     value={this.state.formStampTextBox}
                     onChange={(e) => this.stampBoxChange(e)}
+                    className={this.state.stampRowSelected ? "" : "disable-button"}
                   />
                   <br />
                   Content: <br />
@@ -886,6 +894,7 @@ class StampPad extends React.Component {
                     id="contentTitle"
                     value={this.state.formContentTextBox}
                     onChange={(e) => this.contentBoxChange(e)}
+                    className={this.state.stampRowSelected ? "" : "disable-button"}
                   />
                 </form>
               ) : (

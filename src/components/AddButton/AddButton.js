@@ -419,11 +419,12 @@ class AddButton extends React.Component {
           <h1>Add Button></h1>
         </div>
         <form id="main-form">
+          
           <select
             name="button-type"
             id="button-type-dropdown"
             onChange={this.handleTypeSelect}
-            className="dropdown"
+            className="dropdown dropbtn"
           >
             <option className="dropdown-content" value="selection">
               Select Button Type
