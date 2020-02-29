@@ -190,7 +190,7 @@ class StampPad extends React.Component {
       return (
         <Button
           key={templ.id}
-          buttonStyle="btn--warning--solid"
+          buttonStyle="share-stamp"
           onMouseOver={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
         >
@@ -227,7 +227,7 @@ class StampPad extends React.Component {
         return (
           <Button
             key={prof.id}
-            buttonStyle="btn--warning--solid"
+            buttonStyle="share-stamp"
             className="share-button"
             onMouseOver={() => this.profileSelect(prof.id)}
             profile={this.state.storeShareProfile}
@@ -266,7 +266,7 @@ class StampPad extends React.Component {
         return (
           <Button
             key={stamp.id}
-            buttonStyle="btn--warning--solid"
+            buttonStyle="share-stamp"
             className="share-button"
             onClick={() => this.copyToClipboard(stamp.content)}
             title={this.state.storeShareStamp[i].title}

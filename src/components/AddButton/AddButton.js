@@ -5,6 +5,7 @@ import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
 // import uuid from 'react-uuid'
+import { Button } from '../Button/Button'
 
 class AddButton extends React.Component {
   state = {
@@ -63,7 +64,7 @@ class AddButton extends React.Component {
       //     this.setState({ storeStamps: res[0] })
       //     this.setState({ storeProfile: res[1] })
       //     this.setState({ storeTemplate: res[2] })
-    
+
       //   })
       //   .catch((e) => {
       //     console.log('error->', e)
@@ -72,8 +73,6 @@ class AddButton extends React.Component {
       //       this.props.history.push('/sign_in')
       //     }
       //   })
-
-
     }
     if (selection === 'profile') {
       this.createProfile()
@@ -365,26 +364,23 @@ class AddButton extends React.Component {
       this.setState({ storeStamps: value })
     })
 
-   Promise.all([
-        StampsService.getStamps(),
-        ProfilesService.getProfiles(),
-        TemplateService.getTemplates()
-      ])
-        .then((res) => {
-          this.setState({ storeStamps: res[0] })
-          this.setState({ storeProfile: res[1] })
-          this.setState({ storeTemplate: res[2] })
-    
-        })
-        .catch((e) => {
-          console.log('error->', e)
-          if (e.error === 'Unauthorized request') {
-            localStorage.clear()
-            this.props.history.push('/sign_in')
-          }
-        })
-
-
+    Promise.all([
+      StampsService.getStamps(),
+      ProfilesService.getProfiles(),
+      TemplateService.getTemplates()
+    ])
+      .then((res) => {
+        this.setState({ storeStamps: res[0] })
+        this.setState({ storeProfile: res[1] })
+        this.setState({ storeTemplate: res[2] })
+      })
+      .catch((e) => {
+        console.log('error->', e)
+        if (e.error === 'Unauthorized request') {
+          localStorage.clear()
+          this.props.history.push('/sign_in')
+        }
+      })
   }
 
   componentDidMount() {
@@ -415,37 +411,41 @@ class AddButton extends React.Component {
     return (
       <main key={this.state.requirementKey}>
         {this.state.errorMessage}
+
         <div>
           <h1>Add Button></h1>
         </div>
-        <form id="main-form">
-          
-          <select
-            name="button-type"
-            id="button-type-dropdown"
-            onChange={this.handleTypeSelect}
-            className="dropdown dropbtn"
-          >
-            <option className="dropdown-content" value="selection">
-              Select Button Type
-            </option>
-            <option value="template">Template Button</option>
-            <option value="profile">Profile Button</option>
-            <option value="stamps">Stamp Button</option>
-          </select>
 
-          <input
+        <form id="main-form" className="customSelect">
+          <div className="select">
+            <select
+              name="button-type"
+              id="button-type-dropdown"
+              onChange={this.handleTypeSelect}
+              className="dropdown dropbtn"
+            >
+              <option className="dropdown-content" value="selection">
+                Select Button Type
+              </option>
+              <option value="template">Template Button</option>
+              <option value="profile">Profile Button</option>
+              <option value="stamps">Stamp Button</option>
+            </select>
+          </div>
+
+          {/* <input
             type="submit"
             value="Submit"
             onClick={this.handleSubmit}
             disabled={this.state.disabled}
-          />
+          /> */}
         </form>
+
         <input
           type="text"
           className={
             this.state.templateTextBoxIsVisible
-              ? 'template-title show'
+              ? 'template-title show text-box'
               : 'template-title hide'
           }
           placeholder="New Template Name"
@@ -455,26 +455,34 @@ class AddButton extends React.Component {
 
         <form
           id="template-select-form"
-          className={this.state.templateSelectFormIsVisible ? 'show' : 'hide'}
+          className={
+            this.state.templateSelectFormIsVisible
+              ? 'show customSelect'
+              : 'hide'
+          }
         >
-          <select
-            name="template-selection"
-            id="template-select"
-            onChange={(e) => this.createProfileTemplateSelect(e)}
-            required
-          >
-            <option
-              value="Select Template"
-              name="default"
-              id="template_default_option"
+          <div className="select">
+            <select
+              name="template-selection"
+              id="template-select"
+              onChange={(e) => this.createProfileTemplateSelect(e)}
+              required
+              className="dropdown dropbtn"
             >
-              Select Template
-            </option>
-            {templateSelectOptions}
-          </select>
+              <option
+                value="Select Template"
+                name="default"
+                id="template_default_option"
+              >
+                Select Template
+              </option>
+              {templateSelectOptions}
+            </select>
+          </div>
+
           <input
             type="text"
-            className={this.state.profileTextBoxIsVisible ? 'show' : 'hide'}
+            className={this.state.profileTextBoxIsVisible ? 'show text-box' : 'hide'}
             placeholder="New Profile Name"
             id="profile_text_box"
             onChange={this.handleTextBox}
@@ -483,29 +491,35 @@ class AddButton extends React.Component {
 
         <form
           id="profile-select-form"
-          className={this.state.profileSelectFormIsVisible ? 'show' : 'hide'}
+          className={
+            this.state.profileSelectFormIsVisible ? 'show customSelect' : 'hide'
+          }
         >
-          <select
-            name="profile-selection"
-            id="profile-select"
-            onChange={(e) => this.createStampProfileSelect(e)}
-          >
-            <option
-              value="Select Profile"
-              name="default"
-              id="profile_default_option"
+          <div className="select">
+            <select
+              name="profile-selection"
+              id="profile-select"
+              onChange={(e) => this.createStampProfileSelect(e)}
+              className="dropdown dropbtn"
             >
-              Select Profile
-            </option>
-            {profileSelectOptions}
-          </select>
+              <option
+              className="dropdown-content"
+                value="Select Profile"
+                name="default"
+                id="profile_default_option"
+              >
+                Select Profile
+              </option>
+              {profileSelectOptions}
+            </select>
+          </div>
           <input
             type="text"
-            className={this.state.stampTextBoxIsVisible ? 'show' : 'hide'}
+            className={this.state.stampTextBoxIsVisible ? 'show text-box' : 'hide'}
             placeholder="New Stamp Name"
             id="stamp_text_box"
             onChange={this.handleTextBox}
-            // onSubmit={e => { e.preventDefault() }}
+         
           />
           <textarea
             className={this.state.stampContentBoxIsVisible ? 'show' : 'hide'}
@@ -514,6 +528,15 @@ class AddButton extends React.Component {
             onChange={this.handleTextarea}
           ></textarea>
         </form>
+
+        <Button
+        buttonStyle={!this.state.disabled ? 'system' : 'system-disabled'}
+            type="submit"
+            value="Submit"
+            onClick={!this.state.disabled ? this.handleSubmit: null}
+            disabled={this.state.disabled}
+          >Submit</Button>
+
       </main>
     )
   }

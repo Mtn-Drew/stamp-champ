@@ -3,22 +3,16 @@
   --warning:  rgba(138,134,102,1);
   --danger: rgba(146,144,122,1);
   --success: rgba(99,97,88,1);
-  --brown: rgb(124, 97, 83);
+  --brown: rgba(124, 97, 83,1);
   --white: white;
   --dark: black;
-  --disabled: rgb(199, 197, 197);
-  
-  
+  --disabled: rgba(199, 197, 197,.5);
 }
 
 .btn {
-
   font-weight: 600;
-  border-radius: 5px;
+  transition: transform 0.3s ease; 
   cursor: pointer;
-  transition: transform 0.3s ease;
-  
-
 }
 
 .btn:hover {
@@ -27,6 +21,66 @@
 
 
 /* Button Colors and Styles */
+
+.stamp {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 3px;
+  font-size: 11px;
+  width: 100px;
+  height: 40px;
+  box-shadow: 2px 3px 9px 0px black;
+  margin: 2px;
+}
+
+.edit-stamp {
+  background-color: transparent;
+  color: var(--primary);
+  border: var(--primary) solid 1px;
+  border-radius: 3px;
+  font-size: 11px;
+  width: 100px;
+  height: 40px;
+  box-shadow: 2px 3px 9px 0px black;
+  margin: 2px;
+}
+
+.share-stamp {
+  background-color: var(--warning);
+  color: var(--white);
+  border: none;
+  border-radius: 3px;
+  font-size: 11px;
+  width: 100px;
+  height: 40px;
+ 
+  margin: 2px;
+}
+
+.system {
+  background-color: var(--warning);
+  color: var(--white);
+  border: 1px solid black;
+  font-size: 11px;
+  width: 130px;
+  height: 30px;
+  margin: 2px;
+  
+  
+}
+
+.system-disabled {
+  background-color: rgba(138,134,102,.3);
+  color: rgba(87, 87, 87,.5);
+  border: 1px solid rgba(87, 87, 87,.5);
+  cursor: not-allowed;
+  font-size: 11px;
+  width: 130px;
+  height: 30px;
+  margin: 2px;
+}
+
 
 .btn--primary--solid {
   background-color: var(--primary);
@@ -57,6 +111,15 @@
   color: var(--black);
   border: 1px solid black;
 }
+
+.btn--brown--solid--disabled {
+  background-color: var(--disabled);
+  color: rgba(87, 87, 87,.5);
+  border: 1px solid rgba(87, 87, 87,.5);
+  cursor: not-allowed;
+}
+
+
 
 .btn--primary--outline {
   background-color: transparent;
@@ -107,7 +170,18 @@
   /* font-size: 12px; */
 }
 
+.btn-small {
+  font-size: 11px;
+  width: 80px;
+  height: 30px;
+  box-shadow: 2px 3px 9px 0px black;
+  margin: 2px;
+}
+
 .btn--system {
-  color:white;
-  background-color: var(--system);
+  background-color: var(--disabled);
+  color: rgba(87, 87, 87,.5);
+  border: 1px double rgba(87, 87, 87,.5);
+  cursor: not-allowed;
+  font-weight: 400px;
 }

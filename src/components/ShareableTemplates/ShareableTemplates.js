@@ -135,6 +135,7 @@ class ShareableTemplates extends React.Component {
           key={templ.id}
           onClick={() => this.templateSelect(templ)}
           template={this.state.selectedTemplate}
+          buttonStyle="btn--warning--solid"
         >
           {this.state.storeShareables[i].template_title}
         </Button>
@@ -147,7 +148,9 @@ class ShareableTemplates extends React.Component {
       <div>
         <h1>These can be imported from the shareable table~</h1>
         <br />
-        <button onClick={this.addToMyShares}>Add to my load out</button>
+        <Button onClick={this.addToMyShares}
+        buttonStyle="btn--brown--solid"
+        >Add to my load out</Button>
         <br />
         {shareablesRow}
         {/* {validatedShareablesRow} */}

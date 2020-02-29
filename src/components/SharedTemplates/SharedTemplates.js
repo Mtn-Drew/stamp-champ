@@ -117,6 +117,7 @@ class SharedTemplates extends React.Component {
           //onMouseOver={() => this.templateSelect(templ.id)}
           onClick={() => this.templateSelect(templ)}
           template={this.state.selectedTemplate}
+          buttonStyle="btn--warning--solid"
         >
           {this.state.storeShareTemplate[i].title}
         </Button>
@@ -129,7 +130,9 @@ class SharedTemplates extends React.Component {
         {shareTemplateRow}
         <br />
         {/* <button onClick={this.loadShares}>shares</button> */}
-        <button onClick={this.deleteShare}>DELETE</button>
+        <Button onClick={this.deleteShare}
+          buttonStyle="btn--brown--solid"
+        >DELETE</Button>
         <p>{this.state.target.id}</p>
       </div>
     )
