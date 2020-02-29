@@ -1,11 +1,3 @@
-/* .spacer {
-  flex: 1;
-} */
-
-/* .stampButtons {
-  display: flex;
-} */
-
 .main-wrapper {
   display: grid;
 }
@@ -24,12 +16,9 @@
   align-items: center;
 }
 
-.stamps-row
- {
+.stamps-row {
   display: flex-row;
-  /* grid-template-columns: (1fr); */
   grid-gap: 1em;
-
   grid-auto-rows: 10px;
   border: 1px solid red;
   margin-right: auto;
@@ -45,24 +34,15 @@
 
 .profile-row .btn--medium,
 .template-row .btn--medium {
-  min-width: 100px;
+  width: 100px;
 }
 
 .stamps-row .btn--medium {
-  /* display:inline-block; */
   font-size: 11px;
   width: 200px;
   height: 40px;
   box-shadow: 2px 3px 9px 0px black;
   margin: 2px;
-}
-
-.btn--primary--solid {
-  background-color: rgba(161, 16, 16, 0.8);
-}
-
-.share-button {
-  background-color: rgba(165, 124, 124, 0.8);
 }
 
 @keyframes blink {
@@ -74,4 +54,3 @@
   border: solid red 5px;
   transition: all 0s ease-in;
 }
-

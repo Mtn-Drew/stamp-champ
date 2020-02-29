@@ -1,6 +1,7 @@
 import React from 'react'
 // import STORE from '../../STORE'
 import './DeleteButton.css'
+import { Button } from '../Button/Button'
 import TemplateService from '../../services/template-service'
 import ProfileService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
@@ -76,9 +77,9 @@ class DeleteButton extends React.Component {
   render() {
     return (
       <div>
-        <button className="delete" onClick={this.handleDelete}>
+        <Button buttonStyle='btn--brown--solid' onClick={this.handleDelete}>
           DELETE
-        </button>
+        </Button>
       </div>
     )
   }

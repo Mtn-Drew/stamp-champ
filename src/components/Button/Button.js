@@ -9,7 +9,9 @@ const STYLES = [
   'btn--primary--outline',
   'btn--warning--outline',
   'btn--danger--outline',
-  'btn--success--outline'
+  'btn--success--outline',
+  'btn--disabled--outline',
+  'btn--brown--solid'
 ]
 
 const SIZES = ['btn--medium', 'btn--large']
@@ -21,7 +23,8 @@ export const Button = ({
   buttonStyle,
   buttonSize,
   onMouseOver,
-  className
+  
+  
 }) => {
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
@@ -31,10 +34,11 @@ export const Button = ({
 
   return (
     <button
-      className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+      className={`btn ${checkButtonStyle} ${checkButtonSize} `}
       onClick={onClick}
       type={type}
       onMouseOver={onMouseOver}
+      
     >
       {children}
     </button>

@@ -640,14 +640,15 @@ class StampPad extends React.Component {
 
     const templateRowEdit = this.state.storeTemplate.map((templ, i) => {
       return (
-        <button
+        <Button
           key={templ.id ? templ.id : i}
           onClick={() => this.templateSelectEdit(templ)}
           template={this.state.selectedTemplate}
-          className={this.state.templateRowSelected ? "template_button edit-select" : "template_button edit-select disable-button"}
+          //className={this.state.templateRowSelected ? "template_button edit-select" : "template_button edit-select disable-button"}
+          buttonStyle='btn--primary--outline'
         >
           {this.state.storeTemplate[i].title}
-        </button>
+        </Button>
       )
     })
 
@@ -658,15 +659,15 @@ class StampPad extends React.Component {
 
       .map((prof, i) => {
         return (
-          <button
+          <Button
             key={prof.id ? prof.id : i}
             onClick={() => this.profileSelectEdit(prof)}
             // onMouseEnter={() => console.log('mouse')}
-
+            buttonStyle='btn--primary--outline'
             className={this.state.profileRowSelected ? "profile_button edit-select" : "profile_button edit-select disable-button"}
           >
             {prof.title}
-          </button>
+          </Button>
         )
       })
 
@@ -675,15 +676,16 @@ class StampPad extends React.Component {
 
       .map((stamp, i) => {
         return (
-          <button
+          <Button
             key={stamp.id ? stamp.id : i}
             onClick={() => this.stampSelectEdit(stamp)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
             className={this.state.stampRowSelected ? "stamp_button edit-select" : "stamp_button edit-select disable-button"}
+            buttonStyle='btn--primary--outline'
           >
             {stamp.title}
-          </button>
+          </Button>
         )
       })
 
@@ -732,27 +734,29 @@ class StampPad extends React.Component {
             <div className="spacer" />
 
             {!this.state.triggerToggle ? (
-              <>
-                <button
+              <div>
+                <Button
                   id="accept"
-                  className="save-button"
+                  className="save-button btn--system"
                   onClick={() => this.saveConfiguration()}
+                  buttonStyle='btn--brown--solid'
                 >
                   SUBMIT
-                </button>
+                </Button>
 
                 <div className="spacer" />
 
-                <button
+                <Button
                   id="cancel"
                   className="save-button"
                   onClick={() => this.cancelConfiguration()}
+                  buttonStyle='btn--brown--solid'
                 >
                   CANCEL EDIT {this.state.whatToEdit}
-                </button>
+                </Button>
 
                 <div className="spacer" />
-              </>
+              </div>
             ) : (
               <h3 className="select-share" onClick={() => this.triggerShare()}>
                 {' '}

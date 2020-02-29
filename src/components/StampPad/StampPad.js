@@ -49,7 +49,8 @@ class StampPad extends React.Component {
   templateSelect = (templateId) => {
     this.setState({
       selectedTemplate: templateId,
-      stampValue: ''
+      stampValue: '',
+      selectedProfile:''
     })
   }
 
@@ -100,6 +101,8 @@ class StampPad extends React.Component {
         }
       })
   }
+
+ 
 
   loadShares = () => {
     //for each
@@ -176,6 +179,7 @@ class StampPad extends React.Component {
           key={templ.id}
           onMouseOver={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
+          
         >
           {this.state.storeTemplate[i].title}
         </Button>
@@ -186,7 +190,7 @@ class StampPad extends React.Component {
       return (
         <Button
           key={templ.id}
-          className="share-button"
+          buttonStyle="btn--warning--solid"
           onMouseOver={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
         >
@@ -223,6 +227,7 @@ class StampPad extends React.Component {
         return (
           <Button
             key={prof.id}
+            buttonStyle="btn--warning--solid"
             className="share-button"
             onMouseOver={() => this.profileSelect(prof.id)}
             profile={this.state.storeShareProfile}
@@ -247,7 +252,7 @@ class StampPad extends React.Component {
             onMouseOver={() => {
               this.stampSelect(stamp.content)
             }}
-            className="btn--primary--solid"
+            //className="btn--primary--solid"
           >
             {stamp.title}
           </Button>
@@ -261,6 +266,7 @@ class StampPad extends React.Component {
         return (
           <Button
             key={stamp.id}
+            buttonStyle="btn--warning--solid"
             className="share-button"
             onClick={() => this.copyToClipboard(stamp.content)}
             title={this.state.storeShareStamp[i].title}
@@ -268,7 +274,7 @@ class StampPad extends React.Component {
             onMouseOver={() => {
               this.stampSelect(stamp.content)
             }}
-            className="btn--primary--solid"
+            //className="btn--primary--solid"
           >
             {stamp.title}
           </Button>
@@ -279,11 +285,15 @@ class StampPad extends React.Component {
 
     return (
       <div className="main-wrapper">
-        <div style={{ height: '100%' }} className="stampButtons">
+        <div style={{ height: '100%' }} 
+        //className="stampButtons"
+        >
           <main style={{ marginTop: '64px' }}>
             <div className="template-row">
               <div className="spacer" />
-              <div className="template">{templateRow} </div>
+              <div 
+              //className="template"
+              >{templateRow} </div>
               <div className="spacer" />
             </div>
 

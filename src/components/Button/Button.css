@@ -1,10 +1,14 @@
 :root {
-  --primary: rgba(155, 6, 6,1);
-  --warning: blue;
-  --danger: orange;
-  --success: rgb(3, 92, 3);
+  --primary:  rgba(176,52,54,1);
+  --warning:  rgba(138,134,102,1);
+  --danger: rgba(146,144,122,1);
+  --success: rgba(99,97,88,1);
+  --brown: rgb(124, 97, 83);
   --white: white;
   --dark: black;
+  --disabled: rgb(199, 197, 197);
+  
+  
 }
 
 .btn {
@@ -48,8 +52,21 @@
   border: none;
 }
 
+.btn--brown--solid {
+  background-color: var(--danger);
+  color: var(--black);
+  border: 1px solid black;
+}
+
 .btn--primary--outline {
   background-color: transparent;
+  color: var(--primary);
+  border: var(--primary) solid 1px;
+  
+}
+
+.btn--disabled--outline {
+  background-color: var(--disabled);
   color: var(--primary);
   border: var(--primary) solid 1px;
 }
@@ -90,3 +107,7 @@
   /* font-size: 12px; */
 }
 
+.btn--system {
+  color:white;
+  background-color: var(--system);
+}

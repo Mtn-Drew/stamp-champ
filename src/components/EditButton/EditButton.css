@@ -12,6 +12,11 @@
   margin-left: auto;
   justify-items: center;
   align-items: center;
+  width: 420px;
+}
+
+.buttonRow {
+  width:420px;
 }
 
 .stamps-row {
