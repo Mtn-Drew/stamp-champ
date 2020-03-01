@@ -422,7 +422,7 @@ class AddButton extends React.Component {
               name="button-type"
               id="button-type-dropdown"
               onChange={this.handleTypeSelect}
-              className="dropdown dropbtn"
+              className="dropdown dropbtn select-css"
             >
               <option className="dropdown-content" value="selection">
                 Select Button Type
@@ -467,7 +467,7 @@ class AddButton extends React.Component {
               id="template-select"
               onChange={(e) => this.createProfileTemplateSelect(e)}
               required
-              className="dropdown dropbtn"
+              className="dropdown dropbtn select-css"
             >
               <option
                 value="Select Template"
@@ -500,7 +500,7 @@ class AddButton extends React.Component {
               name="profile-selection"
               id="profile-select"
               onChange={(e) => this.createStampProfileSelect(e)}
-              className="dropdown dropbtn"
+              className="dropdown dropbtn select-css"
             >
               <option
               className="dropdown-content"

@@ -755,8 +755,13 @@ class StampPad extends React.Component {
                 {/* <div className="row">
           <p>Do you want to proceed?</p>
         </div> */}
+
                 <div className="row">
-                  <span className="yes span-text">My Stamps</span>
+                {this.state.shareToggle ? <span className="yes span-text black">My Stamps</span> : <span className="yes span-text red">My Stamps</span>}
+                  
+                  <span className="span-text">/</span>
+                  {this.state.shareToggle ? <span className="yes span-text red">Shared Stamps</span> : <span className="yes span-text black">Shared Stamps</span>}
+                 
                   <input
                     type="checkbox"
                     id="sharesToggle"
@@ -764,24 +769,21 @@ class StampPad extends React.Component {
                   />
                   <label htmlFor="sharesToggle" className="toggle-label"></label>
 
-                  <span className="no span-text">Shared Stamps</span>
+                  {/* <span className="no span-text">Shared Stamps</span> */}
                 </div>
               </form>
             </div>
 
             {!this.state.shareToggle ? (
-              //   <Button
-              //     buttonStyle="system"
-              //     className="select-trigger"
-              //     onClick={() => this.triggerToggle()}>
-              //   {' '}
-              //   TOGGLE EDIT MODE{' '}
-              // </Button>
+  
 
               <div className="holder">
                 <form action="#" className="customToggle">
                   <div className="row">
-                    <span className="no span-text">Select Stamps To Edit</span>
+                  {this.state.triggerToggle ? <span className="no span-text red">Select Stamps To Edit</span> : <span className="no span-text black">Select Stamps To Edit</span>}
+                  <span className="span-text">/</span>
+                  {this.state.triggerToggle ? <span className="no span-text black">Edit Stamps</span> : <span className="no span-text red">Edit Stamps</span>}
+                    {/* <span className="no span-text">Select Stamps To Edit</span> */}
                     <input
                       type="checkbox"
                       id="toggle"
@@ -790,7 +792,7 @@ class StampPad extends React.Component {
                     />
                     <label htmlFor="toggle" className="toggle-label"></label>
 
-                    <span className="yes span-text">Edit Stamps</span>
+                    {/* <span className="yes span-text">Edit Stamps</span> */}
                   </div>
                 </form>
               </div>
@@ -801,7 +803,7 @@ class StampPad extends React.Component {
             <div className="spacer" />
 
             {!this.state.triggerToggle ? (
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex' }} className="row">
                 <Button
                   id="accept"
                   className="save-button btn--system"

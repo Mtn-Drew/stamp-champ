@@ -28,7 +28,7 @@
   margin-left: auto;
   justify-items: center;
   align-items: center;
-}
+} 
 
 .profile-row .btn--medium,
 .template-row .btn--medium {
@@ -185,4 +185,19 @@ border: 2px red solid;
 
 .toggle-label {
   margin: 0px 10px; 
+}
+
+.row {
+  display: flex;
+  text-align: center;
+  margin :10px;
+  justify-content: space-around;
+}
+
+.red {
+  color:red;
+}
+
+.black {
+  color:black;
 }
