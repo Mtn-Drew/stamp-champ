@@ -287,16 +287,16 @@ class AddButton extends React.Component {
   createProfileTemplateSelect = (e) => {
     console.log('in createProfileTemplateSelect')
 
-    if (e.target.value !== 'Select Template') {
+    if (e.target.value !== 'Assign to which template?') {
       const tmpl = this.state.storeTemplate.filter((obj) => {
         console.log(obj.title, e.target.value)
         return obj.title === e.target.value
       })
       this.props.onTemplateSelect(tmpl[0].id)
     }
-    e.target.value === 'Select Template'
+    e.target.value === 'Assign to which template?'
       ? this.setState({ disabled: true })
-      : this.setState({ disabled: false }) //To prevent submitting with template value 'Select Template'
+      : this.setState({ disabled: false }) //To prevent submitting with template value 'Assign to which template?'
 
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
@@ -309,7 +309,7 @@ class AddButton extends React.Component {
   createStampProfileSelect = (e) => {
     console.log('in createStampProfileSelect')
 
-    if (e.target.value !== 'Select Profile') {
+    if (e.target.value !== 'Assign to which profile?') {
       const prof = this.state.storeProfile.filter((obj) => {
         console.log(obj.title, e.target.value)
         return obj.title === e.target.value
@@ -317,9 +317,9 @@ class AddButton extends React.Component {
       this.props.onProfileSelect(prof[0].id)
     }
 
-    e.target.value === 'Select Profile'
+    e.target.value === 'Assign to which profile?'
       ? this.setState({ disabled: true })
-      : this.setState({ disable: false }) //To prevent submitting with template value 'Select Profile'
+      : this.setState({ disable: false }) //To prevent submitting with template value 'Assign to which profile?'
     //set flag to trigger re-render if not submitted
     this.setState({
       trigger: true,
@@ -470,11 +470,11 @@ class AddButton extends React.Component {
               className="dropdown dropbtn select-css"
             >
               <option
-                value="Select Template"
+                value="Assign to which template?"
                 name="default"
                 id="template_default_option"
               >
-                Select Template
+                Assign to which template?
               </option>
               {templateSelectOptions}
             </select>
@@ -504,11 +504,11 @@ class AddButton extends React.Component {
             >
               <option
               className="dropdown-content"
-                value="Select Profile"
+                value="Assign to which profile?"
                 name="default"
                 id="profile_default_option"
               >
-                Select Profile
+                Assign to which profile?
               </option>
               {profileSelectOptions}
             </select>
