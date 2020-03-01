@@ -84,6 +84,10 @@ textarea {
   min-height: 200px;
 }
 
+.focus {
+border: 2px red solid;
+}
+
 .disable-button {
   pointer-events: none;
   background-color: rgb(206, 204, 204);
@@ -102,4 +106,83 @@ textarea {
   margin: 5px;
   padding: 5px;
   font-size: 14px;
+}
+
+/* custom toggle switch */
+.customToggle input[type="checkbox"] {
+  position: absolute;
+  left: -9999px;
+}
+
+.customToggle label {
+  border: 1px solid black;
+  background: rgba(176,52,54,1);
+  border-radius: 25px;
+  position: relative;
+  width: 80px;
+  height: 26px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  transition: background 0.3s linear;
+  cursor: pointer;
+}
+
+.customToggle label:before {
+  content: '';
+  background: #fff;
+  height: 20px;
+  width: 30px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  border-radius: 25px;
+  transform: translateX(0);
+  transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.32, 1.2), background 0.2s linear;
+}
+
+.customToggle label span {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #fff;
+}
+
+.customToggle label .yes {
+  display: none;
+}
+
+.customToggle label .no {
+  left: auto;
+  right: 10px;
+  display: inline-block;
+}
+
+.customToggle input[type="checkbox"]:checked + label {
+  background: rgba(138,134,102,1);
+}
+
+.customToggle input[type="checkbox"]:checked + label:before {
+  transform: translateX(38px);
+}
+
+.customToggle input[type="checkbox"]:checked + label .yes {
+  display: inline-block;
+}
+
+.customToggle input[type="checkbox"]:checked + label .no {
+  display: none;
+}
+
+.hr {
+  background-color: rgba(99,97,88,1);
+}
+
+.span-text {
+  margin: 10px;
+}
+
+.toggle-label {
+  margin: 0px 10px; 
 }

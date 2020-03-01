@@ -3,7 +3,7 @@
   --warning:  rgba(138,134,102,1);
   --danger: rgba(146,144,122,1);
   --success: rgba(99,97,88,1);
-  --brown: rgba(124, 97, 83,1);
+  --system: rgba(60,46,39,1);
   --white: white;
   --dark: black;
   --disabled: rgba(199, 197, 197,.5);
@@ -59,7 +59,7 @@
 }
 
 .system {
-  background-color: var(--warning);
+  background-color: var(--system);
   color: var(--white);
   border: 1px solid black;
   font-size: 11px;
