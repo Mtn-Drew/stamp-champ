@@ -433,12 +433,7 @@ class AddButton extends React.Component {
             </select>
           </div>
 
-          {/* <input
-            type="submit"
-            value="Submit"
-            onClick={this.handleSubmit}
-            disabled={this.state.disabled}
-          /> */}
+
         </form>
 
         <input

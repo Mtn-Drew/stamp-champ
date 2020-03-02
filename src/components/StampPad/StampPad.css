@@ -8,19 +8,7 @@
 .template-row,
 .profile-row {
   display: grid;
-  grid-template-columns: (1fr, 1fr);
-  grid-gap: 1em;
-
-  grid-auto-rows: 10px;
-  border: 1px solid red;
-  margin-right: auto;
-  margin-left: auto;
-  justify-items: center;
-  align-items: center;
-}
-
-.stamps-row {
-  display: flex-row;
+  /* grid-template-columns: (1fr, 1fr); */
   grid-gap: 1em;
   grid-auto-rows: 10px;
   border: 1px solid red;
@@ -28,23 +16,54 @@
   margin-left: auto;
   justify-items: center;
   align-items: center;
+  width: 420px;
 }
+/* 
+display: grid;
+grid-template-columns: (1fr, 1fr);
+grid-gap: 1em;
+grid-auto-rows: 10px;
+margin-right: auto;
+margin-left: auto;
+justify-items: center;
+align-items: center;
+width: 420px; */
+
+.stamp-row {
+  border: 1px solid red;
+  margin-right: auto;
+  margin-left: auto;
+  width: 420px;
+}
+
+/* display: flex-row;
+  grid-gap: 1em;
+  grid-auto-rows: 10px;
+  border: 1px solid red;
+  margin-right: auto;
+  margin-left: auto;
+  justify-items: center;
+  align-items: center; */
 
 .stamp-textarea {
   border: solid red 1px;
   padding: 10px;
+  width:420px;
+  margin-right: auto;
+  margin-left: auto;
+  height: 100%;
 }
 
-.profile-row .btn--medium,
-.template-row .btn--medium {
+.profile-row .btn,
+.template-row .btn {
   width: 100px;
 }
 
-.stamps-row .btn--medium {
+.stamp-row .btn {
   font-size: 11px;
   width: 200px;
   height: 40px;
-  box-shadow: 2px 3px 9px 0px black;
+  /* box-shadow: 2px 3px 9px 0px black; */
   margin: 2px;
 }
 

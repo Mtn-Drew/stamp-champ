@@ -10,13 +10,6 @@ class SharedTemplates extends React.Component {
     target: ''
   }
 
-  // selected = (e) => {
-  //   console.log(e.target.key);
-  //   // this.setState({
-  //   //   selected: e.target.value.title
-  //   // })
-  // }
-
   loadShares = () => {
     //for each
     console.log('in loadShares')

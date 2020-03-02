@@ -33,8 +33,8 @@ class StampPad extends React.Component {
     formProfileTextBox: '',
     formStampTextBox: '',
     formContentTextBox: '',
-    order: '', 
-    selectStamps: true,
+    order: '',
+    selectStamps: true
   }
 
   //handle templateSelect
@@ -73,18 +73,16 @@ class StampPad extends React.Component {
     //this.reloadButtons()
     console.log(this.state.triggerToggle)
 
-    this.setState ({
+    this.setState({
       templateRowSelected: false,
       profileRowSelected: false,
-      stampRowSelected: false,
+      stampRowSelected: false
     })
-
-  
   }
 
-  sliderTriggerToggle = (e) =>{
+  sliderTriggerToggle = (e) => {
     this.triggerToggle()
-      if (e.target.checked ) {
+    if (e.target.checked) {
       this.setState({
         triggerToggle: false
       })
@@ -359,7 +357,6 @@ class StampPad extends React.Component {
         formTemplateTextBox: e.target.value
       })
     }
-  
   }
 
   editStampProfileSelect = (e) => {
@@ -553,7 +550,12 @@ class StampPad extends React.Component {
     //   profileRowSelected: false,
     //   stampRowSelected: false,
     // })
-    console.log('end component did mount ', this.state.templateRowSelected, this.state.profileRowSelected, this.state.stampRowSelected)
+    console.log(
+      'end component did mount ',
+      this.state.templateRowSelected,
+      this.state.profileRowSelected,
+      this.state.stampRowSelected
+    )
   }
 
   reloadButtons = () => {
@@ -614,7 +616,7 @@ class StampPad extends React.Component {
           key={templ.id ? templ.id : i}
           onClick={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
-          className="template_button edit-select btn--edit--solid" //how to overwrite css??
+          className="template_button"
         >
           {this.state.storeTemplate[i].title}
         </Button>
@@ -631,9 +633,7 @@ class StampPad extends React.Component {
           <Button
             key={prof.id ? prof.id : i}
             onClick={() => this.profileSelect(prof.id)}
-            // onMouseEnter={() => console.log('mouse')}
-
-            className="profile_button "
+            className="profile_button"
           >
             {prof.title}
           </Button>
@@ -650,7 +650,7 @@ class StampPad extends React.Component {
             onClick={() => this.stampSelect(stamp.id)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
-            className="stamps_button"
+            className="stamp_button"
           >
             {stamp.title}
           </Button>
@@ -665,6 +665,7 @@ class StampPad extends React.Component {
           template={this.state.selectedTemplate}
           //className={this.state.templateRowSelected ? "template_button edit-select" : "template_button edit-select disable-button"}
           buttonStyle="edit-stamp"
+          className="template_button"
         >
           {this.state.storeTemplate[i].title}
         </Button>
@@ -683,11 +684,12 @@ class StampPad extends React.Component {
             onClick={() => this.profileSelectEdit(prof)}
             // onMouseEnter={() => console.log('mouse')}
             buttonStyle="edit-stamp"
-            className={
-              this.state.profileRowSelected
-                ? 'profile_button edit-select'
-                : 'profile_button edit-select disable-button'
-            }
+            // className={
+            //   this.state.profileRowSelected
+            //     ? 'profile_button edit-select'
+            //     : 'profile_button edit-select disable-button'
+            // }
+            className="profile_button"
           >
             {prof.title}
           </Button>
@@ -704,11 +706,12 @@ class StampPad extends React.Component {
             onClick={() => this.stampSelectEdit(stamp)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
-            className={
-              this.state.stampRowSelected
-                ? 'stamp_button edit-select'
-                : 'stamp_button edit-select disable-button'
-            }
+            // className={
+            //   this.state.stampRowSelected
+            //     ? 'stamp_button edit-select stamp'
+            //     : 'stamp_button edit-select disable-button stamp'
+            // }
+            className="stamp_button"
             buttonStyle="edit-stamp"
           >
             {stamp.title}
@@ -725,15 +728,8 @@ class StampPad extends React.Component {
         onTemplateSelect={this.templateSelect}
         buttonStyle="system"
       />
-    ) : (''
-      // <DeleteButton
-      //   onDeleteButton={this.handleAddDeleteButton}
-      //   target={this.state.target}
-      //   whatToEdit={this.state.whatToEdit}
-      //   storeTemplate={this.state.storeTemplate}
-      //   storeProfile={this.state.storeProfile}
-      //   storeStamps={this.state.storeStamps}
-      // />
+    ) : (
+      ''
     )
 
     const profileDefaultValue = this.state.storeTemplate.find(
@@ -749,54 +745,75 @@ class StampPad extends React.Component {
           <div>
             <div className="spacer" />
             <h1 className="page-title">Configuration</h1>
-            <p>Use the slider on the right to toggle between editing custom or shared stamps.</p>
+            <p>
+              Use the slider on the right to toggle between editing custom or
+              shared stamps.
+            </p>
             <div className="spacer" />
 
             <div className="holder">
               <form action="#" className="customToggle">
-                {/* <div className="row">
-          <p>Do you want to proceed?</p>
-        </div> */}
-
                 <div className="row">
-                {this.state.shareToggle ? <span className="yes span-text black">My Stamps</span> : <span className="yes span-text red">My Stamps</span>}
-                  
+                  {this.state.shareToggle ? (
+                    <span className="yes span-text black">My Stamps</span>
+                  ) : (
+                    <span className="yes span-text red">My Stamps</span>
+                  )}
+
                   <span className="span-text">/</span>
-                  {this.state.shareToggle ? <span className="yes span-text red">Shared Stamps</span> : <span className="yes span-text black">Shared Stamps</span>}
-                 
+                  {this.state.shareToggle ? (
+                    <span className="yes span-text red">Shared Stamps</span>
+                  ) : (
+                    <span className="yes span-text black">Shared Stamps</span>
+                  )}
+
                   <input
                     type="checkbox"
                     id="sharesToggle"
                     onClick={this.clickToggle}
                   />
-                  <label htmlFor="sharesToggle" className="toggle-label"></label>
+                  <label
+                    htmlFor="sharesToggle"
+                    className="toggle-label"
+                  ></label>
 
-                  {/* <span className="no span-text">Shared Stamps</span> */}
+                
                 </div>
               </form>
             </div>
 
             {!this.state.shareToggle ? (
-  
-
               <div className="holder">
-                 <p>To edit your custom stamps, first click on the stamps to display what you want to edit, then click the toggle to enter edit mode.</p>
+                <p>
+                  To edit your custom stamps, first click on the stamps to
+                  display what you want to edit, then click the toggle to enter
+                  edit mode.
+                </p>
                 <form action="#" className="customToggle">
                   <div className="row">
-                  {this.state.triggerToggle ? <span className="no span-text red">Select Stamps To Edit</span> : <span className="no span-text black">Select Stamps To Edit</span>}
-                  <span className="span-text">/</span>
-                  {this.state.triggerToggle ? <span className="no span-text black">Edit Stamps</span> : <span className="no span-text red">Edit Stamps</span>}
-                 
+                    {this.state.triggerToggle ? (
+                      <span className="no span-text red">
+                        Select Stamps To Edit
+                      </span>
+                    ) : (
+                      <span className="no span-text black">
+                        Select Stamps To Edit
+                      </span>
+                    )}
+                    <span className="span-text">/</span>
+                    {this.state.triggerToggle ? (
+                      <span className="no span-text black">Edit Stamps</span>
+                    ) : (
+                      <span className="no span-text red">Edit Stamps</span>
+                    )}
+
                     <input
                       type="checkbox"
                       id="toggle"
-                
                       onClick={this.sliderTriggerToggle}
                     />
-                    
-                    <label htmlFor="toggle" className="toggle-label"></label>
 
-        
+                    <label htmlFor="toggle" className="toggle-label"></label>
                   </div>
                 </form>
               </div>
@@ -825,17 +842,16 @@ class StampPad extends React.Component {
                   onClick={() => this.cancelConfiguration()}
                   buttonStyle="system"
                 >
-      
                   CANCEL EDIT
                 </Button>
                 <DeleteButton
-        onDeleteButton={this.handleAddDeleteButton}
-        target={this.state.target}
-        whatToEdit={this.state.whatToEdit}
-        storeTemplate={this.state.storeTemplate}
-        storeProfile={this.state.storeProfile}
-        storeStamps={this.state.storeStamps}
-      />
+                  onDeleteButton={this.handleAddDeleteButton}
+                  target={this.state.target}
+                  whatToEdit={this.state.whatToEdit}
+                  storeTemplate={this.state.storeTemplate}
+                  storeProfile={this.state.storeProfile}
+                  storeStamps={this.state.storeStamps}
+                />
 
                 {/* <div className="spacer" /> */}
               </div>
@@ -851,7 +867,7 @@ class StampPad extends React.Component {
           {/* main body */}
           {!this.state.shareToggle ? (
             <section>
-              <div className="buttonRow" id="button-row-template">
+              <div className="button-row template-row" id="button-row-template">
                 <div className="spacer" />
                 {this.state.triggerToggle ? templateRow : templateRowEdit}
                 <div className="spacer" />
@@ -860,12 +876,7 @@ class StampPad extends React.Component {
               <hr className="hr" />
 
               <div
-                className="buttonRow"
-                // {
-                //   this.state.profileRowSelected
-                //     ? 'buttonRow'
-                //     : 'disable-button buttonRow'
-                // }
+                className="button-row profile-row"
                 id="button-row-profile"
               >
                 <div className="spacer" />
@@ -877,7 +888,7 @@ class StampPad extends React.Component {
 
               <hr className="hr" />
 
-              <div className="buttonRow" id="button-row-stamps">
+              <div className="button-row stamp-row" id="button-row-stamps">
                 <div className="spacer" />
                 {this.state.triggerToggle ? stampRow : stampRowEdit}
                 <div className="spacer" />
@@ -898,7 +909,9 @@ class StampPad extends React.Component {
                     value={this.state.formTemplateTextBox}
                     onChange={(e) => this.templateBoxChange(e)}
                     className={
-                      this.state.formTemplateTextBox!=='N/A' ? 'focus' : 'disable-button'
+                      this.state.formTemplateTextBox !== 'N/A'
+                        ? 'focus'
+                        : 'disable-button'
                     }
                   />
                   {this.state.whatToEdit === 'profile' ? (
@@ -929,7 +942,9 @@ class StampPad extends React.Component {
                     value={this.state.formProfileTextBox}
                     onChange={(e) => this.profileBoxChange(e)}
                     className={
-                      this.state.formProfileTextBox!=='N/A' ? 'focus' : 'disable-button' 
+                      this.state.formProfileTextBox !== 'N/A'
+                        ? 'focus'
+                        : 'disable-button'
                     }
                   />
                   {this.state.whatToEdit === 'stamp' ? (
@@ -960,7 +975,9 @@ class StampPad extends React.Component {
                     value={this.state.formStampTextBox}
                     onChange={(e) => this.stampBoxChange(e)}
                     className={
-                      this.state.formStampTextBox !== 'N/A' ? 'focus' : 'disable-button'
+                      this.state.formStampTextBox !== 'N/A'
+                        ? 'focus'
+                        : 'disable-button'
                     }
                   />
                   <br />
@@ -972,7 +989,9 @@ class StampPad extends React.Component {
                     value={this.state.formContentTextBox}
                     onChange={(e) => this.contentBoxChange(e)}
                     className={
-                      this.state.formStampTextBox !== 'N/A' ? 'focus' : 'disable-button'
+                      this.state.formStampTextBox !== 'N/A'
+                        ? 'focus'
+                        : 'disable-button'
                     }
                   />
                 </form>

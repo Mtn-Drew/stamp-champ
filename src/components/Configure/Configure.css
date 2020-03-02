@@ -1,7 +1,7 @@
 /* Configure.css */
 
 
-.mainPage {
+/* .main-page {
   background-color: rgb(238, 236, 236);
   display: block;
 }
@@ -9,12 +9,12 @@
   cursor:move;
 }
 
-.buttonRow {
+.button-row {
   display:flex;
   max-width: 500px;
-}
+} */
 
-.trash_box, .edit_box {
+/* .trash_box, .edit_box {
   
   min-width:150px;
   min-height: 100px;
@@ -44,5 +44,5 @@
 
 .btn--primary--solid:hover {
   background-color: rgba(50,50,50,1);
-}
+} */
 
