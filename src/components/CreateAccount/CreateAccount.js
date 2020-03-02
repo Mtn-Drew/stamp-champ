@@ -39,7 +39,7 @@ class CreateAccount extends React.Component {
 
   render() {
     const { error } = this.state
-    return (
+    return ( <div className="login-form-body">
       <div className="container">
         <form
           id="form"
@@ -88,6 +88,7 @@ class CreateAccount extends React.Component {
 
           <button type="submit">Register</button>
         </form>
+      </div>
       </div>
     )
   }

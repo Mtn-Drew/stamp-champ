@@ -1,4 +1,4 @@
-
+/* AddButton.css */
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
@@ -21,7 +21,8 @@
 	border: 1px solid #aaa;
 	box-shadow: 2px 2px 7px 0px black;
 	border-radius: .5em;
-  cursor: pointer;
+	cursor: pointer;
+	margin: 0 0 3px 0;
 }
 
 .select-css:hover {

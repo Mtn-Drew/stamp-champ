@@ -126,14 +126,14 @@ class SharedTemplates extends React.Component {
 
     return (
       <div>
-        <h1>Templates shared with me</h1>
+        <p>These are the current shareable templates you have imported.</p>
+        <br />
         {shareTemplateRow}
         <br />
-        {/* <button onClick={this.loadShares}>shares</button> */}
-        <Button onClick={this.deleteShare}
-          buttonStyle="system"
-        >DELETE</Button>
-        {/* <p>{this.state.target.id}</p> */}
+        <p></p>
+        <Button onClick={this.deleteShare} buttonStyle="system">
+          DELETE
+        </Button>
       </div>
     )
   }

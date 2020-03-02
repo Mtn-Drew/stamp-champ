@@ -31,6 +31,7 @@ export default class LoginForm extends Component {
   render() {
     const { error } = this.state
     return (
+      <div className="login-form-body">
       <div className="container container-body">
         <form
           id="form"
@@ -67,6 +68,7 @@ export default class LoginForm extends Component {
 
           <button type="submit">Login</button>
         </form>
+      </div>
       </div>
     )
   }

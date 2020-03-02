@@ -359,6 +359,7 @@ class StampPad extends React.Component {
         formTemplateTextBox: e.target.value
       })
     }
+  
   }
 
   editStampProfileSelect = (e) => {
@@ -747,7 +748,8 @@ class StampPad extends React.Component {
         <main style={{ marginTop: '64px' }} key={this.state.requirementKey}>
           <div>
             <div className="spacer" />
-            <h1>Configuration</h1>
+            <h1 className="page-title">Configuration</h1>
+            <p>Use the slider on the right to toggle between editing custom or shared stamps.</p>
             <div className="spacer" />
 
             <div className="holder">
@@ -778,21 +780,23 @@ class StampPad extends React.Component {
   
 
               <div className="holder">
+                 <p>To edit your custom stamps, first click on the stamps to display what you want to edit, then click the toggle to enter edit mode.</p>
                 <form action="#" className="customToggle">
                   <div className="row">
                   {this.state.triggerToggle ? <span className="no span-text red">Select Stamps To Edit</span> : <span className="no span-text black">Select Stamps To Edit</span>}
                   <span className="span-text">/</span>
                   {this.state.triggerToggle ? <span className="no span-text black">Edit Stamps</span> : <span className="no span-text red">Edit Stamps</span>}
-                    {/* <span className="no span-text">Select Stamps To Edit</span> */}
+                 
                     <input
                       type="checkbox"
                       id="toggle"
-                      // onClick={(e) => this.triggerToggle(e)}
+                
                       onClick={this.sliderTriggerToggle}
                     />
+                    
                     <label htmlFor="toggle" className="toggle-label"></label>
 
-                    {/* <span className="yes span-text">Edit Stamps</span> */}
+        
                   </div>
                 </form>
               </div>
@@ -806,14 +810,14 @@ class StampPad extends React.Component {
               <div style={{ display: 'flex' }} className="row">
                 <Button
                   id="accept"
-                  className="save-button btn--system"
+                  className="save-button"
                   onClick={() => this.saveConfiguration()}
                   buttonStyle="system"
                 >
                   SUBMIT
                 </Button>
 
-                <div className="spacer" />
+                {/* <div className="spacer" /> */}
 
                 <Button
                   id="cancel"
@@ -821,7 +825,7 @@ class StampPad extends React.Component {
                   onClick={() => this.cancelConfiguration()}
                   buttonStyle="system"
                 >
-                  {/* CANCEL EDIT {this.state.whatToEdit} */}
+      
                   CANCEL EDIT
                 </Button>
                 <DeleteButton
@@ -833,7 +837,7 @@ class StampPad extends React.Component {
         storeStamps={this.state.storeStamps}
       />
 
-                <div className="spacer" />
+                {/* <div className="spacer" /> */}
               </div>
             ) : (
               ''

@@ -1,3 +1,6 @@
+/* EditButton.css */
+
+
 .main-wrapper {
   display: grid;
 }
@@ -201,3 +204,10 @@ border: 2px red solid;
 .black {
   color:black;
 }
+
+.page-title {
+  font-family: 'Allerta Stencil', Tahoma, sans-serif;
+  text-align: center;
+  margin: 100px 20px 20px 20px;
+}
+

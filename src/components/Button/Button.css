@@ -1,3 +1,6 @@
+/* Button.css */
+
+
 :root {
   --primary:  rgba(176,52,54,1);
   --warning:  rgba(138,134,102,1);
@@ -17,11 +20,12 @@
 
 .btn:hover {
   transform: translateY(-3px);
+
 }
 
 .btn:active {
   /* background-color: #3e8e41; */
-  box-shadow: 1px 1px 4px 0px black;
+  box-shadow: 1px 1px 1px 1px black;
   /* transform: translateY(-10px); */
   /* transform: translate(50px, 100px); */
   transform: rotate(20deg);
@@ -75,8 +79,11 @@
   width: 130px;
   height: 30px;
   margin: 2px;
-  
-  
+}
+
+.system:hover {
+  box-shadow: 1px 1px 4px 0px red;
+  color: rgb(241, 159, 159);
 }
 
 .system-disabled {

@@ -6,8 +6,8 @@ class ShareableTemplates extends React.Component {
   state = {
     storeShareables: [],
     storeShareableTemplate: [],
-    storeShares:[],
-    storeSharesTemplate:[],
+    storeShares: [],
+    storeSharesTemplate: [],
     selected: '',
     target: ''
   }
@@ -91,16 +91,10 @@ class ShareableTemplates extends React.Component {
 
     Promise.all([
       ShareService.getShareables()
-      // StampsService.getStamps(),
-      // ProfilesService.getProfiles(),
-      // TemplateService.getTemplates()
     ])
       .then((res) => {
         this.setState({ storeShareables: res[0] })
-        // this.setState({ storeStamps: res[1] })
-        // this.setState({ storeProfile: res[2] })
-        // this.setState({ storeTemplate: res[3] })
-        this.loadShareables()
+          this.loadShareables()
       })
       .catch((e) => {
         console.log('error->', e)
@@ -142,22 +136,19 @@ class ShareableTemplates extends React.Component {
       )
     })
 
-  
-
     return (
       <div>
-        <h1>These can be imported from the shareable table~</h1>
+        <p>These shareable templates are available to be added to your stamps.</p>
+        <p>Click the button to see a description.</p>
         <br />
-        
         {shareablesRow}
-        
         <br />
         <div>
           <p>{this.state.target.template_desc}</p>
         </div>
-        <Button onClick={this.addToMyShares}
-        buttonStyle="system"
-        >Add to my load out</Button>
+        <Button onClick={this.addToMyShares} buttonStyle="system">
+          Add to my load out
+        </Button>
       </div>
     )
   }

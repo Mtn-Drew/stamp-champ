@@ -1,3 +1,6 @@
+/* Index.css */
+
+
 @import url('https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap');
 
 * {
@@ -9,7 +12,7 @@ html {
 }
 
 body {
-  margin: 10;
+  margin: 10px;
   padding: 0;
   height: 100%;
   font-family: 'Allerta Stencil', Tahoma, sans-serif;
@@ -27,7 +30,7 @@ code {
 .hr {
   margin: 5px;
 }
-
+ 
 
 .spacer {
   flex: 1;

@@ -1,5 +1,6 @@
+/* CreateAccount.css */
 
-:root {
+/* :root {
   --success-color: #2ecc71;
   --error-color: #e74c3c;
 }
@@ -7,16 +8,6 @@
 * {
   box-sizing: border-box;
 }
-
-/* body {
-  background-color: #f9fafb;
-  font-family: Tahoma, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
-} */
 
 .container {
   background-color: #fff;
@@ -91,4 +82,4 @@ h2 {
   padding: 10px;
   margin-top: 20px;
   width: 100%;
-}
+} */
