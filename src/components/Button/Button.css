@@ -25,10 +25,11 @@
 
 .btn:active {
   /* background-color: #3e8e41; */
-  box-shadow: 1px 1px 1px 1px black;
-  /* transform: translateY(-10px); */
-  /* transform: translate(50px, 100px); */
-  transform: rotate(20deg);
+  box-shadow: 1px 1px 4px 1px black;
+  transform: translateY(-100px); 
+  transform: translate(1px, 2px);
+  transition: none;
+  /* transform: rotate(20deg); */
   color:black;
 }
 
