@@ -84,18 +84,18 @@
 
 .system:hover {
   box-shadow: 1px 1px 4px 0px red;
-  color: rgb(241, 159, 159);
+  /* color: rgb(241, 159, 159); */
 }
 
 .system-disabled {
-  background-color: rgba(138,134,102,.3);
-  color: rgba(87, 87, 87,.5);
-  border: 1px solid rgba(87, 87, 87,.5);
+  background-color: rgba(60,46,39,.4);
+  color: rgba(255, 255, 255,.5);
+  border: 1px solid rgba(0, 0, 0,.2);
   cursor: not-allowed;
   font-size: 11px;
   width: 130px;
   height: 30px;
-  margin: 2px;
+  margin: 5px;
 }
 
 

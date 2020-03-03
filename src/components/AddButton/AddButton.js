@@ -294,9 +294,10 @@ class AddButton extends React.Component {
       })
       this.props.onTemplateSelect(tmpl[0].id)
     }
-    e.target.value === 'Assign to which template?'
-      ? this.setState({ disabled: true })
-      : this.setState({ disabled: false }) //To prevent submitting with template value 'Assign to which template?'
+    if (e.target.value === 'Assign to which template?') {this.setState({ disabled: true })}
+    // e.target.value === 'Assign to which template?'
+    //   ? this.setState({ disabled: true })
+    //   : this.setState({ disabled: false }) //To prevent submitting with template value 'Assign to which template?'
 
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
@@ -317,9 +318,9 @@ class AddButton extends React.Component {
       this.props.onProfileSelect(prof[0].id)
     }
 
-    e.target.value === 'Assign to which profile?'
-      ? this.setState({ disabled: true })
-      : this.setState({ disable: false }) //To prevent submitting with template value 'Assign to which profile?'
+    if (e.target.value === 'Assign to which profile?') {this.setState({ disabled: true })}
+      
+      //this.setState({ disable: false }) //To prevent submitting with template value 'Assign to which profile?'
     //set flag to trigger re-render if not submitted
     this.setState({
       trigger: true,
@@ -336,7 +337,8 @@ class AddButton extends React.Component {
       this.setState({
         disabled: true
       })
-    } else {
+    } 
+    else {
       this.setState({
         disabled: false,
         textBoxValue: text
@@ -346,7 +348,7 @@ class AddButton extends React.Component {
 
   handleTextarea = (e) => {
     this.setState({
-      disabled: false,
+      // disabled: false,
       textareaValue: e.target.value
     })
   }
