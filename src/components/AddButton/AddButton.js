@@ -84,6 +84,7 @@ class AddButton extends React.Component {
       this.resetState()
     }
   }
+
   createTemplate = (e) => {
     console.log('in createTemplate')
     this.setState({
@@ -129,15 +130,10 @@ class AddButton extends React.Component {
     })
   }
 
-  // find_template_id = (obj) => {
-  //   console.log('in find_template_id')
-  //   console.log(obj)
-  //   console.log('selectTemplate')
-  //   console.log(this.state.selectTemplate)
-  //   console.log('this.state')
-  //   console.log(this.state)
-  //   return obj.id === this.state.selectedTemplate
-  // }
+
+  cb = () => {
+    console.log('cb')
+  }
 
   handleSubmit = (e) => {
     e.preventDefault()
@@ -174,7 +170,7 @@ class AddButton extends React.Component {
       this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('template added')
-      TemplateService.addTemplate(newTemplate) //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      TemplateService.addTemplate(newTemplate,this.cb) //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     }
 
     if (this.state.whatToAdd === 'profile') {
@@ -286,6 +282,7 @@ class AddButton extends React.Component {
 
   createProfileTemplateSelect = (e) => {
     console.log('in createProfileTemplateSelect')
+    console.log('e.target->', e.target)
 
     if (e.target.value !== 'Assign to which template?') {
       const tmpl = this.state.storeTemplate.filter((obj) => {

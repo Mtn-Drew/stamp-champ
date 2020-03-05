@@ -306,6 +306,7 @@ class StampPad extends React.Component {
       formContentTextBox: ''
     })
     this.resetState()
+    //this.reloadButtons()
   }
 
   handleAddDeleteButton = (type, arr) => {

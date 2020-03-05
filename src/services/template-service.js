@@ -19,7 +19,6 @@ const TemplateService = {
   addTemplate(props) {
     return fetch(`${config.API_ENDPOINT}/templates`, {
       method: 'POST',
-
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${TokenService.getAuthToken()}`
@@ -30,7 +29,7 @@ const TemplateService = {
       })
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
-    )
+    ).then(props.cb)
   },
 
   deleteTemplate(templateId) {
