@@ -39,6 +39,8 @@ class StampPad extends React.Component {
 
   //handle templateSelect
   templateSelect = (templateId) => {
+    //if selected button does not have id(owner_id ===undefined) then get all templates from db and wait; otherwise setState  /do this in AddButton??? 335
+    
     this.setState({
       selectedTemplate: templateId
     })
@@ -157,6 +159,51 @@ class StampPad extends React.Component {
       formProfileTextBox: newArray[0].title
     })
   }
+
+  updateStateForDropdown = () =>{
+    console.log('in updateStateForDropdown')
+    // TemplateService.getTemplates((value) => {
+    //   this.setState({ storeTemplate: value })
+    // }).catch((e) => {
+    //   console.log('error->', e)
+    //   // if (e.error === 'Unauthorized request') {
+    //   //   localStorage.clear()
+    //   //   this.props.history.push('/sign_in')
+    //   // }
+    // })
+    // ProfilesService.getProfiles((value) => {
+    //   this.setState({ storeProfile: value })
+    // })
+    // // StampsService.getStamps((value) => {
+    // //   this.setState({ storeStamps: value })
+    // // })
+    // // ShareService.getShares((value) => {
+    // //   this.setState({ storeShares: value })
+    // // })
+
+    // Promise.all([
+    //   // ShareService.getShares(),
+    //   // StampsService.getStamps(),
+    //   ProfilesService.getProfiles(),
+    //   TemplateService.getTemplates()
+    // ])
+    //   .then((res) => {
+    //     // this.setState({ storeShares: res[0] })
+    //     // this.setState({ storeStamps: res[1] })
+    //     this.setState({ storeProfile: res[0] })
+    //     this.setState({ storeTemplate: res[1] })
+    //     // this.loadShares()
+    //   })
+    //   .catch((e) => {
+    //     console.log('error->', e)
+    //     // if (e.error === 'Unauthorized request') {
+    //     //   localStorage.clear()
+    //     //   this.props.history.push('/sign_in')
+    //     // }
+    //   })
+  }
+
+
 
   // Save changes to state
   saveConfiguration = (e) => {
@@ -722,6 +769,7 @@ class StampPad extends React.Component {
 
     const addButtonForm = this.state.triggerToggle ? (
       <AddButton
+        onSubmit={this.updateStateForDropdown}
         onAddButton={this.handleAddDeleteButton}
         selectedProfile={this.state.selectedProfile}
         selectedTemplate={this.state.selectedTemplate}

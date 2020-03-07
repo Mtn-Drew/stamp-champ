@@ -83,6 +83,9 @@ class AddButton extends React.Component {
     if (this.state.trigger) {
       this.resetState()
     }
+
+  
+
   }
 
   createTemplate = (e) => {
@@ -132,7 +135,7 @@ class AddButton extends React.Component {
 
 
   cb = () => {
-    console.log('cb')
+    console.log('cb-------------------------------------------')
   }
 
   handleSubmit = (e) => {
@@ -161,6 +164,7 @@ class AddButton extends React.Component {
         title: text,
         owner_id: this.props.owner_id
       }
+
       console.log('new template', newTemplate)
       console.log('props--> ', this.props)
       const tempArray = this.state.storeTemplate.concat(newTemplate)
@@ -170,7 +174,7 @@ class AddButton extends React.Component {
       this.props.onAddButton(this.state.whatToAdd, tempArray)
       //post to database and callback to configure to update state? ****************
       console.log('template added')
-      TemplateService.addTemplate(newTemplate,this.cb) //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      TemplateService.addTemplate(newTemplate) //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     }
 
     if (this.state.whatToAdd === 'profile') {
@@ -278,6 +282,48 @@ class AddButton extends React.Component {
       stampTextBoxIsVisible: false,
       stampContentBoxIsVisible: false
     })
+
+  // this.props.onSubmit()    
+    // TemplateService.getTemplates((value) => {
+    //   this.setState({ storeTemplate: value })
+    // }).catch((e) => {
+    //   console.log('error->', e)
+    //   // if (e.error === 'Unauthorized request') {
+    //   //   localStorage.clear()
+    //   //   this.props.history.push('/sign_in')
+    //   // }
+    // })
+    // ProfilesService.getProfiles((value) => {
+    //   this.setState({ storeProfile: value })
+    // })
+    // // StampsService.getStamps((value) => {
+    // //   this.setState({ storeStamps: value })
+    // // })
+    // // ShareService.getShares((value) => {
+    // //   this.setState({ storeShares: value })
+    // // })
+
+    // Promise.all([
+    //   // ShareService.getShares(),
+    //   // StampsService.getStamps(),
+    //   ProfilesService.getProfiles(),
+    //   TemplateService.getTemplates()
+    // ])
+    //   .then((res) => {
+    //     // this.setState({ storeShares: res[0] })
+    //     // this.setState({ storeStamps: res[1] })
+    //     this.setState({ storeProfile: res[0] })
+    //     this.setState({ storeTemplate: res[1] })
+    //     // this.loadShares()
+    //   })
+    //   .catch((e) => {
+    //     console.log('error->', e)
+    //     // if (e.error === 'Unauthorized request') {
+    //     //   localStorage.clear()
+    //     //   this.props.history.push('/sign_in')
+    //     // }
+    //   })
+    //this.reloadButtons()
   }
 
   createProfileTemplateSelect = (e) => {
@@ -287,14 +333,22 @@ class AddButton extends React.Component {
     if (e.target.value !== 'Assign to which template?') {
       const tmpl = this.state.storeTemplate.filter((obj) => {
         console.log(obj.title, e.target.value)
+        
         return obj.title === e.target.value
       })
+
+      //if selection has no id, get all templates and try again??
+      if (tmpl[0].id===undefined){
+        console.log('in undefined ')
+
+        this.reloadButtons()
+
+      }
+
       this.props.onTemplateSelect(tmpl[0].id)
-    }
+    } 
     if (e.target.value === 'Assign to which template?') {this.setState({ disabled: true })}
-    // e.target.value === 'Assign to which template?'
-    //   ? this.setState({ disabled: true })
-    //   : this.setState({ disabled: false }) //To prevent submitting with template value 'Assign to which template?'
+
 
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
@@ -312,8 +366,13 @@ class AddButton extends React.Component {
         console.log(obj.title, e.target.value)
         return obj.title === e.target.value
       })
+      if (prof[0].id===undefined){
+        console.log('in prof undefined')
+        this.reloadButtons()
+      }
       this.props.onProfileSelect(prof[0].id)
     }
+    
 
     if (e.target.value === 'Assign to which profile?') {this.setState({ disabled: true })}
       
