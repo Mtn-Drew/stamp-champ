@@ -375,8 +375,7 @@ class AddButton extends React.Component {
     
 
     if (e.target.value === 'Assign to which profile?') {this.setState({ disabled: true })}
-      
-      //this.setState({ disable: false }) //To prevent submitting with template value 'Assign to which profile?'
+     
     //set flag to trigger re-render if not submitted
     this.setState({
       trigger: true,
@@ -410,6 +409,7 @@ class AddButton extends React.Component {
   }
 
   reloadButtons = () => {
+    console.log('in reloadButtons..')
     TemplateService.getTemplates((value) =>
       this.setState({
         storeTemplate: value
@@ -449,6 +449,7 @@ class AddButton extends React.Component {
     console.log('add button render')
     console.log('storeTemplate ', this.state.storeTemplate)
     console.log('storeProfile ', this.state.storeProfile)
+
 
     const templateSelectOptions = this.state.storeTemplate.map((temp, i) => {
       return (
