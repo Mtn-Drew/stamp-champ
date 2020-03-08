@@ -24,7 +24,10 @@ class AddButton extends React.Component {
     selectedTemplate: this.props.selectedTemplate,
     disabled: true,
     textareaValue: '',
-    errorMessage: ''
+    errorMessage: '',
+    selectedOption: '',
+    templateSelectValue: 'Assign to which template?',
+    profileSelectValue: 'Assign to which profile?'
   }
 
   resetState = () => {
@@ -44,6 +47,7 @@ class AddButton extends React.Component {
       this.setState({
         storeTemplate: value
       })
+    
     )
     ProfilesService.getProfiles((value) => {
       this.setState({ storeProfile: value })
@@ -55,24 +59,6 @@ class AddButton extends React.Component {
     if (selection === 'template') {
       this.createTemplate()
 
-      // Promise.all([
-      //   StampsService.getStamps(),
-      //   ProfilesService.getProfiles(),
-      //   TemplateService.getTemplates()
-      // ])
-      //   .then((res) => {
-      //     this.setState({ storeStamps: res[0] })
-      //     this.setState({ storeProfile: res[1] })
-      //     this.setState({ storeTemplate: res[2] })
-
-      //   })
-      //   .catch((e) => {
-      //     console.log('error->', e)
-      //     if (e.error === 'Unauthorized request') {
-      //       localStorage.clear()
-      //       this.props.history.push('/sign_in')
-      //     }
-      //   })
     }
     if (selection === 'profile') {
       this.createProfile()
@@ -81,11 +67,9 @@ class AddButton extends React.Component {
       this.createStamp()
     }
     if (this.state.trigger) {
-      this.resetState()
+      //this.resetState()
     }
-
-  
-
+    // this.props.onUpdateTemplates(this.state)
   }
 
   createTemplate = (e) => {
@@ -101,6 +85,7 @@ class AddButton extends React.Component {
       stampTextBoxIsVisible: false,
       stampContentBoxIsVisible: false
     })
+    // this.props.onUpdateTemplates(this.state)
   }
 
   createProfile = () => {
@@ -117,6 +102,7 @@ class AddButton extends React.Component {
       stampTextBoxIsVisible: false,
       stampContentBoxIsVisible: false
     })
+    // this.props.onUpdateTemplates(this.state)
   }
 
   createStamp = () => {
@@ -131,11 +117,7 @@ class AddButton extends React.Component {
       profileTextBoxIsVisible: false,
       profileSelectFormIsVisible: true
     })
-  }
-
-
-  cb = () => {
-    console.log('cb-------------------------------------------')
+    // this.props.onUpdateTemplates(this.state)
   }
 
   handleSubmit = (e) => {
@@ -175,6 +157,9 @@ class AddButton extends React.Component {
       //post to database and callback to configure to update state? ****************
       console.log('template added')
       TemplateService.addTemplate(newTemplate) //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      this.setState({
+        templateSelectValue: 'Assign to which template?'
+      })
     }
 
     if (this.state.whatToAdd === 'profile') {
@@ -197,7 +182,7 @@ class AddButton extends React.Component {
         })
       }
 
-      const selected = this.state.selectedTemplate
+      const selected = this.state.templateSelectValue
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
 
       const tmpl = this.state.storeTemplate.filter((obj) => {
@@ -220,10 +205,14 @@ class AddButton extends React.Component {
       console.log(this.state.storeProfile)
       console.log('newProfile ->', newProfile)
       ProfilesService.addProfile(newProfile)
+
+      this.setState({
+        profileSelectValue: 'Assign to which profile?'
+      })
     }
 
     if (this.state.whatToAdd === 'stamp') {
-      const selectedProf = this.state.selectedProfile
+      // const selectedProf = this.state.selectedProfile
       const text = this.state.textBoxValue
       // const selected = this.state.selectedProfile
       //get profile object with matching title from dropdown
@@ -244,23 +233,23 @@ class AddButton extends React.Component {
           errorMessage: ''
         })
       }
-
+      const selected = this.state.profileSelectValue
       const prof = this.state.storeProfile.filter((obj) => {
-        return obj.title === selectedProf
+        console.log('obj.title ', obj.title)
+        console.log('selectedProf ', selected)
+        return obj.title === selected
       })
 
       const content = this.state.textareaValue
-      // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
-      // const temp_id = this.state.storeProfile.filter((obj) => {
-      //   return obj.title === selected
-      // })
+   
+      
+      console.log('prof->', prof)
       const newStamp = {
         title: text,
         template_id: prof[0].template_id,
         content: content,
         owner_id: prof[0].owner_id,
         profile_id: prof[0].id
-        // will [0] cause issues??  if more than one thing is entered?????
       }
       console.log('prof', prof)
       console.log('new stamp', newStamp)
@@ -280,75 +269,42 @@ class AddButton extends React.Component {
       profileTextBoxIsVisible: false,
       profileSelectFormIsVisible: false,
       stampTextBoxIsVisible: false,
-      stampContentBoxIsVisible: false
+      stampContentBoxIsVisible: false,
+      templateSelectValue: 'Assign to which template?',
+      profileSelectValue: 'Assign to which profile?'
     })
-
-  // this.props.onSubmit()    
-    // TemplateService.getTemplates((value) => {
-    //   this.setState({ storeTemplate: value })
-    // }).catch((e) => {
-    //   console.log('error->', e)
-    //   // if (e.error === 'Unauthorized request') {
-    //   //   localStorage.clear()
-    //   //   this.props.history.push('/sign_in')
-    //   // }
-    // })
-    // ProfilesService.getProfiles((value) => {
-    //   this.setState({ storeProfile: value })
-    // })
-    // // StampsService.getStamps((value) => {
-    // //   this.setState({ storeStamps: value })
-    // // })
-    // // ShareService.getShares((value) => {
-    // //   this.setState({ storeShares: value })
-    // // })
-
-    // Promise.all([
-    //   // ShareService.getShares(),
-    //   // StampsService.getStamps(),
-    //   ProfilesService.getProfiles(),
-    //   TemplateService.getTemplates()
-    // ])
-    //   .then((res) => {
-    //     // this.setState({ storeShares: res[0] })
-    //     // this.setState({ storeStamps: res[1] })
-    //     this.setState({ storeProfile: res[0] })
-    //     this.setState({ storeTemplate: res[1] })
-    //     // this.loadShares()
-    //   })
-    //   .catch((e) => {
-    //     console.log('error->', e)
-    //     // if (e.error === 'Unauthorized request') {
-    //     //   localStorage.clear()
-    //     //   this.props.history.push('/sign_in')
-    //     // }
-    //   })
-    //this.reloadButtons()
   }
 
   createProfileTemplateSelect = (e) => {
     console.log('in createProfileTemplateSelect')
     console.log('e.target->', e.target)
+    console.log('e.target.value ', e.target.value)
+    this.setState({
+      templateSelectValue: e.target.value
+    })
 
     if (e.target.value !== 'Assign to which template?') {
       const tmpl = this.state.storeTemplate.filter((obj) => {
-        console.log(obj.title, e.target.value)
-        
+        console.log('obj.title, e.target.value ', obj.title, e.target.value)
+
         return obj.title === e.target.value
       })
 
       //if selection has no id, get all templates and try again??
-      if (tmpl[0].id===undefined){
+      if (tmpl[0].id === undefined) {
         console.log('in undefined ')
+        console.log('e.target.value ', e.target.value)
+        //console.log('this.state.selectedOption ', this.state.selectedOption)
 
         this.reloadButtons()
-
+        e.target.value = this.state.selectedOption
       }
-
+      console.log('id---', tmpl[0].id)
       this.props.onTemplateSelect(tmpl[0].id)
-    } 
-    if (e.target.value === 'Assign to which template?') {this.setState({ disabled: true })}
-
+    }
+    if (e.target.value === 'Assign to which template?') {
+      this.setState({ disabled: true })
+    }
 
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
@@ -360,22 +316,28 @@ class AddButton extends React.Component {
 
   createStampProfileSelect = (e) => {
     console.log('in createStampProfileSelect')
+    console.log('e.target.value ', e.target.value)
+    this.setState({
+      profileSelectValue: e.target.value
+    })
 
     if (e.target.value !== 'Assign to which profile?') {
       const prof = this.state.storeProfile.filter((obj) => {
         console.log(obj.title, e.target.value)
         return obj.title === e.target.value
       })
-      if (prof[0].id===undefined){
+      if (prof[0].id === undefined) {
         console.log('in prof undefined')
         this.reloadButtons()
+        e.target.value = this.state.selectedOption
       }
       this.props.onProfileSelect(prof[0].id)
     }
-    
 
-    if (e.target.value === 'Assign to which profile?') {this.setState({ disabled: true })}
-     
+    if (e.target.value === 'Assign to which profile?') {
+      this.setState({ disabled: true })
+    }
+
     //set flag to trigger re-render if not submitted
     this.setState({
       trigger: true,
@@ -392,8 +354,7 @@ class AddButton extends React.Component {
       this.setState({
         disabled: true
       })
-    } 
-    else {
+    } else {
       this.setState({
         disabled: false,
         textBoxValue: text
@@ -439,17 +400,21 @@ class AddButton extends React.Component {
           this.props.history.push('/sign_in')
         }
       })
+    // this.props.onUpdateTemplates(this.state)
+    // console.log('this.state======', this.state)
   }
 
   componentDidMount() {
+    console.log('in addbutton componentdidmount')
     this.reloadButtons()
+   
   }
 
   render() {
     console.log('add button render')
     console.log('storeTemplate ', this.state.storeTemplate)
     console.log('storeProfile ', this.state.storeProfile)
-
+    console.log('storeStamps', this.state.storeStamps)
 
     const templateSelectOptions = this.state.storeTemplate.map((temp, i) => {
       return (
@@ -491,8 +456,6 @@ class AddButton extends React.Component {
               <option value="stamps">Stamp Button</option>
             </select>
           </div>
-
-
         </form>
 
         <input
@@ -522,6 +485,7 @@ class AddButton extends React.Component {
               onChange={(e) => this.createProfileTemplateSelect(e)}
               required
               className="dropdown dropbtn select-css"
+              value={this.state.templateSelectValue}
             >
               <option
                 value="Assign to which template?"
@@ -536,7 +500,9 @@ class AddButton extends React.Component {
 
           <input
             type="text"
-            className={this.state.profileTextBoxIsVisible ? 'show text-box' : 'hide'}
+            className={
+              this.state.profileTextBoxIsVisible ? 'show text-box' : 'hide'
+            }
             placeholder="New Profile Name"
             id="profile_text_box"
             onChange={this.handleTextBox}
@@ -555,9 +521,10 @@ class AddButton extends React.Component {
               id="profile-select"
               onChange={(e) => this.createStampProfileSelect(e)}
               className="dropdown dropbtn select-css"
+              value={this.state.profileSelectValue}
             >
               <option
-              className="dropdown-content"
+                className="dropdown-content"
                 value="Assign to which profile?"
                 name="default"
                 id="profile_default_option"
@@ -569,11 +536,12 @@ class AddButton extends React.Component {
           </div>
           <input
             type="text"
-            className={this.state.stampTextBoxIsVisible ? 'show text-box' : 'hide'}
+            className={
+              this.state.stampTextBoxIsVisible ? 'show text-box' : 'hide'
+            }
             placeholder="New Stamp Name"
             id="stamp_text_box"
             onChange={this.handleTextBox}
-         
           />
           <textarea
             className={this.state.stampContentBoxIsVisible ? 'show' : 'hide'}
@@ -584,13 +552,14 @@ class AddButton extends React.Component {
         </form>
 
         <Button
-        buttonStyle={!this.state.disabled ? 'system' : 'system-disabled'}
-            type="submit"
-            value="Submit"
-            onClick={!this.state.disabled ? this.handleSubmit: null}
-            disabled={this.state.disabled}
-          >Submit</Button>
-
+          buttonStyle={!this.state.disabled ? 'system' : 'system-disabled'}
+          type="submit"
+          value="Submit"
+          onClick={!this.state.disabled ? this.handleSubmit : null}
+          disabled={this.state.disabled}
+        >
+          Submit
+        </Button>
       </main>
     )
   }

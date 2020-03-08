@@ -40,13 +40,12 @@ class StampPad extends React.Component {
   //handle templateSelect
   templateSelect = (templateId) => {
     //if selected button does not have id(owner_id ===undefined) then get all templates from db and wait; otherwise setState  /do this in AddButton??? 335
-    
+
     this.setState({
       selectedTemplate: templateId
     })
     console.log('in templateSelect')
-    console.log('this.state.selectedTemplate')
-    console.log(this.state.selectedTemplate)
+    console.log('this.state.selectedTemplate', this.state.selectedTemplate)
     console.log('templateID', templateId)
   }
 
@@ -160,7 +159,7 @@ class StampPad extends React.Component {
     })
   }
 
-  updateStateForDropdown = () =>{
+  updateStateForDropdown = () => {
     console.log('in updateStateForDropdown')
     // TemplateService.getTemplates((value) => {
     //   this.setState({ storeTemplate: value })
@@ -202,8 +201,6 @@ class StampPad extends React.Component {
     //     // }
     //   })
   }
-
-
 
   // Save changes to state
   saveConfiguration = (e) => {
@@ -622,18 +619,6 @@ class StampPad extends React.Component {
     })
   }
 
-  handleProfileSelect = (select) => {
-    this.setState({
-      selectedProfile: select
-    })
-  }
-
-  handleTemplateSelect = (select) => {
-    this.setState({
-      selectedTemplate: select
-    })
-  }
-
   clickToggle = (e) => {
     if (e.target.checked) {
       this.setState({
@@ -649,6 +634,30 @@ class StampPad extends React.Component {
   triggerShare = () => {
     console.log('in triggerShare')
     this.shareToggle()
+  }
+
+  updateTemplates = (addButtonState) => {
+    console.log('in updateTemplates')
+    const templates = this.state.storeTemplate
+    console.log('addbuttonstate', addButtonState)
+    // if (templates.length < addButtonState.storeTemplate.length) {
+    //   this.setState({
+    //     storeTemplate: addButtonState.storeTemplate
+    //   })
+    // }
+
+    // if (this.state.storeProfile.length < addButtonState.storeProfile.length) {
+    //   this.setState({
+    //     storeProfile: addButtonState.storeProfile
+    //   })
+    // }
+
+    // if (this.state.storeStamps.length < addButtonState.storeStamps.length) {
+    //   this.setState({
+    //     storeStamps: addButtonState.storeStamps
+    //   })
+    //   console.log('add button state ', addButtonState)
+    // }
   }
 
   render() {
@@ -711,7 +720,6 @@ class StampPad extends React.Component {
           key={templ.id ? templ.id : i}
           onClick={() => this.templateSelectEdit(templ)}
           template={this.state.selectedTemplate}
-          //className={this.state.templateRowSelected ? "template_button edit-select" : "template_button edit-select disable-button"}
           buttonStyle="edit-stamp"
           className="template_button"
         >
@@ -730,13 +738,7 @@ class StampPad extends React.Component {
           <Button
             key={prof.id ? prof.id : i}
             onClick={() => this.profileSelectEdit(prof)}
-            // onMouseEnter={() => console.log('mouse')}
             buttonStyle="edit-stamp"
-            // className={
-            //   this.state.profileRowSelected
-            //     ? 'profile_button edit-select'
-            //     : 'profile_button edit-select disable-button'
-            // }
             className="profile_button"
           >
             {prof.title}
@@ -754,11 +756,6 @@ class StampPad extends React.Component {
             onClick={() => this.stampSelectEdit(stamp)}
             title={this.state.storeStamps[i].title}
             text={this.state.storeStamps[i].content}
-            // className={
-            //   this.state.stampRowSelected
-            //     ? 'stamp_button edit-select stamp'
-            //     : 'stamp_button edit-select disable-button stamp'
-            // }
             className="stamp_button"
             buttonStyle="edit-stamp"
           >
@@ -773,8 +770,9 @@ class StampPad extends React.Component {
         onAddButton={this.handleAddDeleteButton}
         selectedProfile={this.state.selectedProfile}
         selectedTemplate={this.state.selectedTemplate}
-        onProfileSelect={this.handleProfileSelect}
+        onProfileSelect={this.profileSelect}
         onTemplateSelect={this.templateSelect}
+        onUpdateTemplates={this.updateTemplates}
         buttonStyle="system"
       />
     ) : (
@@ -825,8 +823,6 @@ class StampPad extends React.Component {
                     htmlFor="sharesToggle"
                     className="toggle-label"
                   ></label>
-
-                
                 </div>
               </form>
             </div>
@@ -924,10 +920,7 @@ class StampPad extends React.Component {
 
               <hr className="hr" />
 
-              <div
-                className="button-row profile-row"
-                id="button-row-profile"
-              >
+              <div className="button-row profile-row" id="button-row-profile">
                 <div className="spacer" />
 
                 {this.state.triggerToggle ? profileRow : profileRowEdit}

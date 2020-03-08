@@ -70,7 +70,8 @@ class DeleteButton extends React.Component {
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
       }
-      StampsService.deleteStamp(this.props.target.id)
+      
+        StampsService.deleteStamp(this.props.target.id)
     }
   }
 
