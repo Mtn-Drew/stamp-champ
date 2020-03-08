@@ -41,6 +41,10 @@ class StampPad extends React.Component {
   templateSelect = (templateId) => {
     //if selected button does not have id(owner_id ===undefined) then get all templates from db and wait; otherwise setState  /do this in AddButton??? 335
 
+    if (templateId === undefined) {
+      this.reloadButtons()
+    }
+
     this.setState({
       selectedTemplate: templateId
     })
@@ -51,6 +55,9 @@ class StampPad extends React.Component {
 
   //handle profileSelect
   profileSelect = (profileId) => {
+    if (profileId===undefined) {
+      this.reloadButtons()
+    }
     this.setState({
       selectedProfile: profileId
     })
@@ -67,6 +74,7 @@ class StampPad extends React.Component {
 
   //toggle editable
   triggerToggle = (e) => {
+    this.reloadButtons()
     console.log('in triggerToggle')
     this.setState({
       triggerToggle: !this.state.triggerToggle
@@ -617,6 +625,26 @@ class StampPad extends React.Component {
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
+
+    Promise.all([
+      StampsService.getStamps(),
+      ProfilesService.getProfiles(),
+      TemplateService.getTemplates()
+    ])
+      .then((res) => {
+        this.setState({ storeStamps: res[0] })
+        this.setState({ storeProfile: res[1] })
+        this.setState({ storeTemplate: res[2] })
+      })
+      .catch((e) => {
+        console.log('error->', e)
+        if (e.error === 'Unauthorized request') {
+          localStorage.clear()
+          this.props.history.push('/sign_in')
+        }
+      })
+
+
   }
 
   clickToggle = (e) => {
@@ -636,29 +664,12 @@ class StampPad extends React.Component {
     this.shareToggle()
   }
 
-  updateTemplates = (addButtonState) => {
-    console.log('in updateTemplates')
-    const templates = this.state.storeTemplate
-    console.log('addbuttonstate', addButtonState)
-    // if (templates.length < addButtonState.storeTemplate.length) {
-    //   this.setState({
-    //     storeTemplate: addButtonState.storeTemplate
-    //   })
-    // }
+  // updateTemplates = (addButtonState) => {
+  //   console.log('in updateTemplates')
+  //   const templates = this.state.storeTemplate
+  //   console.log('addbuttonstate', addButtonState)
 
-    // if (this.state.storeProfile.length < addButtonState.storeProfile.length) {
-    //   this.setState({
-    //     storeProfile: addButtonState.storeProfile
-    //   })
-    // }
-
-    // if (this.state.storeStamps.length < addButtonState.storeStamps.length) {
-    //   this.setState({
-    //     storeStamps: addButtonState.storeStamps
-    //   })
-    //   console.log('add button state ', addButtonState)
-    // }
-  }
+  // }
 
   render() {
     console.log('RENDER RENDER')
