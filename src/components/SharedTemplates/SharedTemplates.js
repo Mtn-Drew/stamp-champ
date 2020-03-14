@@ -125,7 +125,7 @@ class SharedTemplates extends React.Component {
         <br />
         <p></p>
         <Button onClick={this.deleteShare} buttonStyle="system">
-          DELETE
+          QUIT SHARING
         </Button>
       </div>
     )

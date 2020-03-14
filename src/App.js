@@ -18,16 +18,16 @@ import SharedTemplates from './components/SharedTemplates/SharedTemplates'
 
 class App extends React.Component {
   state = {
-    sideDrawerOpen: false,
+    // sideDrawerOpen: false,
     // isLoggedIn: false
     isLoggedIn: false
   }
 
   handleLogin = () => {
     console.log('in handleLogin')
-    // this.setState({
-    //   isLoggedIn: true
-    // })
+    this.setState({
+      isLoggedIn: true
+    })
   }
 
   handleDataCallback = (page) => {
