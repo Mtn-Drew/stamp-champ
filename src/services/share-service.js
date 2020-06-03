@@ -13,7 +13,6 @@ const ShareService = {
   },
 
   getSharedTemplates(templateId) {
-    console.log('in ss getSharedTemplates')
     return fetch(`${config.API_ENDPOINT}/shares/templates/${templateId}`, {
       headers: {
         authorization: `Bearer ${TokenService.getAuthToken()}`,
@@ -24,7 +23,6 @@ const ShareService = {
   },
 
   deleteSharedTemplate(templateId) {
-    console.log('in ss deleteSharedTemplate')
     return fetch(`${config.API_ENDPOINT}/shares/templates/${templateId}`, {
       method: 'DELETE',
       headers: {
@@ -37,7 +35,6 @@ const ShareService = {
   },
 
   getSharedProfiles(templateId) {
-    console.log('in ss getSharedProfiles')
     return fetch(`${config.API_ENDPOINT}/shares/profiles/${templateId}`, {
       headers: {
         authorization: `Bearer ${TokenService.getAuthToken()}`,
@@ -45,8 +42,6 @@ const ShareService = {
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     )
-    // .then(console.log('props-->', props))
-    // .then(props)
   },
 
   getSharedStamps(templateId) {
@@ -57,8 +52,6 @@ const ShareService = {
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     )
-    // .then(console.log('props-->', props))
-    // .then(props)
   },
 
   getShareables() {
@@ -81,7 +74,6 @@ const ShareService = {
       },
       body: JSON.stringify({
         template_id: template_id,
-        //user_id: req.params.user_id
       }),
     })
   },

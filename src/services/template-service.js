@@ -1,6 +1,7 @@
 import TokenService from './token-service'
 import config from '../config'
 
+
 const TemplateService = {
 
   getTemplates() {
@@ -12,26 +13,7 @@ const TemplateService = {
       .then((res) =>
         !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
       )
-      // .then(console.log('ts props->', props))
-      // .then(props)
   },
-
-  // getAwaitTemplates() {
-  //   console.log('in getAwaitTemplates ')
-  //   async function fetchTemplates() {
-  //     const res = await fetch(`${config.API_ENDPOINT}/templates`, {
-  //       headers: {
-  //         authorization: `Bearer ${TokenService.getAuthToken()}`
-  //       }
-  //     })
-  //     const data = await res.json()
-  //     //  return await res.json(props.value)
-  //     console.log('await templates', data)
-  //     res.data = data
-  //     return data
-  //   }
-  //   fetchTemplates()
-  // },
 
   addTemplate(props) {
     return fetch(`${config.API_ENDPOINT}/templates`, {
@@ -42,7 +24,6 @@ const TemplateService = {
       },
       body: JSON.stringify({
         title: props.title,
-        //owner_id: props.owner_id
       })
     })
     .then((res) =>
@@ -80,6 +61,6 @@ const TemplateService = {
       console.error({ error })
     })
   }
-
 }
+
 export default TemplateService

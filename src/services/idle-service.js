@@ -1,7 +1,5 @@
-
 /*
   Idle Service
-
   this service manages when a user has gone idle (not interacting with the page).
 */
 

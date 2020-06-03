@@ -11,27 +11,26 @@ import EditButton from './components/EditButton/EditButton'
 import PrivateRoute from './components/Utils/PrivateRoute'
 import PublicOnlyRoute from './components/Utils/PublicOnlyRoute'
 import SharedTemplates from './components/SharedTemplates/SharedTemplates'
-import ShareableTemplates from './components/ShareableTemplates/ShareableTemplates'
 
 class App extends React.Component {
+
   state = {
     isLoggedIn: false,
   }
 
-  handleLogin = () => {
-    console.log('in handleLogin')
-    this.setState({
-      isLoggedIn: true,
-    })
-  }
+  // handleLogin = () => {
+  //   this.setState({
+  //     isLoggedIn: true,
+  //   })
+  // }
 
-  handleDataCallback = (page) => {
-    console.log('in data callback')
-    console.log('this- ', this)
-    console.log('page- ',page)
-  }
+  // handleDataCallback = (page) => {
+  //   console.log('in data callback')
+  //   console.log('this- ', this)
+  //   console.log('page- ',page)
+  // }
 
-  signOut = (history) => {
+  signOut = () => {
     console.log('in signOut')
     localStorage.clear()
     this.setState({
@@ -40,7 +39,7 @@ class App extends React.Component {
     //history.push('/')
   }
 
-  componentDidMount() {}  // ------------????????
+  // componentDidMount() {}  // ------------????????
 
   render() {
 
@@ -77,10 +76,10 @@ class App extends React.Component {
 
             <PrivateRoute path="/configure" component={EditButton} />
 
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/shared_templates"
               component={SharedTemplates}
-            />
+            /> */}
 {/* 
 <PrivateRoute
               path="/shareable_templates"
