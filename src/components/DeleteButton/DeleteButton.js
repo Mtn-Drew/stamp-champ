@@ -1,5 +1,4 @@
 import React from 'react'
-import './DeleteButton.css'
 import { Button } from '../Button/Button'
 import TemplateService from '../../services/template-service'
 import ProfileService from '../../services/profile-service'

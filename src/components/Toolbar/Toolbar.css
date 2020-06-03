@@ -56,19 +56,3 @@
 .spacer {
   flex: 1;
 }
-/* 
-@media (max-width:480px) {
-  .navbar_navigation_items {
-    display: none;
-  }
-  
-}
-
-@media (min-width:481px){
-  .navbar__toggle-button {
-    display: none;
-  }
-  .navbar__logo {
-    margin-left: 0;
-  }
-} */

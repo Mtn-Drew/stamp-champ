@@ -63,7 +63,7 @@ class EditButton extends React.Component {
     })
   }
 
-  triggerToggle = (e) => {
+  triggerToggle = () => {
     this.reloadButtons()
     this.setState({
       triggerToggle: !this.state.triggerToggle,
@@ -420,45 +420,6 @@ class EditButton extends React.Component {
   }
 
   componentDidMount() {
-    // this.setState({ isLoading: true })
-    // TemplateService.getTemplates((value) => {
-    //   this.setState({ storeTemplate: value })
-    //   this.setState({ isLoading: true })
-    // }).catch((e) => {
-    //   console.log('error->', e)
-    //   this.setState({ isLoading: false })
-    //   if (e.error === 'Unauthorized request') {
-    //     localStorage.clear()
-    //     this.props.history.push('/sign_in')
-    //   }
-    // })
-    // ProfilesService.getProfiles((value) => {
-    //   this.setState({ storeProfile: value })
-    // })
-    // StampsService.getStamps((value) => {
-    //   this.setState({ storeStamps: value })
-    // })
-    // Promise.all([
-    //   StampsService.getStamps(),
-    //   ProfilesService.getProfiles(),
-    //   TemplateService.getTemplates(),
-    // ])
-    //   .then((res) => {
-    //     this.setState({ storeStamps: res[0] })
-    //     this.setState({ storeProfile: res[1] })
-    //     this.setState({ storeTemplate: res[2] })
-    //     this.setState({
-    //       isLoading: false,
-    //     })
-    //   })
-    //   .catch((e) => {
-    //     console.log('error->', e)
-    //     this.setState({ isLoading: false })
-    //     if (e.error === 'Unauthorized request') {
-    //       localStorage.clear()
-    //       this.props.history.push('/sign_in')
-    //     }
-    //   })
     this.reloadButtons()
   }
 
@@ -507,9 +468,9 @@ class EditButton extends React.Component {
     }
   }
 
-  triggerShare = () => {
-    this.shareToggle()
-  }
+  // triggerShare = () => {
+  //   this.shareToggle()
+  // }
 
   render() {
     const templateRow = this.state.storeTemplate.map((templ, i) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import AuthApiService from '../../services/auth-api-service'
-import './CreateAccount.css'
+
 
 class CreateAccount extends React.Component {
 

@@ -1,86 +1,13 @@
 /* EditButton.css */
 
- 
 .main-wrapper {
   display: grid;
 }
-
-/* .template-row,
-.profile-row {
-  display: grid;
-  grid-template-columns: (1fr, 1fr);
-  grid-gap: 1em;
-  grid-auto-rows: 10px;
-  margin-right: auto;
-  margin-left: auto;
-  justify-items: center;
-  align-items: center;
-  width: 420px;
-} */  
 
 .button-row {
   width:420px;
   display:block;
 }
-
-/* .stamps-row {
-  display: flex-row;
-  grid-gap: 1em;
-  grid-auto-rows: 10px;
-  border: 1px solid red;
-  margin-right: auto;
-  margin-left: auto;
-  justify-items: center;
-  align-items: center;
-}  */
-
-/* .profile-row .btn--medium,
-.template-row .btn--medium {
-  min-width: 100px;
-}
-
-.stamps-row .btn--medium {
-
-  font-size: 11px;
-  width: 200px;
-  height: 40px;
-  box-shadow: 2px 3px 9px 0px black;
-  margin: 2px;
-} */
-
-/* .btn--medium {
-  box-shadow: none;
-}
-
-.btn--edit--solid {
-  background-color: rgba(50, 50, 50, 0.7);
-}
-
-.btn--edit--solid:hover {
-  background-color: rgba(50, 50, 50, 1);
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-} */
-
-/* .edit-select {
-  border: 1px red dashed;
-  height: 40px;
-  margin: 0 3px;
-  cursor: pointer;
-} */
-
-/* .edit-select:hover,
-.edit-select:focus {
-  background-color: crimson;
-  color: white;
-  border: 3px black dashed;
-} */
-
-/* .edit-disable {
-  background-color: rgb(206, 204, 204);
-} */
 
 textarea {
   display: flex;
