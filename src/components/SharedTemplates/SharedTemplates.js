@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '../Button/Button'
 import ShareService from '../../services/share-service'
 import ShareableTemplates from '../ShareableTemplates/ShareableTemplates'
+import {  withRouter } from 'react-router-dom'
 
 class SharedTemplates extends React.Component {
 
@@ -91,8 +92,9 @@ class SharedTemplates extends React.Component {
     })
   }
 
-  deleteShare = () => {
-    ShareService.deleteSharedTemplate(this.state.target.id)
+  deleteShare = async ()=> {
+    await ShareService.deleteSharedTemplate(this.state.target.id)
+    this.props.history.push("/stamps")
     //load shares? to update shared with me?? (the deleted share should disappear)
   }
 
@@ -129,4 +131,4 @@ class SharedTemplates extends React.Component {
   }
 }
 
-export default SharedTemplates
+export default withRouter(SharedTemplates)

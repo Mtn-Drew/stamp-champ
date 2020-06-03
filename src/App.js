@@ -11,6 +11,7 @@ import EditButton from './components/EditButton/EditButton'
 import PrivateRoute from './components/Utils/PrivateRoute'
 import PublicOnlyRoute from './components/Utils/PublicOnlyRoute'
 import SharedTemplates from './components/SharedTemplates/SharedTemplates'
+import ShareableTemplates from './components/ShareableTemplates/ShareableTemplates'
 
 class App extends React.Component {
   state = {
@@ -80,6 +81,11 @@ class App extends React.Component {
               path="/shared_templates"
               component={SharedTemplates}
             />
+{/* 
+<PrivateRoute
+              path="/shareable_templates"
+              component={ShareableTemplates}
+            /> */}
             
           </main>
         </Router>
