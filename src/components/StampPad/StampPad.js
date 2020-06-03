@@ -15,10 +15,9 @@ class StampPad extends React.Component {
     storeShareTemplate: [],
     storeShareProfile: [],
     storeShareStamp: [],
-    isLoaded: false,
+    isLoading: false,
     items: [],
     stampValue: '',
-    hightlight: false,
   }
 
   copyToClipboard = (str) => {

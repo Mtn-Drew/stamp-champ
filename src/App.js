@@ -11,24 +11,10 @@ import EditButton from './components/EditButton/EditButton'
 import PrivateRoute from './components/Utils/PrivateRoute'
 import PublicOnlyRoute from './components/Utils/PublicOnlyRoute'
 
-
 class App extends React.Component {
-
   state = {
     isLoggedIn: false,
   }
-
-  // handleLogin = () => {
-  //   this.setState({
-  //     isLoggedIn: true,
-  //   })
-  // }
-
-  // handleDataCallback = (page) => {
-  //   console.log('in data callback')
-  //   console.log('this- ', this)
-  //   console.log('page- ',page)
-  // }
 
   signOut = () => {
     console.log('in signOut')
@@ -36,25 +22,18 @@ class App extends React.Component {
     this.setState({
       isLoggedIn: false,
     })
-    //history.push('/')
   }
 
-  // componentDidMount() {}  // ------------????????
-
   render() {
-
     return (
-
       <div style={{ height: '100%' }}>
         <Router>
-
           <Route
             path="/"
             render={(props) => (
               <Toolbar
                 signOut={this.signOut}
                 onPage={this.state.onPage}
-                //signOut={this.signOut.bind(this, props.history)}
                 history={props.history}
                 isLoggedIn={this.state.isLoggedIn}
               />
@@ -62,10 +41,8 @@ class App extends React.Component {
           />
 
           <main style={{ marginTop: '64px' }}>
-
             <Route path="/stamps" component={StampPad} />
 
-            {/* <PrivateRoute path="/stamps" component={(props) => <StampPad {...props} handleLogin={this.handleLogin} />}/> */}
             <Route path="/" exact component={LandingPage} />
 
             <PublicOnlyRoute path="/create_account" component={CreateAccount} />
@@ -75,17 +52,6 @@ class App extends React.Component {
             <PrivateRoute path="/add_button" component={AddButton} />
 
             <PrivateRoute path="/configure" component={EditButton} />
-
-            {/* <PrivateRoute
-              path="/shared_templates"
-              component={SharedTemplates}
-            /> */}
-{/* 
-<PrivateRoute
-              path="/shareable_templates"
-              component={ShareableTemplates}
-            /> */}
-            
           </main>
         </Router>
       </div>
