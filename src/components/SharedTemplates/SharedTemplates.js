@@ -4,6 +4,7 @@ import ShareService from '../../services/share-service'
 import ShareableTemplates from '../ShareableTemplates/ShareableTemplates'
 import {  withRouter } from 'react-router-dom'
 
+
 class SharedTemplates extends React.Component {
 
   state = {
@@ -14,30 +15,20 @@ class SharedTemplates extends React.Component {
   }
 
   loadShares = () => {
-    //for each
-    console.log('in loadShares')
-    console.log('storeShares->', this.state.storeShares)
-    //get every template where user is listed on shared table
+
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach shares')
-      //for each template listed on the shared table, add to storeSharedTemplate state
       ShareService.getSharedTemplates(shareObject.template_id).then(
         (result) => {
-          console.log('st result ->', result)
-          console.log('st storeShareTemplate ', this.state.storeShareTemplate)
           const newSST = this.state.storeShareTemplate
           newSST.push(result)
-          console.log('st newSST ', newSST)
           this.setState({
             storeShareTemplate: newSST
           })
         }
       )
     })
-    //get every profile with shared template_id
+
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach profiles')
-      //for each template listed on the shared table, add the profiles to storeSharedProfile state
       ShareService.getSharedProfiles(shareObject.template_id).then((result) => {
         console.log(result)
         this.setState({
@@ -45,12 +36,9 @@ class SharedTemplates extends React.Component {
         })
       })
     })
-    //get every profile with shared template_id
+
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach stamps')
-      //for each template listed on the shared table, add the stamps to storeSharedStamp state
       ShareService.getSharedStamps(shareObject.template_id).then((result) => {
-        console.log(result)
         this.setState({
           storeShareStamp: result
         })
@@ -59,25 +47,19 @@ class SharedTemplates extends React.Component {
   }
 
   componentDidMount() {
-    // this.loadShares()
+
     ShareService.getShares((value) => {
       this.setState({ storeShares: value })
     })
+
     Promise.all([
       ShareService.getShares()
-      // StampsService.getStamps(),
-      // ProfilesService.getProfiles(),
-      // TemplateService.getTemplates()
     ])
       .then((res) => {
         this.setState({ storeShares: res[0] })
-        // this.setState({ storeStamps: res[1] })
-        // this.setState({ storeProfile: res[2] })
-        // this.setState({ storeTemplate: res[3] })
         this.loadShares()
       })
       .catch((e) => {
-        console.log('error->', e)
         if (e.error === 'Unauthorized request') {
           localStorage.clear()
           this.props.history.push('/sign_in')
@@ -86,7 +68,6 @@ class SharedTemplates extends React.Component {
   }
 
   templateSelect = (id) => {
-    console.log('in templateSelect')
     this.setState({
       target: id
     })
@@ -95,12 +76,10 @@ class SharedTemplates extends React.Component {
   deleteShare = async ()=> {
     await ShareService.deleteSharedTemplate(this.state.target.id)
     this.props.history.push("/stamps")
-    //load shares? to update shared with me?? (the deleted share should disappear)
   }
 
   render() {
-    console.log('shares', this.state.storeShares)
-    console.log('storeShareTemplate', this.state.storeShareTemplate)
+
     const shareTemplateRow = this.state.storeShareTemplate.map((templ, i) => {
       return (
         <Button

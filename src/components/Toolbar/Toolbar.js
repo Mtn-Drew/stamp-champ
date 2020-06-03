@@ -7,6 +7,7 @@ import { Route, NavLink } from 'react-router-dom'
 const navbar = (props) => (
   <header className="navbar">
     <nav className="navbar__navigation">
+
       <Route
         path="/"
         render={(props) => (
@@ -30,15 +31,6 @@ const navbar = (props) => (
               </li>
             )}
           />
-
-          {/* <Route
-            path="/stamps"
-            render={() => (
-              <li>
-                <button onClick={props.signOut}>Sign Out</button>
-              </li>
-            )}
-          /> */}
 
           <Route
             path="/stamps"
@@ -79,15 +71,6 @@ const navbar = (props) => (
             )}
           />
 
-          {/* <Route
-            path="/configure"
-            render={(props) => (
-              <li>
-                <NavLink to="/save">Save</NavLink>
-              </li>
-            )}
-          /> */}
-
           <Route
             path="/configure"
             render={(props) => (
@@ -97,14 +80,6 @@ const navbar = (props) => (
             )}
           />
 
-          {/* <Route
-            path="/configure"
-            render={() => (
-              <li>
-                <button onClick={props.signOut}>Sign Out!!!</button>
-              </li>
-            )}
-          /> */}
           <Route
             path="/configure"
             render={() => (
@@ -132,6 +107,7 @@ const navbar = (props) => (
               </li>
             )}
           />
+
           <Route
             path="/sign_in"
             render={(props) => (
@@ -140,31 +116,7 @@ const navbar = (props) => (
               </li>
             )}
           />
-          {/* <Route
-            path="/add_button"
-            render={(props) => (
-              <li>
-                <NavLink to="/save">Save</NavLink>
-              </li>
-            )}
-          />
-          <Route
-            path="/add_button"
-            render={(props) => (
-              <li>
-                <NavLink to="/configure">Done</NavLink>
-              </li>
-            )}
-          /> */}
 
-          {/* <Route
-            path="/edit_button"
-            render={(props) => (
-              <li>
-                <NavLink to="/configure">Done</NavLink>
-              </li>
-            )}
-          /> */}
         </ul>
       </div>
     </nav>
