@@ -11,7 +11,7 @@ class ShareableTemplates extends React.Component {
     selected: '',
     target: ''
   }
-
+ 
   loadShareables = () => {
     console.log('in loadShareables')
     console.log('storeShareables->', this.state.storeShareables)
@@ -122,8 +122,10 @@ class ShareableTemplates extends React.Component {
   render() {
     console.log('shareables ', this.state.storeShareables)
     console.log('storeShareablesTemplate ', this.state.storeShareableTemplate)
+    console.log('this.props.shared --> ', this.props.shared)
 
     const shareablesRow = this.state.storeShareables.map((templ, i) => {
+      //if templ is not one of this.props.shared
       return (
         <Button
           key={templ.id}

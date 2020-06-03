@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button } from '../Button/Button'
 import ShareService from '../../services/share-service'
+import ShareableTemplates from '../ShareableTemplates/ShareableTemplates'
+
 
 class SharedTemplates extends React.Component {
   state = {
@@ -127,6 +129,7 @@ class SharedTemplates extends React.Component {
         <Button onClick={this.deleteShare} buttonStyle="system">
           QUIT SHARING
         </Button>
+        <ShareableTemplates shared={this.state.storeShareTemplate}/>
       </div>
     )
   }
