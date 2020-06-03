@@ -3,6 +3,7 @@ import TokenService from './token-service'
 //import IdleService from './idle-service'
 
 const AuthApiService = {
+
   postUser(user) {
     return fetch(`${config.API_ENDPOINT}/users`, {
       method: 'POST',
@@ -17,6 +18,7 @@ const AuthApiService = {
           : res.json()
       )
   },
+
   postLogin({ user_name, password }) {
     return fetch(`${config.API_ENDPOINT}/auth/login`, {
       method: 'POST',
@@ -45,6 +47,7 @@ const AuthApiService = {
         return res
       })
   },
+  
   postRefreshToken() {
     return fetch(`${config.API_ENDPOINT}/auth/refresh`, {
       method: 'POST',

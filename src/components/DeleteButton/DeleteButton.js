@@ -7,6 +7,7 @@ import ProfileService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
 
 class DeleteButton extends React.Component {
+
   handleDelete = () => {
     //alert 'are you sure?'
     console.log('in handleDelete')
@@ -27,15 +28,11 @@ class DeleteButton extends React.Component {
       }
       TemplateService.deleteTemplate(this.props.target.id)
     }
-
     // console.log('props.storeProfile', this.props.storeProfile)
     if (this.props.whatToEdit === 'profile') {
       console.log('in if')
       const tempArray = this.props.storeProfile
-      console.log('tempArray->', tempArray);
-
-
-      
+      console.log('tempArray->', tempArray);      
       for (let i = 0; i < tempArray.length; i++) { //instead of this for loop-> use .find and then delete from db??
         console.log('tempArray[i]',tempArray[i])
         console.log('i', i);
@@ -46,16 +43,12 @@ class DeleteButton extends React.Component {
           console.log('tempArray after splice->', tempArray);
           console.log('i in splice', i);
           console.log('remove profile target')
-
           console.log('tempArray', tempArray)
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
       }
-
-
       ProfileService.deleteProfile(this.props.target.id)
     }
-
     console.log('this.props.storeStamps', this.props.storeStamps)
     if (this.props.whatToEdit === 'stamp') {
       console.log('in if')
@@ -69,8 +62,7 @@ class DeleteButton extends React.Component {
           console.log('tempArray', tempArray)
           this.props.onDeleteButton(this.props.whatToEdit, tempArray)
         }
-      }
-      
+      }      
         StampsService.deleteStamp(this.props.target.id)
     }
   }

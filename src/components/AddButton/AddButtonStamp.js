@@ -8,7 +8,6 @@ class AddButtonProfile extends React.Component {
     const profile = this.props.selectedProfile
     const length = this.props.length
   //  const content = getElementById('content').value
-
     const newObject = {
       id: '9', //will be uuid
  //     title: 'newTitle', // value of input field below
@@ -16,12 +15,14 @@ class AddButtonProfile extends React.Component {
   //    content: content,
       order: length +1
     } // add one to store.loud_out.length
-
     this.props.save(newObject)
     // update database with post *****************
   }
+
   render() {
+
     return (
+      
       <div>
         <section>
           <div>Add Stamp Button</div>

@@ -1,9 +1,11 @@
 import React from 'react'
+
 import { Button } from '../Button/Button'
 // import STORE from '../../STORE'
 import './EditButton.css'
 import AddButton from '../AddButton/AddButton'
 import DeleteButton from '../DeleteButton/DeleteButton'
+
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
@@ -12,6 +14,7 @@ import SharedTemplates from '../SharedTemplates/SharedTemplates'
 // import ShareableTemplates from '../ShareableTemplates/ShareableTemplates'
 
 class StampPad extends React.Component {
+
   state = {
     selectedTemplate: {},
     selectedProfile: {},
@@ -40,11 +43,9 @@ class StampPad extends React.Component {
   //handle templateSelect
   templateSelect = (templateId) => {
     //if selected button does not have id(owner_id ===undefined) then get all templates from db and wait; otherwise setState  /do this in AddButton??? 335
-
     if (templateId === undefined) {
       this.reloadButtons()
     }
-
     this.setState({
       selectedTemplate: templateId
     })
@@ -81,7 +82,6 @@ class StampPad extends React.Component {
     })
     //this.reloadButtons()
     console.log(this.state.triggerToggle)
-
     this.setState({
       templateRowSelected: false,
       profileRowSelected: false,
@@ -108,7 +108,6 @@ class StampPad extends React.Component {
   templateSelectEdit = (id) => {
     console.log('in templateSelectEdit')
     console.log('id->', id)
-
     this.setState({
       templateRowSelected: true,
       profileRowSelected: false,
@@ -213,7 +212,6 @@ class StampPad extends React.Component {
   // Save changes to state
   saveConfiguration = (e) => {
     console.log('in saveConfiguration')
-
     switch (this.state.whatToEdit) {
       case 'template':
         //create new object with new title, then find old object, then replace old with new
@@ -259,18 +257,15 @@ class StampPad extends React.Component {
             temp.title === this.state.templateSelectedValue
           )
         })
-
         const newProfileObj = {
           // title: document.getElementById('profileTitle').value,
           title: this.state.formProfileTextBox
           //need validation; will crash if match isn't found
           // template_id: this.state.target.id
         }
-
         if (selTemp !== undefined) {
           newProfileObj.template_id = selTemp.id
         }
-
         console.log('profile case')
         console.log(this.state.target)
         //filter all profile objects to get the profile we want to replace <use find instead??>
@@ -306,7 +301,6 @@ class StampPad extends React.Component {
         const selStmp = this.state.storeProfile.filter((temp) => {
           return temp.title === this.state.profileSelectedValue
         })
-
         console.log('selStmp')
         console.log(selStmp)
         const newStampObj = {
@@ -318,7 +312,6 @@ class StampPad extends React.Component {
         if (selStmp[0] !== undefined) {
           newStampObj.profile = selStmp[0].id
         }
-
         const newStampArr = this.state.storeStamps.filter(
           (stamp) => stamp.id === this.state.target.id
         )
@@ -342,6 +335,7 @@ class StampPad extends React.Component {
           StampsService.updateStamp(finalStampObj)
         }
         break
+
       default:
         console.log('selection error eb2')
     }
@@ -379,18 +373,15 @@ class StampPad extends React.Component {
         storeProfile: arr
       })
     }
-
     if (type === 'stamp') {
       this.setState({
         storeStamps: arr
       })
     }
-
     //clear form
     this.setState({
       //force re-render?
       //storeTemplate: arr,
-
       formTemplateTextBox: '',
       formProfileTextBox: '',
       formStampTextBox: '',
@@ -452,7 +443,6 @@ class StampPad extends React.Component {
     console.log('in renderTemplateOptions')
     return this.state.storeTemplate.map((tmpl) => {
       // let select = ''
-
       return (
         <option key={tmpl.id} value={tmpl.title}>
           {tmpl.title}
@@ -466,7 +456,6 @@ class StampPad extends React.Component {
     return this.state.storeProfile.map((prof) => {
       // let select = ''
       console.log('in renderProfileOptions')
-
       return (
         <option key={prof.id} value={prof.title}>
           {prof.title}
@@ -523,7 +512,6 @@ class StampPad extends React.Component {
         break
       case 'profile':
         e.target.value = this.state.formStampTextBox
-
         break
       case 'stamp':
         this.setState({
@@ -543,7 +531,6 @@ class StampPad extends React.Component {
         break
       case 'profile':
         e.target.value = this.state.formStampTextBox
-
         break
       case 'stamp':
         this.setState({
@@ -574,7 +561,6 @@ class StampPad extends React.Component {
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
-
     Promise.all([
       //ShareService.getShares(),
       StampsService.getStamps(),
@@ -595,9 +581,7 @@ class StampPad extends React.Component {
           this.props.history.push('/sign_in')
         }
       })
-
     //this.reloadButtons()
-
     // this.setState ({
     //   templateRowSelected: false,
     //   profileRowSelected: false,
@@ -625,7 +609,6 @@ class StampPad extends React.Component {
     StampsService.getStamps((value) => {
       this.setState({ storeStamps: value })
     })
-
     Promise.all([
       StampsService.getStamps(),
       ProfilesService.getProfiles(),
@@ -643,8 +626,6 @@ class StampPad extends React.Component {
           this.props.history.push('/sign_in')
         }
       })
-
-
   }
 
   clickToggle = (e) => {
@@ -672,6 +653,7 @@ class StampPad extends React.Component {
   // }
 
   render() {
+
     console.log('RENDER RENDER')
     console.log(this.state.triggerToggle)
     console.log(this.state.storeTemplate)
@@ -679,7 +661,7 @@ class StampPad extends React.Component {
     console.log(this.state.storeStamps)
 
     const templateRow = this.state.storeTemplate.map((templ, i) => {
-      return (
+      return (        
         <Button
           key={templ.id ? templ.id : i}
           onClick={() => this.templateSelect(templ.id)}
@@ -695,7 +677,6 @@ class StampPad extends React.Component {
       .filter(
         (selected) => selected.template_id === this.state.selectedTemplate
       )
-
       .map((prof, i) => {
         return (
           <Button
@@ -710,7 +691,6 @@ class StampPad extends React.Component {
 
     const stampRow = this.state.storeStamps
       .filter((selected) => selected.profile_id === this.state.selectedProfile)
-
       .map((stamp, i) => {
         return (
           <Button
@@ -743,7 +723,6 @@ class StampPad extends React.Component {
       .filter(
         (selected) => selected.template_id === this.state.selectedTemplate
       )
-
       .map((prof, i) => {
         return (
           <Button
@@ -759,7 +738,6 @@ class StampPad extends React.Component {
 
     const stampRowEdit = this.state.storeStamps
       .filter((selected) => selected.profile_id === this.state.selectedProfile)
-
       .map((stamp, i) => {
         return (
           <Button
@@ -808,7 +786,6 @@ class StampPad extends React.Component {
               shared stamps.
             </p>
             <div className="spacer" />
-
             <div className="holder">
               <form action="#" className="customToggle">
                 <div className="row">
@@ -817,14 +794,12 @@ class StampPad extends React.Component {
                   ) : (
                     <span className="yes span-text red">My Stamps</span>
                   )}
-
                   <span className="span-text">/</span>
                   {this.state.shareToggle ? (
                     <span className="yes span-text red">Shared Stamps</span>
                   ) : (
                     <span className="yes span-text black">Shared Stamps</span>
                   )}
-
                   <input
                     type="checkbox"
                     id="sharesToggle"
@@ -837,7 +812,6 @@ class StampPad extends React.Component {
                 </div>
               </form>
             </div>
-
             {!this.state.shareToggle ? (
               <div className="holder">
                 <p>
@@ -862,13 +836,11 @@ class StampPad extends React.Component {
                     ) : (
                       <span className="no span-text red">Edit Stamps</span>
                     )}
-
                     <input
                       type="checkbox"
                       id="toggle"
                       onClick={this.sliderTriggerToggle}
                     />
-
                     <label htmlFor="toggle" className="toggle-label"></label>
                   </div>
                 </form>
@@ -876,9 +848,7 @@ class StampPad extends React.Component {
             ) : (
               ''
             )}
-
             <div className="spacer" />
-
             {!this.state.triggerToggle ? (
               <div style={{ display: 'flex' }} className="row">
                 <Button
@@ -889,9 +859,7 @@ class StampPad extends React.Component {
                 >
                   SUBMIT
                 </Button>
-
                 {/* <div className="spacer" /> */}
-
                 <Button
                   id="cancel"
                   className="save-button"
@@ -908,7 +876,6 @@ class StampPad extends React.Component {
                   storeProfile={this.state.storeProfile}
                   storeStamps={this.state.storeStamps}
                 />
-
                 {/* <div className="spacer" /> */}
               </div>
             ) : (
@@ -919,7 +886,6 @@ class StampPad extends React.Component {
               // </h3>
             )}
           </div>
-
           {/* main body */}
           {!this.state.shareToggle ? (
             <section>
@@ -928,25 +894,18 @@ class StampPad extends React.Component {
                 {this.state.triggerToggle ? templateRow : templateRowEdit}
                 <div className="spacer" />
               </div>
-
               <hr className="hr" />
-
               <div className="button-row profile-row" id="button-row-profile">
                 <div className="spacer" />
-
                 {this.state.triggerToggle ? profileRow : profileRowEdit}
-
                 <div className="spacer" />
               </div>
-
               <hr className="hr" />
-
               <div className="button-row stamp-row" id="button-row-stamps">
                 <div className="spacer" />
                 {this.state.triggerToggle ? stampRow : stampRowEdit}
                 <div className="spacer" />
               </div>
-
               {!this.state.triggerToggle ? (
                 <form
                   // className="toggleEditForm"
@@ -1051,7 +1010,6 @@ class StampPad extends React.Component {
               ) : (
                 ''
               )}
-
               <hr className="hr" />
               <div>
                 {addButtonForm}
@@ -1066,7 +1024,6 @@ class StampPad extends React.Component {
           ) : (
             <div>
               <SharedTemplates />
-
               {/* <ShareableTemplates /> */}
             </div>
           )}

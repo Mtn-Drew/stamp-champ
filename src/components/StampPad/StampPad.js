@@ -102,8 +102,6 @@ class StampPad extends React.Component {
       })
   }
 
- 
-
   loadShares = () => {
     //for each
     console.log('in loadShares')
@@ -119,17 +117,13 @@ class StampPad extends React.Component {
           const newSST = this.state.storeShareTemplate
           newSST.push(result)
           console.log('newSST ', newSST)
-
           // this.setState({
           //   storeShareTemplate: this.state.storeShareTemplate.push(result)
           // })
-
           //  this.setState({ storeShareTemplate: this.state.storeShareTemplate.concat[result]})
-
           this.setState({
             storeShareTemplate: newSST
           })
-
           //  this.setState({
           //   storeShareTemplate: [result]
           // })
@@ -137,7 +131,6 @@ class StampPad extends React.Component {
         }
       )
     })
-
     //get every profile with shared template_id
     this.state.storeShares.forEach((shareObject) => {
       console.log('in forEach profiles')
@@ -149,7 +142,6 @@ class StampPad extends React.Component {
         })
       })
     })
-
     //get every profile with shared template_id
     this.state.storeShares.forEach((shareObject) => {
       console.log('in forEach stamps')
@@ -178,8 +170,7 @@ class StampPad extends React.Component {
         <Button
           key={templ.id}
           onMouseOver={() => this.templateSelect(templ.id)}
-          template={this.state.selectedTemplate}
-          
+          template={this.state.selectedTemplate}          
         >
           {this.state.storeTemplate[i].title}
         </Button>
@@ -205,7 +196,6 @@ class StampPad extends React.Component {
       .filter(
         (selected) => selected.template_id === this.state.selectedTemplate
       )
-
       .map((prof, i) => {
         return (
           <Button
@@ -241,7 +231,6 @@ class StampPad extends React.Component {
 
     const myStampRow = this.state.storeStamps
       .filter((selected) => selected.profile_id === this.state.selectedProfile)
-
       .map((stamp, i) => {
         return (
           <Button
@@ -261,7 +250,6 @@ class StampPad extends React.Component {
 
     const shareStampRow = this.state.storeShareStamp
       .filter((selected) => selected.profile_id === this.state.selectedProfile)
-
       .map((stamp, i) => {
         return (
           <Button
@@ -296,17 +284,13 @@ class StampPad extends React.Component {
               >{templateRow} </div>
               <div className="spacer" />
             </div>
-
             <hr className="hr" />
-
             <div className="profile-row">
               <div className="spacer" />
               <div>{profileRow}</div>
               <div className="spacer" />
             </div>
-
             <hr className="hr" />
-
             <div className="stamp-row">
               <div className="">{stampRow}</div>
             </div>
@@ -322,12 +306,10 @@ class StampPad extends React.Component {
                 rows="30"
                 value={this.state.stampValue}
                 readOnly
-            
               />
             </div>
           </main>
-        </div>
-       
+        </div>      
       </div>
     )
   }

@@ -2,20 +2,16 @@ import React from 'react'
 // import STORE from '../../STORE'
 
 class AddButtonTemplate extends React.Component {
-  saveButton = () => {
-    
-    
+
+  saveButton = () => {    
   //  const title = getElementById('title').value
     const length = this.props.length
-
     const newObject = {
       "id" :"9",  //will be uuid
  //     "title": title,  // value of input field below
       "order" : length+1} // add one to store.loud_out.length
-
       this.props.save(newObject)
 // update database with post *****************
-
   }
   render() {
     return (

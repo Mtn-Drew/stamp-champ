@@ -2,6 +2,7 @@ import TokenService from './token-service'
 import config from '../config'
 
 const StampsService ={
+
   getStamps () {
     return fetch(`${config.API_ENDPOINT}/stamps`, {
       headers: {
@@ -15,6 +16,7 @@ const StampsService ={
     )
     // .then(props)
   },
+
   addStamps(props) {
     return fetch(`${config.API_ENDPOINT}/stamps`, {
       method: 'POST',
@@ -33,6 +35,7 @@ const StampsService ={
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     )
   },
+  
   deleteStamp(stampId) {
     console.log('in ss deleteStamp', stampId);
     return fetch(`${config.API_ENDPOINT}/stamps/${stampId}`, {

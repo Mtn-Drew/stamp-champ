@@ -2,6 +2,7 @@ import TokenService from './token-service'
 import config from '../config'
 
 const ProfilesService = {
+
   getProfiles() {
     return fetch(`${config.API_ENDPOINT}/profiles`, {
       headers: {
@@ -13,6 +14,7 @@ const ProfilesService = {
       )
       // .then(props)
   },
+
   addProfile(props) {
     return fetch(`${config.API_ENDPOINT}/profiles`, {
       method: 'POST',
@@ -29,6 +31,7 @@ const ProfilesService = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     )
   },
+  
   deleteProfile(profileId) {
     console.log('in ps deleteProfile', profileId)
     return fetch(`${config.API_ENDPOINT}/profiles/${profileId}`, {

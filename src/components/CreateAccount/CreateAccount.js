@@ -3,6 +3,7 @@ import AuthApiService from '../../services/auth-api-service'
 import './CreateAccount.css'
 
 class CreateAccount extends React.Component {
+
   static defaultProps = {
     onRegistrationSuccess: () => {}
   }
@@ -13,12 +14,10 @@ class CreateAccount extends React.Component {
     e.preventDefault()
     console.log('in handleSubmit')
     const { email, user_name, password } = e.target
-
     this.setState({ error: null })
     AuthApiService.postUser({
       user_name: user_name.value,
       password: password.value,
-
       email: email.value
     })
       .then((user) => {
@@ -38,6 +37,7 @@ class CreateAccount extends React.Component {
   }
 
   render() {
+
     const { error } = this.state
     return ( <div className="login-form-body">
       <div className="container">
@@ -49,12 +49,9 @@ class CreateAccount extends React.Component {
           <header>
             <h3>Create Your Account</h3>
           </header>
-
           <div role="alert">{error && <p className="red">{error}</p>}</div>
-
           <div className="form-control">
             <label htmlFor="username">User name</label>
-
             <input
               name="user_name"
               type="text"
@@ -63,7 +60,6 @@ class CreateAccount extends React.Component {
               placeholder="Enter username"
             />
           </div>
-
           <div className="form-control">
             <label htmlFor="password">Password</label>
             <input
@@ -74,7 +70,6 @@ class CreateAccount extends React.Component {
               placeholder="Enter password"
             ></input>
           </div>
-
           <div className="form-control">
             <label htmlFor="email">Email</label>
             <input
@@ -85,7 +80,6 @@ class CreateAccount extends React.Component {
               placeholder="Enter email"
             />
           </div>
-
           <button type="submit">Register</button>
         </form>
       </div>

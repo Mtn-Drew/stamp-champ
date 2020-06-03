@@ -8,6 +8,7 @@ import StampsService from '../../services/stamp-service'
 import { Button } from '../Button/Button'
 
 class AddButton extends React.Component {
+
   state = {
     storeTemplate: [],
     storeProfile: [],
@@ -46,8 +47,7 @@ class AddButton extends React.Component {
     TemplateService.getTemplates((value) =>
       this.setState({
         storeTemplate: value
-      })
-    
+      })    
     )
     ProfilesService.getProfiles((value) => {
       this.setState({ storeProfile: value })
@@ -58,7 +58,6 @@ class AddButton extends React.Component {
     const selection = e.target.value
     if (selection === 'template') {
       this.createTemplate()
-
     }
     if (selection === 'profile') {
       this.createProfile()
@@ -93,7 +92,6 @@ class AddButton extends React.Component {
     this.setState({
       whatToAdd: 'profile'
     })
-
     this.setState({
       templateTextBoxIsVisible: false,
       templateSelectFormIsVisible: true,
@@ -123,7 +121,6 @@ class AddButton extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     console.log('in handleSubmit')
-
     if (this.state.whatToAdd === 'template') {
       const text = this.state.textBoxValue
       // loop through current array of templates and prevent duplicate name
@@ -146,7 +143,6 @@ class AddButton extends React.Component {
         title: text,
         owner_id: this.props.owner_id
       }
-
       console.log('new template', newTemplate)
       console.log('props--> ', this.props)
       const tempArray = this.state.storeTemplate.concat(newTemplate)
@@ -164,7 +160,6 @@ class AddButton extends React.Component {
 
     if (this.state.whatToAdd === 'profile') {
       const text = this.state.textBoxValue
-
       // loop through current array of profiles and prevent duplicate name
       console.log('storeProfile ->', this.state.storeProfile)
       const duplicate = this.state.storeProfile.filter(
@@ -181,14 +176,11 @@ class AddButton extends React.Component {
           errorMessage: ''
         })
       }
-
       const selected = this.state.templateSelectValue
       // to get the template_id you will need to .filter storeTemplate to find the object with title of selectedTemplate
-
       const tmpl = this.state.storeTemplate.filter((obj) => {
         return obj.title === selected
       })
-
       console.log('tmpl=>', tmpl)
       const newProfile = {
         title: text,
@@ -205,18 +197,15 @@ class AddButton extends React.Component {
       console.log(this.state.storeProfile)
       console.log('newProfile ->', newProfile)
       ProfilesService.addProfile(newProfile)
-
       this.setState({
         profileSelectValue: 'Assign to which profile?'
       })
     }
-
     if (this.state.whatToAdd === 'stamp') {
       // const selectedProf = this.state.selectedProfile
       const text = this.state.textBoxValue
       // const selected = this.state.selectedProfile
       //get profile object with matching title from dropdown
-
       // loop through current array of profiles and prevent duplicate name
       console.log('storeStamps ->', this.state.storeStamps)
       const duplicate = this.state.storeStamps.filter(
@@ -239,10 +228,7 @@ class AddButton extends React.Component {
         console.log('selectedProf ', selected)
         return obj.title === selected
       })
-
-      const content = this.state.textareaValue
-   
-      
+      const content = this.state.textareaValue        
       console.log('prof->', prof)
       const newStamp = {
         title: text,
@@ -282,20 +268,16 @@ class AddButton extends React.Component {
     this.setState({
       templateSelectValue: e.target.value
     })
-
     if (e.target.value !== 'Assign to which template?') {
       const tmpl = this.state.storeTemplate.filter((obj) => {
         console.log('obj.title, e.target.value ', obj.title, e.target.value)
-
         return obj.title === e.target.value
       })
-
       //if selection has no id, get all templates and try again??
       if (tmpl[0].id === undefined) {
         console.log('in undefined ')
         console.log('e.target.value ', e.target.value)
         //console.log('this.state.selectedOption ', this.state.selectedOption)
-
         this.reloadButtons()
         e.target.value = this.state.selectedOption
       }
@@ -305,7 +287,6 @@ class AddButton extends React.Component {
     if (e.target.value === 'Assign to which template?') {
       this.setState({ disabled: true })
     }
-
     //set flag to trigger re-render if not submitted   **********************************
     this.setState({
       trigger: true,
@@ -320,7 +301,6 @@ class AddButton extends React.Component {
     this.setState({
       profileSelectValue: e.target.value
     })
-
     if (e.target.value !== 'Assign to which profile?') {
       const prof = this.state.storeProfile.filter((obj) => {
         console.log(obj.title, e.target.value)
@@ -333,11 +313,9 @@ class AddButton extends React.Component {
       }
       this.props.onProfileSelect(prof[0].id)
     }
-
     if (e.target.value === 'Assign to which profile?') {
       this.setState({ disabled: true })
     }
-
     //set flag to trigger re-render if not submitted
     this.setState({
       trigger: true,
@@ -406,8 +384,7 @@ class AddButton extends React.Component {
 
   componentDidMount() {
     console.log('in addbutton componentdidmount')
-    this.reloadButtons()
-   
+    this.reloadButtons()   
   }
 
   render() {
@@ -415,7 +392,6 @@ class AddButton extends React.Component {
     console.log('storeTemplate ', this.state.storeTemplate)
     console.log('storeProfile ', this.state.storeProfile)
     console.log('storeStamps', this.state.storeStamps)
-
     const templateSelectOptions = this.state.storeTemplate.map((temp, i) => {
       return (
         <option key={i} value={temp.title}>
@@ -423,7 +399,6 @@ class AddButton extends React.Component {
         </option>
       )
     })
-
     const profileSelectOptions = this.state.storeProfile.map((prof, i) => {
       return (
         <option key={i} value={prof.title}>
@@ -431,15 +406,12 @@ class AddButton extends React.Component {
         </option>
       )
     })
-
     return (
       <main key={this.state.requirementKey}>
         {this.state.errorMessage}
-
         <div>
           <h1>Add Button></h1>
         </div>
-
         <form id="main-form" className="customSelect">
           <div className="select">
             <select
@@ -457,7 +429,6 @@ class AddButton extends React.Component {
             </select>
           </div>
         </form>
-
         <input
           type="text"
           className={
@@ -469,7 +440,6 @@ class AddButton extends React.Component {
           id="template_text_box"
           onChange={this.handleTextBox}
         />
-
         <form
           id="template-select-form"
           className={
@@ -497,7 +467,6 @@ class AddButton extends React.Component {
               {templateSelectOptions}
             </select>
           </div>
-
           <input
             type="text"
             className={
@@ -508,7 +477,6 @@ class AddButton extends React.Component {
             onChange={this.handleTextBox}
           />
         </form>
-
         <form
           id="profile-select-form"
           className={
@@ -550,7 +518,6 @@ class AddButton extends React.Component {
             onChange={this.handleTextarea}
           ></textarea>
         </form>
-
         <Button
           buttonStyle={!this.state.disabled ? 'system' : 'system-disabled'}
           type="submit"

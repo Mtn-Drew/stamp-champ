@@ -3,8 +3,8 @@ import { Button } from '../Button/Button'
 import ShareService from '../../services/share-service'
 import ShareableTemplates from '../ShareableTemplates/ShareableTemplates'
 
-
 class SharedTemplates extends React.Component {
+
   state = {
     storeShares: [],
     storeShareTemplate: [],
@@ -27,14 +27,12 @@ class SharedTemplates extends React.Component {
           const newSST = this.state.storeShareTemplate
           newSST.push(result)
           console.log('st newSST ', newSST)
-
           this.setState({
             storeShareTemplate: newSST
           })
         }
       )
     })
-
     //get every profile with shared template_id
     this.state.storeShares.forEach((shareObject) => {
       console.log('in forEach profiles')
@@ -46,7 +44,6 @@ class SharedTemplates extends React.Component {
         })
       })
     })
-
     //get every profile with shared template_id
     this.state.storeShares.forEach((shareObject) => {
       console.log('in forEach stamps')
@@ -62,11 +59,9 @@ class SharedTemplates extends React.Component {
 
   componentDidMount() {
     // this.loadShares()
-
     ShareService.getShares((value) => {
       this.setState({ storeShares: value })
     })
-
     Promise.all([
       ShareService.getShares()
       // StampsService.getStamps(),
@@ -104,7 +99,6 @@ class SharedTemplates extends React.Component {
   render() {
     console.log('shares', this.state.storeShares)
     console.log('storeShareTemplate', this.state.storeShareTemplate)
-
     const shareTemplateRow = this.state.storeShareTemplate.map((templ, i) => {
       return (
         <Button

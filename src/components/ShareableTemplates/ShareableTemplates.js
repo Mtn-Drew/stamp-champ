@@ -3,6 +3,7 @@ import { Button } from '../Button/Button'
 import ShareService from '../../services/share-service'
 
 class ShareableTemplates extends React.Component {
+
   state = {
     storeShareables: [],
     storeShareableTemplate: [],
@@ -11,14 +12,12 @@ class ShareableTemplates extends React.Component {
     selected: '',
     target: ''
   }
- 
+
   loadShareables = () => {
     console.log('in loadShareables')
     console.log('storeShareables->', this.state.storeShareables)
-
     this.state.storeShareableTemplate.forEach((shareObject) => {
       console.log('in forEach loadShareables')
-
       //for each template listed on the shareable table, add to storeShareableTemplate state
       ShareService.getShareables().then((result) => {
         console.log('result ->', result)
@@ -26,7 +25,6 @@ class ShareableTemplates extends React.Component {
         const newSST = this.state.storeShareTemplate
         newSST.push(result)
         console.log('newSST ', newSST)
-
         this.setState({
           storeShareables: newSST
         })
@@ -49,7 +47,6 @@ class ShareableTemplates extends React.Component {
           const newSST = this.state.storeShareTemplate
           newSST.push(result)
           console.log('st newSST ', newSST)
-
           this.setState({
             storeShareTemplate: newSST
           })
@@ -84,11 +81,9 @@ class ShareableTemplates extends React.Component {
 
   componentDidMount() {
     // this.loadShares()
-
     ShareService.getShareables((value) => {
       this.setState({ storeShares: value })
     })
-
     Promise.all([
       ShareService.getShareables()
     ])
