@@ -10,7 +10,7 @@ import AddButton from './components/AddButton/AddButton'
 import EditButton from './components/EditButton/EditButton'
 import PrivateRoute from './components/Utils/PrivateRoute'
 import PublicOnlyRoute from './components/Utils/PublicOnlyRoute'
-import SharedTemplates from './components/SharedTemplates/SharedTemplates'
+
 
 class App extends React.Component {
 
