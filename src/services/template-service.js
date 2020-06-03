@@ -16,22 +16,22 @@ const TemplateService = {
       // .then(props)
   },
 
-  getAwaitTemplates() {
-    console.log('in getAwaitTemplates ')
-    async function fetchTemplates() {
-      const res = await fetch(`${config.API_ENDPOINT}/templates`, {
-        headers: {
-          authorization: `Bearer ${TokenService.getAuthToken()}`
-        }
-      })
-      const data = await res.json()
-      //  return await res.json(props.value)
-      console.log('await templates', data)
-      res.data = data
-      return data
-    }
-    fetchTemplates()
-  },
+  // getAwaitTemplates() {
+  //   console.log('in getAwaitTemplates ')
+  //   async function fetchTemplates() {
+  //     const res = await fetch(`${config.API_ENDPOINT}/templates`, {
+  //       headers: {
+  //         authorization: `Bearer ${TokenService.getAuthToken()}`
+  //       }
+  //     })
+  //     const data = await res.json()
+  //     //  return await res.json(props.value)
+  //     console.log('await templates', data)
+  //     res.data = data
+  //     return data
+  //   }
+  //   fetchTemplates()
+  // },
 
   addTemplate(props) {
     return fetch(`${config.API_ENDPOINT}/templates`, {

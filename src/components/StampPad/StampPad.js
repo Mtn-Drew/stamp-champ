@@ -169,7 +169,8 @@ class StampPad extends React.Component {
       return (
         <Button
           key={templ.id}
-          onMouseOver={() => this.templateSelect(templ.id)}
+          // onMouseOver={() => this.templateSelect(templ.id)}
+          onClick={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}          
         >
           {this.state.storeTemplate[i].title}
@@ -182,7 +183,8 @@ class StampPad extends React.Component {
         <Button
           key={templ.id}
           buttonStyle="share-stamp"
-          onMouseOver={() => this.templateSelect(templ.id)}
+          // onMouseOver={() => this.templateSelect(templ.id)}
+          onClick={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
         >
           {this.state.storeShareTemplate[i].title}
@@ -200,7 +202,8 @@ class StampPad extends React.Component {
         return (
           <Button
             key={prof.id}
-            onMouseOver={() => this.profileSelect(prof.id)}
+            // onMouseOver={() => this.profileSelect(prof.id)}
+            onClick={() => this.profileSelect(prof.id)}
             profile={this.state.storeProfile}
           >
             {prof.title}
@@ -219,7 +222,8 @@ class StampPad extends React.Component {
             key={prof.id}
             buttonStyle="share-stamp"
             className="share-button"
-            onMouseOver={() => this.profileSelect(prof.id)}
+            // onMouseOver={() => this.profileSelect(prof.id)}
+            onClick={() => this.profileSelect(prof.id)}
             profile={this.state.storeShareProfile}
           >
             {prof.title}

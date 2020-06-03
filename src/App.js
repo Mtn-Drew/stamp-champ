@@ -14,8 +14,6 @@ import SharedTemplates from './components/SharedTemplates/SharedTemplates'
 
 class App extends React.Component {
   state = {
-    // sideDrawerOpen: false,
-    // isLoggedIn: false
     isLoggedIn: false,
   }
 
@@ -28,8 +26,8 @@ class App extends React.Component {
 
   handleDataCallback = (page) => {
     console.log('in data callback')
-    console.log(this)
-    console.log(page)
+    console.log('this- ', this)
+    console.log('page- ',page)
   }
 
   signOut = (history) => {
@@ -41,12 +39,15 @@ class App extends React.Component {
     //history.push('/')
   }
 
-  componentDidMount() {}
+  componentDidMount() {}  // ------------????????
 
   render() {
+
     return (
+
       <div style={{ height: '100%' }}>
         <Router>
+
           <Route
             path="/"
             render={(props) => (
@@ -59,18 +60,27 @@ class App extends React.Component {
               />
             )}
           />
+
           <main style={{ marginTop: '64px' }}>
+
             <Route path="/stamps" component={StampPad} />
+
             {/* <PrivateRoute path="/stamps" component={(props) => <StampPad {...props} handleLogin={this.handleLogin} />}/> */}
             <Route path="/" exact component={LandingPage} />
+
             <PublicOnlyRoute path="/create_account" component={CreateAccount} />
+
             <Route path="/sign_in" component={LoginPage} />
+
             <PrivateRoute path="/add_button" component={AddButton} />
+
             <PrivateRoute path="/configure" component={EditButton} />
+
             <PrivateRoute
               path="/shared_templates"
               component={SharedTemplates}
             />
+            
           </main>
         </Router>
       </div>
