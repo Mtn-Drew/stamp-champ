@@ -1,6 +1,9 @@
 import React from 'react'
 import { Button } from '../Button/Button'
 import './StampPad.css'
+
+import Loader from '../Loader'
+
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
@@ -59,10 +62,14 @@ class StampPad extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      isLoading: true,
+    })
     TemplateService.getTemplates((value) => {
       this.setState({ storeTemplate: value })
     }).catch((e) => {
       console.log('error->', e)
+      this.setState({ isLoading: false })
       if (e.error === 'Unauthorized request') {
         localStorage.clear()
         this.props.history.push('/sign_in')
@@ -90,9 +97,13 @@ class StampPad extends React.Component {
         this.setState({ storeProfile: res[2] })
         this.setState({ storeTemplate: res[3] })
         this.loadShares()
+        this.setState({
+          isLoading: false,
+        })
       })
       .catch((e) => {
         console.log('error->', e)
+        this.setState({ isLoading: false })
         if (e.error === 'Unauthorized request') {
           localStorage.clear()
           this.props.history.push('/sign_in')
@@ -234,42 +245,49 @@ class StampPad extends React.Component {
       })
 
     const stampRow = myStampRow.concat(shareStampRow)
+    const { isLoading } = this.state
 
     return (
       <div className="main-wrapper">
-        <div style={{ height: '100%' }}>
-          <main style={{ marginTop: '64px' }}>
-            <div className="template-row">
-              <div className="spacer" />
-              <div>{templateRow} </div>
-              <div className="spacer" />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <div style={{ height: '100%' }}>
+              <main style={{ marginTop: '64px' }}>
+                <div className="template-row">
+                  <div className="spacer" />
+                  <div>{templateRow} </div>
+                  <div className="spacer" />
+                </div>
+                <hr className="hr" />
+                <div className="profile-row">
+                  <div className="spacer" />
+                  <div>{profileRow}</div>
+                  <div className="spacer" />
+                </div>
+                <hr className="hr" />
+                <div className="stamp-row">
+                  <div className="">{stampRow}</div>
+                </div>
+                <hr className="hr" />
+                <div>
+                  <textarea
+                    className={`stamp-textarea ${
+                      this.state.highlight ? 'text-border-blink' : ''
+                    }`}
+                    name="stamp_display"
+                    id="stamp_display"
+                    cols="30"
+                    rows="30"
+                    value={this.state.stampValue}
+                    readOnly
+                  />
+                </div>
+              </main>
             </div>
-            <hr className="hr" />
-            <div className="profile-row">
-              <div className="spacer" />
-              <div>{profileRow}</div>
-              <div className="spacer" />
-            </div>
-            <hr className="hr" />
-            <div className="stamp-row">
-              <div className="">{stampRow}</div>
-            </div>
-            <hr className="hr" />
-            <div>
-              <textarea
-                className={`stamp-textarea ${
-                  this.state.highlight ? 'text-border-blink' : ''
-                }`}
-                name="stamp_display"
-                id="stamp_display"
-                cols="30"
-                rows="30"
-                value={this.state.stampValue}
-                readOnly
-              />
-            </div>
-          </main>
-        </div>
+          </>
+        )}
       </div>
     )
   }

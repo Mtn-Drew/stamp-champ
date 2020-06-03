@@ -4,6 +4,7 @@ import { Button } from '../Button/Button'
 import './EditButton.css'
 import AddButton from '../AddButton/AddButton'
 import DeleteButton from '../DeleteButton/DeleteButton'
+import Loader from '../Loader'
 
 import TemplateService from '../../services/template-service'
 import ProfilesService from '../../services/profile-service'
@@ -11,7 +12,7 @@ import StampsService from '../../services/stamp-service'
 
 import SharedTemplates from '../SharedTemplates/SharedTemplates'
 
-class StampPad extends React.Component {
+class EditButton extends React.Component {
   state = {
     selectedTemplate: {},
     selectedProfile: {},
@@ -35,6 +36,7 @@ class StampPad extends React.Component {
     formContentTextBox: '',
     order: '',
     selectStamps: true,
+    isLoading: false,
   }
 
   templateSelect = (templateId) => {
@@ -418,41 +420,51 @@ class StampPad extends React.Component {
   }
 
   componentDidMount() {
-    TemplateService.getTemplates((value) => {
-      this.setState({ storeTemplate: value })
-    }).catch((e) => {
-      console.log('error->', e)
-      if (e.error === 'Unauthorized request') {
-        localStorage.clear()
-        this.props.history.push('/sign_in')
-      }
-    })
-    ProfilesService.getProfiles((value) => {
-      this.setState({ storeProfile: value })
-    })
-    StampsService.getStamps((value) => {
-      this.setState({ storeStamps: value })
-    })
-    Promise.all([
-      StampsService.getStamps(),
-      ProfilesService.getProfiles(),
-      TemplateService.getTemplates(),
-    ])
-      .then((res) => {
-        this.setState({ storeStamps: res[0] })
-        this.setState({ storeProfile: res[1] })
-        this.setState({ storeTemplate: res[2] })
-      })
-      .catch((e) => {
-        console.log('error->', e)
-        if (e.error === 'Unauthorized request') {
-          localStorage.clear()
-          this.props.history.push('/sign_in')
-        }
-      })
+    // this.setState({ isLoading: true })
+    // TemplateService.getTemplates((value) => {
+    //   this.setState({ storeTemplate: value })
+    //   this.setState({ isLoading: true })
+    // }).catch((e) => {
+    //   console.log('error->', e)
+    //   this.setState({ isLoading: false })
+    //   if (e.error === 'Unauthorized request') {
+    //     localStorage.clear()
+    //     this.props.history.push('/sign_in')
+    //   }
+    // })
+    // ProfilesService.getProfiles((value) => {
+    //   this.setState({ storeProfile: value })
+    // })
+    // StampsService.getStamps((value) => {
+    //   this.setState({ storeStamps: value })
+    // })
+    // Promise.all([
+    //   StampsService.getStamps(),
+    //   ProfilesService.getProfiles(),
+    //   TemplateService.getTemplates(),
+    // ])
+    //   .then((res) => {
+    //     this.setState({ storeStamps: res[0] })
+    //     this.setState({ storeProfile: res[1] })
+    //     this.setState({ storeTemplate: res[2] })
+    //     this.setState({
+    //       isLoading: false,
+    //     })
+    //   })
+    //   .catch((e) => {
+    //     console.log('error->', e)
+    //     this.setState({ isLoading: false })
+    //     if (e.error === 'Unauthorized request') {
+    //       localStorage.clear()
+    //       this.props.history.push('/sign_in')
+    //     }
+    //   })
+    this.reloadButtons()
   }
 
   reloadButtons = () => {
+    this.setState({ isLoading: true })
+
     TemplateService.getTemplates((value) => {
       this.setState({ storeTemplate: value })
     })
@@ -471,12 +483,14 @@ class StampPad extends React.Component {
         this.setState({ storeStamps: res[0] })
         this.setState({ storeProfile: res[1] })
         this.setState({ storeTemplate: res[2] })
+        this.setState({ isLoading: false })
       })
       .catch((e) => {
         console.log('error->', e)
         if (e.error === 'Unauthorized request') {
           localStorage.clear()
           this.props.history.push('/sign_in')
+          this.setState({ isLoading: false })
         }
       })
   }
@@ -498,7 +512,6 @@ class StampPad extends React.Component {
   }
 
   render() {
-
     const templateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
@@ -618,38 +631,46 @@ class StampPad extends React.Component {
         <main style={{ marginTop: '64px' }} key={this.state.requirementKey}>
           <div>
             <div className="spacer" />
-            <h1 className="page-title">Configuration</h1>
-            <p>
-              Use the slider on the right to toggle between editing custom or
-              shared stamps.
-            </p>
-            <div className="spacer" />
-            <div className="holder">
-              <form action="#" className="customToggle">
-                <div className="row">
-                  {this.state.shareToggle ? (
-                    <span className="yes span-text black">My Stamps</span>
-                  ) : (
-                    <span className="yes span-text red">My Stamps</span>
-                  )}
-                  <span className="span-text">/</span>
-                  {this.state.shareToggle ? (
-                    <span className="yes span-text red">Shared Stamps</span>
-                  ) : (
-                    <span className="yes span-text black">Shared Stamps</span>
-                  )}
-                  <input
-                    type="checkbox"
-                    id="sharesToggle"
-                    onClick={this.clickToggle}
-                  />
-                  <label
-                    htmlFor="sharesToggle"
-                    className="toggle-label"
-                  ></label>
+            {this.state.isLoading ? (
+              <Loader />
+            ) : (
+              <>
+                <h1 className="page-title">Configuration</h1>
+                <p>
+                  Use the slider on the right to toggle between editing custom
+                  or shared stamps.
+                </p>
+                <div className="spacer" />
+                <div className="holder">
+                  <form action="#" className="customToggle">
+                    <div className="row">
+                      {this.state.shareToggle ? (
+                        <span className="yes span-text black">My Stamps</span>
+                      ) : (
+                        <span className="yes span-text red">My Stamps</span>
+                      )}
+                      <span className="span-text">/</span>
+                      {this.state.shareToggle ? (
+                        <span className="yes span-text red">Shared Stamps</span>
+                      ) : (
+                        <span className="yes span-text black">
+                          Shared Stamps
+                        </span>
+                      )}
+                      <input
+                        type="checkbox"
+                        id="sharesToggle"
+                        onClick={this.clickToggle}
+                      />
+                      <label
+                        htmlFor="sharesToggle"
+                        className="toggle-label"
+                      ></label>
+                    </div>
+                  </form>
                 </div>
-              </form>
-            </div>
+              </>
+            )}
             {!this.state.shareToggle ? (
               <div className="holder">
                 <p>
@@ -718,6 +739,7 @@ class StampPad extends React.Component {
               ''
             )}
           </div>
+
           {!this.state.shareToggle ? (
             <section>
               <div className="button-row template-row" id="button-row-template">
@@ -738,10 +760,7 @@ class StampPad extends React.Component {
                 <div className="spacer" />
               </div>
               {!this.state.triggerToggle ? (
-                <form
-                  className="form"
-                  id="edit-form"
-                >
+                <form className="form" id="edit-form">
                   Template: <br />
                   <input
                     type="text"
@@ -840,9 +859,7 @@ class StampPad extends React.Component {
                 ''
               )}
               <hr className="hr" />
-              <div>
-                {addButtonForm}
-              </div>
+              <div>{addButtonForm}</div>
             </section>
           ) : (
             <div>
@@ -855,4 +872,4 @@ class StampPad extends React.Component {
   }
 }
 
-export default StampPad
+export default EditButton

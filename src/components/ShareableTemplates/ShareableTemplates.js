@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '../Button/Button'
 import ShareService from '../../services/share-service'
-import {  withRouter } from 'react-router-dom'
+
 
 class ShareableTemplates extends React.Component {
 
@@ -14,18 +14,11 @@ class ShareableTemplates extends React.Component {
     target: ''
   }
 
-  loadShareables =  () => {
-    console.log('in loadShareables')
-    console.log('storeShareables->', this.state.storeShareables)
+  loadShareables = () => {
     this.state.storeShareableTemplate.forEach((shareObject) => {
-      console.log('in forEach loadShareables')
-      //for each template listed on the shareable table, add to storeShareableTemplate state
       ShareService.getShareables().then((result) => {
-        console.log('result ->', result)
-        console.log('storeShareTemplate ', this.state.storeShareTemplate)
         const newSST = this.state.storeShareTemplate
         newSST.push(result)
-        console.log('newSST ', newSST)
         this.setState({
           storeShareables: newSST
         })
@@ -34,20 +27,11 @@ class ShareableTemplates extends React.Component {
   }
 
   loadShares = () => {
-    //for each
-    console.log('in loadShares')
-    console.log('storeShares->', this.state.storeShares)
-    //get every template where user is listed on shared table
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach shares')
-      //for each template listed on the shared table, add to storeSharedTemplate state
       ShareService.getSharedTemplates(shareObject.template_id).then(
         (result) => {
-          console.log('st result ->', result)
-          console.log('st storeShareTemplate ', this.state.storeShareTemplate)
           const newSST = this.state.storeShareTemplate
           newSST.push(result)
-          console.log('st newSST ', newSST)
           this.setState({
             storeShareTemplate: newSST
           })
@@ -55,10 +39,7 @@ class ShareableTemplates extends React.Component {
       )
     })
 
-    //get every profile with shared template_id
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach profiles')
-      //for each template listed on the shared table, add the profiles to storeSharedProfile state
       ShareService.getSharedProfiles(shareObject.template_id).then((result) => {
         console.log(result)
         this.setState({
@@ -67,10 +48,7 @@ class ShareableTemplates extends React.Component {
       })
     })
 
-    //get every profile with shared template_id
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach stamps')
-      //for each template listed on the shared table, add the stamps to storeSharedStamp state
       ShareService.getSharedStamps(shareObject.template_id).then((result) => {
         console.log(result)
         this.setState({
@@ -81,7 +59,6 @@ class ShareableTemplates extends React.Component {
   }
 
   componentDidMount() {
-    // this.loadShares()
     ShareService.getShareables((value) => {
       this.setState({ storeShares: value })
     })
@@ -102,27 +79,18 @@ class ShareableTemplates extends React.Component {
   }
 
   templateSelect = (templ) => {
-    console.log('in templateSelect')
-    console.log('templ ', templ)
     this.setState({
       target: templ
     })
   }
 
-  addToMyShares = async () => {
-    console.log('in addToMyShares')
-    console.log('storeShareables ', this.state.storeSharables)
-    await ShareService.addShareables(this.state.target.template_id)
-    this.props.history.push("/stamps")
+  addToMyShares = () => {
+    ShareService.addShareables(this.state.target.template_id)
   }
 
   render() {
-    console.log('shareables ', this.state.storeShareables)
-    console.log('storeShareablesTemplate ', this.state.storeShareableTemplate)
-    console.log('this.props.shared --> ', this.props.shared)
 
     const shareablesRow = this.state.storeShareables.map((templ, i) => {
-      //if templ is not one of this.props.shared
       return (
         <Button
           key={templ.id}
@@ -153,4 +121,4 @@ class ShareableTemplates extends React.Component {
   }
 }
 
-export default withRouter(ShareableTemplates)
+export default ShareableTemplates
