@@ -18,7 +18,7 @@ class StampPad extends React.Component {
     isLoaded: false,
     items: [],
     stampValue: '',
-    hightlight: false
+    hightlight: false,
   }
 
   copyToClipboard = (str) => {
@@ -41,22 +41,21 @@ class StampPad extends React.Component {
   profileSelect = (profileId) => {
     this.setState({
       selectedProfile: profileId,
-      stampValue: ''
+      stampValue: '',
     })
-    console.log('selected profile is ', this.state.selectedProfile)
   }
 
   templateSelect = (templateId) => {
     this.setState({
       selectedTemplate: templateId,
       stampValue: '',
-      selectedProfile:''
+      selectedProfile: '',
     })
   }
 
   stampSelect = (stampContent) => {
     this.setState({
-      stampValue: stampContent
+      stampValue: stampContent,
     })
   }
 
@@ -84,7 +83,7 @@ class StampPad extends React.Component {
       ShareService.getShares(),
       StampsService.getStamps(),
       ProfilesService.getProfiles(),
-      TemplateService.getTemplates()
+      TemplateService.getTemplates(),
     ])
       .then((res) => {
         this.setState({ storeShares: res[0] })
@@ -103,75 +102,42 @@ class StampPad extends React.Component {
   }
 
   loadShares = () => {
-    //for each
-    console.log('in loadShares')
-    console.log('storeShares->', this.state.storeShares)
-    //get every template where user is listed on shared table
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach templates')
-      //for each template listed on the shared table, add to storeSharedTemplate state
       ShareService.getSharedTemplates(shareObject.template_id).then(
         (result) => {
-          console.log('result ->', result)
-          console.log('storeShareTemplate ', this.state.storeShareTemplate)
           const newSST = this.state.storeShareTemplate
           newSST.push(result)
-          console.log('newSST ', newSST)
-          // this.setState({
-          //   storeShareTemplate: this.state.storeShareTemplate.push(result)
-          // })
-          //  this.setState({ storeShareTemplate: this.state.storeShareTemplate.concat[result]})
           this.setState({
-            storeShareTemplate: newSST
+            storeShareTemplate: newSST,
           })
-          //  this.setState({
-          //   storeShareTemplate: [result]
-          // })
-          //'result' is an object; we need to first put it in an array and append it to storeShareTemplate in case there is more than one
         }
       )
     })
-    //get every profile with shared template_id
+
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach profiles')
-      //for each template listed on the shared table, add the profiles to storeSharedProfile state
       ShareService.getSharedProfiles(shareObject.template_id).then((result) => {
-        console.log(result)
         this.setState({
-          storeShareProfile: result
+          storeShareProfile: result,
         })
       })
     })
-    //get every profile with shared template_id
+
     this.state.storeShares.forEach((shareObject) => {
-      console.log('in forEach stamps')
-      //for each template listed on the shared table, add the stamps to storeSharedStamp state
       ShareService.getSharedStamps(shareObject.template_id).then((result) => {
-        console.log(result)
         this.setState({
-          storeShareStamp: result
+          storeShareStamp: result,
         })
       })
     })
   }
 
   render() {
-    console.log('in RENDER SP')
-    console.log('storeTemplate', this.state.storeTemplate)
-    console.log('storeProfile', this.state.storeProfile)
-    console.log('storeStamps', this.state.storeStamps)
-    console.log('shares', this.state.storeShares)
-    console.log('storeShareTemplate', this.state.storeShareTemplate)
-    console.log('storeShareProfile', this.state.storeShareProfile)
-    console.log('storeShareStamps', this.state.storeShareStamp)
-
     const myTemplateRow = this.state.storeTemplate.map((templ, i) => {
       return (
         <Button
           key={templ.id}
-          // onMouseOver={() => this.templateSelect(templ.id)}
           onClick={() => this.templateSelect(templ.id)}
-          template={this.state.selectedTemplate}          
+          template={this.state.selectedTemplate}
         >
           {this.state.storeTemplate[i].title}
         </Button>
@@ -183,7 +149,6 @@ class StampPad extends React.Component {
         <Button
           key={templ.id}
           buttonStyle="share-stamp"
-          // onMouseOver={() => this.templateSelect(templ.id)}
           onClick={() => this.templateSelect(templ.id)}
           template={this.state.selectedTemplate}
         >
@@ -202,7 +167,6 @@ class StampPad extends React.Component {
         return (
           <Button
             key={prof.id}
-            // onMouseOver={() => this.profileSelect(prof.id)}
             onClick={() => this.profileSelect(prof.id)}
             profile={this.state.storeProfile}
           >
@@ -222,7 +186,6 @@ class StampPad extends React.Component {
             key={prof.id}
             buttonStyle="share-stamp"
             className="share-button"
-            // onMouseOver={() => this.profileSelect(prof.id)}
             onClick={() => this.profileSelect(prof.id)}
             profile={this.state.storeShareProfile}
           >
@@ -245,7 +208,6 @@ class StampPad extends React.Component {
             onMouseOver={() => {
               this.stampSelect(stamp.content)
             }}
-            //className="btn--primary--solid"
           >
             {stamp.title}
           </Button>
@@ -266,7 +228,6 @@ class StampPad extends React.Component {
             onMouseOver={() => {
               this.stampSelect(stamp.content)
             }}
-            //className="btn--primary--solid"
           >
             {stamp.title}
           </Button>
@@ -277,15 +238,11 @@ class StampPad extends React.Component {
 
     return (
       <div className="main-wrapper">
-        <div style={{ height: '100%' }} 
-        //className="stampButtons"
-        >
+        <div style={{ height: '100%' }}>
           <main style={{ marginTop: '64px' }}>
             <div className="template-row">
               <div className="spacer" />
-              <div 
-              //className="template"
-              >{templateRow} </div>
+              <div>{templateRow} </div>
               <div className="spacer" />
             </div>
             <hr className="hr" />
@@ -313,7 +270,7 @@ class StampPad extends React.Component {
               />
             </div>
           </main>
-        </div>      
+        </div>
       </div>
     )
   }

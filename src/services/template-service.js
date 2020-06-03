@@ -32,7 +32,6 @@ const TemplateService = {
   },
 
   deleteTemplate(templateId) {
-    console.log('in ts deleteTemplate', templateId)
     return fetch(`${config.API_ENDPOINT}/templates/${templateId}`, {
       method: 'DELETE',
       headers: {

@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Button } from '../Button/Button'
-// import STORE from '../../STORE'
 import './EditButton.css'
 import AddButton from '../AddButton/AddButton'
 import DeleteButton from '../DeleteButton/DeleteButton'
@@ -11,10 +10,8 @@ import ProfilesService from '../../services/profile-service'
 import StampsService from '../../services/stamp-service'
 
 import SharedTemplates from '../SharedTemplates/SharedTemplates'
-// import ShareableTemplates from '../ShareableTemplates/ShareableTemplates'
 
 class StampPad extends React.Component {
-
   state = {
     selectedTemplate: {},
     selectedProfile: {},
@@ -37,55 +34,42 @@ class StampPad extends React.Component {
     formStampTextBox: '',
     formContentTextBox: '',
     order: '',
-    selectStamps: true
+    selectStamps: true,
   }
 
-  //handle templateSelect
   templateSelect = (templateId) => {
-    //if selected button does not have id(owner_id ===undefined) then get all templates from db and wait; otherwise setState  /do this in AddButton??? 335
     if (templateId === undefined) {
       this.reloadButtons()
     }
     this.setState({
-      selectedTemplate: templateId
+      selectedTemplate: templateId,
     })
-    console.log('in templateSelect')
-    console.log('this.state.selectedTemplate', this.state.selectedTemplate)
-    console.log('templateID', templateId)
   }
 
-  //handle profileSelect
   profileSelect = (profileId) => {
-    if (profileId===undefined) {
+    if (profileId === undefined) {
       this.reloadButtons()
     }
     this.setState({
-      selectedProfile: profileId
+      selectedProfile: profileId,
     })
-    console.log('in profileSelect')
   }
 
-  //handle stampSelect
   stampSelect = (stampId) => {
     this.setState({
-      selectedStamp: stampId
+      selectedStamp: stampId,
     })
-    console.log('in stampSelect')
   }
 
-  //toggle editable
   triggerToggle = (e) => {
     this.reloadButtons()
-    console.log('in triggerToggle')
     this.setState({
-      triggerToggle: !this.state.triggerToggle
+      triggerToggle: !this.state.triggerToggle,
     })
-    //this.reloadButtons()
-    console.log(this.state.triggerToggle)
     this.setState({
       templateRowSelected: false,
       profileRowSelected: false,
-      stampRowSelected: false
+      stampRowSelected: false,
     })
   }
 
@@ -93,21 +77,18 @@ class StampPad extends React.Component {
     this.triggerToggle()
     if (e.target.checked) {
       this.setState({
-        triggerToggle: false
+        triggerToggle: false,
       })
     }
   }
 
   shareToggle = () => {
     this.setState({
-      shareToggle: !this.state.shareToggle
+      shareToggle: !this.state.shareToggle,
     })
   }
 
-  //when template button is clicked during 'select'
   templateSelectEdit = (id) => {
-    console.log('in templateSelectEdit')
-    console.log('id->', id)
     this.setState({
       templateRowSelected: true,
       profileRowSelected: false,
@@ -117,14 +98,11 @@ class StampPad extends React.Component {
       formTemplateTextBox: id.title,
       formProfileTextBox: 'N/A',
       formStampTextBox: 'N/A',
-      formContentTextBox: 'N/A'
+      formContentTextBox: 'N/A',
     })
   }
 
-  //when profile button is clicked during 'select'
   profileSelectEdit = (id) => {
-    console.log('in profileSelectEdit')
-    console.log('id->', id)
     this.setState({
       whatToEdit: 'profile',
       target: id,
@@ -134,20 +112,18 @@ class StampPad extends React.Component {
       templateTitle: id.title,
       formProfileTextBox: id.title,
       formStampTextBox: 'N/A',
-      formContentTextBox: 'N/A'
+      formContentTextBox: 'N/A',
     })
 
     const newArray = this.state.storeTemplate.filter(
       (template) => template.id === id.template_id
     )
     this.setState({
-      formTemplateTextBox: newArray[0].title
+      formTemplateTextBox: newArray[0].title,
     })
   }
 
-  // when stamp button is clicked during 'select'
   stampSelectEdit = (id) => {
-    console.log('in stampSelectEdit')
     this.setState({
       whatToEdit: 'stamp',
       target: id,
@@ -156,159 +132,81 @@ class StampPad extends React.Component {
       stampRowSelected: true,
       formTemplateTextBox: 'N/A',
       formStampTextBox: id.title,
-      formContentTextBox: id.content
+      formContentTextBox: id.content,
     })
     const newArray = this.state.storeProfile.filter(
       (profile) => profile.id === id.profile_id
     )
     this.setState({
-      formProfileTextBox: newArray[0].title
+      formProfileTextBox: newArray[0].title,
     })
   }
 
-  updateStateForDropdown = () => {
-    console.log('in updateStateForDropdown')
-    // TemplateService.getTemplates((value) => {
-    //   this.setState({ storeTemplate: value })
-    // }).catch((e) => {
-    //   console.log('error->', e)
-    //   // if (e.error === 'Unauthorized request') {
-    //   //   localStorage.clear()
-    //   //   this.props.history.push('/sign_in')
-    //   // }
-    // })
-    // ProfilesService.getProfiles((value) => {
-    //   this.setState({ storeProfile: value })
-    // })
-    // // StampsService.getStamps((value) => {
-    // //   this.setState({ storeStamps: value })
-    // // })
-    // // ShareService.getShares((value) => {
-    // //   this.setState({ storeShares: value })
-    // // })
-
-    // Promise.all([
-    //   // ShareService.getShares(),
-    //   // StampsService.getStamps(),
-    //   ProfilesService.getProfiles(),
-    //   TemplateService.getTemplates()
-    // ])
-    //   .then((res) => {
-    //     // this.setState({ storeShares: res[0] })
-    //     // this.setState({ storeStamps: res[1] })
-    //     this.setState({ storeProfile: res[0] })
-    //     this.setState({ storeTemplate: res[1] })
-    //     // this.loadShares()
-    //   })
-    //   .catch((e) => {
-    //     console.log('error->', e)
-    //     // if (e.error === 'Unauthorized request') {
-    //     //   localStorage.clear()
-    //     //   this.props.history.push('/sign_in')
-    //     // }
-    //   })
-  }
-
-  // Save changes to state
   saveConfiguration = (e) => {
-    console.log('in saveConfiguration')
     switch (this.state.whatToEdit) {
       case 'template':
-        //create new object with new title, then find old object, then replace old with new
         const newTemplateObj = {
-          //get the value in template text box
-          title: this.state.formTemplateTextBox
+          title: this.state.formTemplateTextBox,
         }
-        // find the template we are changing
         const newTemplateArr = this.state.storeTemplate.filter(
           (template) => template.id === this.state.target.id
         )
-        //can we just put newTemplateArr[0] in finalTemplateObj??
         const newTemplateObj2 = newTemplateArr[0]
-        //merge
         const finalTemplateObj = {
           ...newTemplateObj2,
-          ...newTemplateObj
+          ...newTemplateObj,
         }
-        //put new object in array, and swap with old object
         const arr2Template = [finalTemplateObj]
         const resTemplate = this.state.storeTemplate.map(
           (obj) => arr2Template.find((o) => o.id === obj.id) || obj
         )
-        // replace old array with new array
         this.setState({
-          storeTemplate: resTemplate
+          storeTemplate: resTemplate,
         })
-        // post to DB storeTemplate
-        console.log('target->', this.state.target)
-        // const tmpl = this.state.target
         if (finalTemplateObj.title !== '') {
-          console.log('call update template')
           TemplateService.updateTemplate(finalTemplateObj)
         }
-        //reload??
         break
 
       case 'profile':
-        //find the template with the title selected in the dropdown to get the template.id
         const selTemp = this.state.storeTemplate.find((temp) => {
-          return (
-            // temp.id === this.state.target.template_id
-            temp.title === this.state.templateSelectedValue
-          )
+          return temp.title === this.state.templateSelectedValue
         })
         const newProfileObj = {
-          // title: document.getElementById('profileTitle').value,
-          title: this.state.formProfileTextBox
-          //need validation; will crash if match isn't found
-          // template_id: this.state.target.id
+          title: this.state.formProfileTextBox,
         }
         if (selTemp !== undefined) {
           newProfileObj.template_id = selTemp.id
         }
-        console.log('profile case')
-        console.log(this.state.target)
-        //filter all profile objects to get the profile we want to replace <use find instead??>
         const newProfileArr = this.state.storeProfile.filter(
           (profile) => profile.id === this.state.target.id
         )
         const newProfileObj2 = newProfileArr[0]
         const finalProfileObj = {
           ...newProfileObj2,
-          ...newProfileObj
+          ...newProfileObj,
         }
         const arr2Profile = [finalProfileObj]
         const resProfile = this.state.storeProfile.map(
           (obj) => arr2Profile.find((o) => o.id === obj.id) || obj
         )
-        console.log(resProfile)
         this.setState({
-          storeProfile: resProfile
+          storeProfile: resProfile,
         })
-        console.log('target->', this.state.target)
-        // post to DB storeTemplate
         if (finalProfileObj.title !== '') {
-          console.log('call update profile')
           ProfilesService.updateProfile(finalProfileObj)
         }
         break
 
       case 'stamp':
-        console.log('in STAMP')
-        console.log('target?')
-        console.log(this.state.target)
-        // find the profile in store array where the title matches the formbox
         const selStmp = this.state.storeProfile.filter((temp) => {
           return temp.title === this.state.profileSelectedValue
         })
-        console.log('selStmp')
-        console.log(selStmp)
         const newStampObj = {
           title: this.state.formStampTextBox,
           content: this.state.formContentTextBox,
-          disp_ord: this.state.order
+          disp_ord: this.state.order,
         }
-        console.log('newStampObj', newStampObj)
         if (selStmp[0] !== undefined) {
           newStampObj.profile = selStmp[0].id
         }
@@ -318,29 +216,25 @@ class StampPad extends React.Component {
         const newStampObj2 = newStampArr[0]
         const finalStampObj = {
           ...newStampObj2,
-          ...newStampObj
+          ...newStampObj,
         }
         const arr2Stamp = [finalStampObj]
         const resStamp = this.state.storeStamps.map(
           (obj) => arr2Stamp.find((o) => o.id === obj.id) || obj
         )
-        console.log(resStamp)
         this.setState({
-          storeStamps: resStamp
+          storeStamps: resStamp,
         })
-        console.log('target->', this.state.target)
-        // post to DB storeTemplate
         if (finalStampObj.title !== '') {
-          console.log('call update stamps')
           StampsService.updateStamp(finalStampObj)
         }
         break
 
       default:
-        console.log('selection error eb2')
+        console.log('Error in selection parameter')
     }
+
     this.triggerToggle()
-    //reset selectable rows
     this.setState({
       templateRowSelected: true,
       profileRowSelected: true,
@@ -349,78 +243,61 @@ class StampPad extends React.Component {
       formTemplateTextBox: '',
       formProfileTextBox: '',
       formStampTextBox: '',
-      formContentTextBox: ''
+      formContentTextBox: '',
     })
     this.resetState()
-    //this.reloadButtons()
   }
 
   handleAddDeleteButton = (type, arr) => {
-    console.log('in handleAddDeleteButton')
-    console.log(type, arr)
     if (type === 'template') {
-      //???????????????????????????????????????????????????????
       this.setState({
-        storeTemplate: arr
+        storeTemplate: arr,
       })
     }
+
     if (type === 'profile') {
-      const temp = this.state.storeProfile
-      console.log('temp', temp)
-      //temp.push(arr[arr.length - 1]) // for loading the latest added item into state
-      console.log('newTemp', temp)
       this.setState({
-        storeProfile: arr
+        storeProfile: arr,
       })
     }
+
     if (type === 'stamp') {
       this.setState({
-        storeStamps: arr
+        storeStamps: arr,
       })
     }
-    //clear form
+
     this.setState({
-      //force re-render?
-      //storeTemplate: arr,
       formTemplateTextBox: '',
       formProfileTextBox: '',
       formStampTextBox: '',
-      formContentTextBox: ''
+      formContentTextBox: '',
     })
   }
 
-  toggleTemplateTitle = (e) => {
-    console.log('in toggleTemplateTitle')
-  }
-
   editProfileTemplateSelect = (e) => {
-    console.log('in editProfileTemplateSelect')
     if (e.target.value !== 'Select Template') {
       this.setState({
         templateSelectedValue: e.target.value,
-        formTemplateTextBox: e.target.value
+        formTemplateTextBox: e.target.value,
       })
     }
   }
 
   editStampProfileSelect = (e) => {
-    console.log('in editStampProfileSelect')
-
     if (e.target.value !== 'Select Profile') {
       this.setState({
         profileSelectedValue: e.target.value,
-        formProfileTextBox: e.target.value
+        formProfileTextBox: e.target.value,
       })
     }
   }
 
   resetState = () => {
-    //trigger re-render
     this.setState({ requirementKey: Math.random() })
   }
 
   cancelConfiguration = () => {
-    console.log('in cancelConfiguration')
     this.triggerToggle()
     this.setState({
       templateRowSelected: true,
@@ -430,7 +307,7 @@ class StampPad extends React.Component {
       formProfileTextBox: '',
       formStampTextBox: '',
       formContentTextBox: '',
-      target: ''
+      target: '',
     })
 
     if (!this.state.triggerToggle) {
@@ -438,11 +315,8 @@ class StampPad extends React.Component {
     }
   }
 
-  //maps through template array to populate dropdown
   renderTemplateOptions = () => {
-    console.log('in renderTemplateOptions')
     return this.state.storeTemplate.map((tmpl) => {
-      // let select = ''
       return (
         <option key={tmpl.id} value={tmpl.title}>
           {tmpl.title}
@@ -451,11 +325,8 @@ class StampPad extends React.Component {
     })
   }
 
-  //maps through profile array to populate dropdown
   renderProfileOptions = () => {
     return this.state.storeProfile.map((prof) => {
-      // let select = ''
-      console.log('in renderProfileOptions')
       return (
         <option key={prof.id} value={prof.title}>
           {prof.title}
@@ -465,47 +336,49 @@ class StampPad extends React.Component {
   }
 
   templateBoxChange = (e) => {
-    console.log('in templateBoxChange')
     e.preventDefault()
 
     switch (this.state.whatToEdit) {
       case 'template':
         this.setState({
-          formTemplateTextBox: e.target.value
+          formTemplateTextBox: e.target.value,
         })
         break
+
       case 'profile':
         e.target.value = this.state.formTemplateTextBox
         break
       case 'stamp':
         e.target.value = this.state.formTemplateTextBox
         break
+
       default:
         console.log('wrong selection in templateBoxChange')
     }
   }
 
   profileBoxChange = (e) => {
-    console.log('in profileBoxChange')
     switch (this.state.whatToEdit) {
       case 'template':
         e.target.value = this.state.formProfileTextBox
         break
+
       case 'profile':
         this.setState({
-          formProfileTextBox: e.target.value
+          formProfileTextBox: e.target.value,
         })
         break
+
       case 'stamp':
         e.target.value = this.state.formProfileTextBox
         break
+
       default:
         console.log('wrong selection in profileBoxChange')
     }
   }
 
   stampBoxChange = (e) => {
-    console.log('in stampBoxChange')
     switch (this.state.whatToEdit) {
       case 'template':
         e.target.value = this.state.formStampTextBox
@@ -515,7 +388,7 @@ class StampPad extends React.Component {
         break
       case 'stamp':
         this.setState({
-          formStampTextBox: e.target.value
+          formStampTextBox: e.target.value,
         })
         break
       default:
@@ -524,28 +397,27 @@ class StampPad extends React.Component {
   }
 
   contentBoxChange = (e) => {
-    console.log('in contentBoxChange')
     switch (this.state.whatToEdit) {
       case 'template':
         e.target.value = this.state.formStampTextBox
         break
+
       case 'profile':
         e.target.value = this.state.formStampTextBox
         break
+
       case 'stamp':
         this.setState({
-          formContentTextBox: e.target.value
+          formContentTextBox: e.target.value,
         })
         break
+
       default:
         console.log('wrong selection in contentBoxChange')
     }
   }
 
   componentDidMount() {
-    console.log(
-      'componentDidMount----------------------------------------------------------------'
-    )
     TemplateService.getTemplates((value) => {
       this.setState({ storeTemplate: value })
     }).catch((e) => {
@@ -562,17 +434,14 @@ class StampPad extends React.Component {
       this.setState({ storeStamps: value })
     })
     Promise.all([
-      //ShareService.getShares(),
       StampsService.getStamps(),
       ProfilesService.getProfiles(),
-      TemplateService.getTemplates()
+      TemplateService.getTemplates(),
     ])
       .then((res) => {
-        //this.setState({ storeShares: res[0] })
         this.setState({ storeStamps: res[0] })
         this.setState({ storeProfile: res[1] })
         this.setState({ storeTemplate: res[2] })
-        //this.loadShares()
       })
       .catch((e) => {
         console.log('error->', e)
@@ -581,25 +450,9 @@ class StampPad extends React.Component {
           this.props.history.push('/sign_in')
         }
       })
-    //this.reloadButtons()
-    // this.setState ({
-    //   templateRowSelected: false,
-    //   profileRowSelected: false,
-    //   stampRowSelected: false,
-    // })
-    console.log(
-      'end component did mount ',
-      this.state.templateRowSelected,
-      this.state.profileRowSelected,
-      this.state.stampRowSelected
-    )
   }
 
   reloadButtons = () => {
-    console.log('in reloadButtons')
-    console.log(this.state.storeTemplate)
-    console.log(this.state.storeProfile)
-    console.log(this.state.storeStamps)
     TemplateService.getTemplates((value) => {
       this.setState({ storeTemplate: value })
     })
@@ -612,7 +465,7 @@ class StampPad extends React.Component {
     Promise.all([
       StampsService.getStamps(),
       ProfilesService.getProfiles(),
-      TemplateService.getTemplates()
+      TemplateService.getTemplates(),
     ])
       .then((res) => {
         this.setState({ storeStamps: res[0] })
@@ -631,37 +484,23 @@ class StampPad extends React.Component {
   clickToggle = (e) => {
     if (e.target.checked) {
       this.setState({
-        shareToggle: true
+        shareToggle: true,
       })
     } else {
       this.setState({
-        shareToggle: false
+        shareToggle: false,
       })
     }
   }
 
   triggerShare = () => {
-    console.log('in triggerShare')
     this.shareToggle()
   }
 
-  // updateTemplates = (addButtonState) => {
-  //   console.log('in updateTemplates')
-  //   const templates = this.state.storeTemplate
-  //   console.log('addbuttonstate', addButtonState)
-
-  // }
-
   render() {
 
-    console.log('RENDER RENDER')
-    console.log(this.state.triggerToggle)
-    console.log(this.state.storeTemplate)
-    console.log(this.state.storeProfile)
-    console.log(this.state.storeStamps)
-
     const templateRow = this.state.storeTemplate.map((templ, i) => {
-      return (        
+      return (
         <Button
           key={templ.id ? templ.id : i}
           onClick={() => this.templateSelect(templ.id)}
@@ -755,7 +594,6 @@ class StampPad extends React.Component {
 
     const addButtonForm = this.state.triggerToggle ? (
       <AddButton
-        onSubmit={this.updateStateForDropdown}
         onAddButton={this.handleAddDeleteButton}
         selectedProfile={this.state.selectedProfile}
         selectedTemplate={this.state.selectedTemplate}
@@ -859,7 +697,6 @@ class StampPad extends React.Component {
                 >
                   SUBMIT
                 </Button>
-                {/* <div className="spacer" /> */}
                 <Button
                   id="cancel"
                   className="save-button"
@@ -876,17 +713,11 @@ class StampPad extends React.Component {
                   storeProfile={this.state.storeProfile}
                   storeStamps={this.state.storeStamps}
                 />
-                {/* <div className="spacer" /> */}
               </div>
             ) : (
               ''
-              // <h3 className="select-share" onClick={() => this.triggerShare()}>
-              //   {' '}
-              //   SHARED TEMPLATES{' '}
-              // </h3>
             )}
           </div>
-          {/* main body */}
           {!this.state.shareToggle ? (
             <section>
               <div className="button-row template-row" id="button-row-template">
@@ -908,7 +739,6 @@ class StampPad extends React.Component {
               </div>
               {!this.state.triggerToggle ? (
                 <form
-                  // className="toggleEditForm"
                   className="form"
                   id="edit-form"
                 >
@@ -917,7 +747,6 @@ class StampPad extends React.Component {
                     type="text"
                     name="template"
                     id="templateTitle"
-                    // onClick={(e) => this.toggleTemplateTitle(e)}
                     value={this.state.formTemplateTextBox}
                     onChange={(e) => this.templateBoxChange(e)}
                     className={
@@ -1013,18 +842,11 @@ class StampPad extends React.Component {
               <hr className="hr" />
               <div>
                 {addButtonForm}
-                {/* {this.state.triggerToggle ? null : (
-              <div>
-                <button onClick={this.moveUp}>Move Up</button>
-                <button onClick={this.moveDown}>Move Down</button>
-              </div>
-            )} */}
               </div>
             </section>
           ) : (
             <div>
               <SharedTemplates />
-              {/* <ShareableTemplates /> */}
             </div>
           )}
         </main>
