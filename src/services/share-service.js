@@ -65,7 +65,6 @@ const ShareService = {
   },
 
   addShareables(template_id) {
-    console.log('addShareables props ', template_id)
     return fetch(`${config.API_ENDPOINT}/shareables/${template_id}`, {
       method: 'POST',
       headers: {

@@ -68,7 +68,6 @@ class StampPad extends React.Component {
     TemplateService.getTemplates((value) => {
       this.setState({ storeTemplate: value })
     }).catch((e) => {
-      console.log('error->', e)
       this.setState({ isLoading: false })
       if (e.error === 'Unauthorized request') {
         localStorage.clear()
@@ -102,7 +101,6 @@ class StampPad extends React.Component {
         })
       })
       .catch((e) => {
-        console.log('error->', e)
         this.setState({ isLoading: false })
         if (e.error === 'Unauthorized request') {
           localStorage.clear()

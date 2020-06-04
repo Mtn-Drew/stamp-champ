@@ -112,7 +112,7 @@ class AddButton extends React.Component {
         this.setState({
           errorMessage: 'Duplicate title names are not permitted'
         })
-        return console.log('duplicate title detected')
+        return 
       } else {
         this.setState({
           errorMessage: ''
@@ -142,7 +142,7 @@ class AddButton extends React.Component {
         this.setState({
           errorMessage: 'Duplicate title names are not permitted'
         })
-        return console.log('duplicate title detected')
+        return //('duplicate title detected')
       } else {
         this.setState({
           errorMessage: ''
@@ -176,7 +176,7 @@ class AddButton extends React.Component {
         this.setState({
           errorMessage: 'Duplicate title names are not permitted'
         })
-        return console.log('duplicate title detected')
+        return 
       } else {
         this.setState({
           errorMessage: ''
@@ -308,7 +308,6 @@ class AddButton extends React.Component {
         this.setState({ storeTemplate: res[2] })
       })
       .catch((e) => {
-        console.log('error->', e)
         if (e.error === 'Unauthorized request') {
           localStorage.clear()
           this.props.history.push('/sign_in')

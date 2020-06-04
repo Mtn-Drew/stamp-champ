@@ -41,8 +41,7 @@ class ShareableTemplates extends React.Component {
 
     this.state.storeShares.forEach((shareObject) => {
       ShareService.getSharedProfiles(shareObject.template_id).then((result) => {
-        console.log(result)
-        this.setState({
+         this.setState({
           storeShareProfile: result
         })
       })
@@ -50,7 +49,6 @@ class ShareableTemplates extends React.Component {
 
     this.state.storeShares.forEach((shareObject) => {
       ShareService.getSharedStamps(shareObject.template_id).then((result) => {
-        console.log(result)
         this.setState({
           storeShareStamp: result
         })
@@ -70,7 +68,6 @@ class ShareableTemplates extends React.Component {
           this.loadShareables()
       })
       .catch((e) => {
-        console.log('error->', e)
         if (e.error === 'Unauthorized request') {
           localStorage.clear()
           this.props.history.push('/sign_in')

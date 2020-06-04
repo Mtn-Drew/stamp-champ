@@ -447,7 +447,6 @@ class EditButton extends React.Component {
         this.setState({ isLoading: false })
       })
       .catch((e) => {
-        console.log('error->', e)
         if (e.error === 'Unauthorized request') {
           localStorage.clear()
           this.props.history.push('/sign_in')

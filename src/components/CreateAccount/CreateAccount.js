@@ -12,7 +12,6 @@ class CreateAccount extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('in handleSubmit')
     const { email, user_name, password } = e.target
     this.setState({ error: null })
     AuthApiService.postUser({

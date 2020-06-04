@@ -44,7 +44,6 @@ const TemplateService = {
   },
 
   updateTemplate(props) {
-    console.log('in ts updateTemplate', props)
     return fetch(`${config.API_ENDPOINT}/templates/${props.id}`, {
       method: 'PATCH',
       headers: {

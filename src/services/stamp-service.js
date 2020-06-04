@@ -36,7 +36,6 @@ const StampsService ={
   },
   
   deleteStamp(stampId) {
-    console.log('in ss deleteStamp', stampId);
     return fetch(`${config.API_ENDPOINT}/stamps/${stampId}`, {
       method: 'DELETE',
       headers: {
@@ -50,7 +49,6 @@ const StampsService ={
   },
 
   updateStamp(props){
-    console.log('in ts updateStamp', props);
     return fetch(`${config.API_ENDPOINT}/stamps/${props.id}`, {
       method: 'PATCH',
       headers: {

@@ -30,7 +30,6 @@ class SharedTemplates extends React.Component {
 
     this.state.storeShares.forEach((shareObject) => {
       ShareService.getSharedProfiles(shareObject.template_id).then((result) => {
-        console.log(result)
         this.setState({
           storeShareProfile: result
         })
