@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '../Button/Button'
 import ShareService from '../../services/share-service'
 import ShareableTemplates from '../ShareableTemplates/ShareableTemplates'
-import {  withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 
 class SharedTemplates extends React.Component {

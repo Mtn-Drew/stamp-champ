@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '../Button/Button'
 import ShareService from '../../services/share-service'
+import { withRouter } from 'react-router-dom'
 
 
 class ShareableTemplates extends React.Component {
@@ -81,9 +82,15 @@ class ShareableTemplates extends React.Component {
     })
   }
 
-  addToMyShares = () => {
-    ShareService.addShareables(this.state.target.template_id)
+  addToMyShares = async () => {
+    await ShareService.addShareables(this.state.target.template_id)
+    this.props.history.push("/stamps")
   }
+
+  // deleteShare = async ()=> {
+  //   await ShareService.deleteSharedTemplate(this.state.target.id)
+  //   this.props.history.push("/stamps")
+  // }
 
   render() {
 
@@ -118,4 +125,4 @@ class ShareableTemplates extends React.Component {
   }
 }
 
-export default ShareableTemplates
+export default withRouter(ShareableTemplates)
